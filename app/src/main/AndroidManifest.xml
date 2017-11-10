@@ -28,13 +28,14 @@
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="goi7fOuGSGLDbMrBNXGelwzNFCaaXFxO" />
+
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
@@ -51,7 +52,8 @@
         </activity>
         <activity android:name=".Activity.PeripheralDynamicsActivity" />
         <activity android:name=".Activity.HotSearchActivity" />
-        <activity android:name=".Activity.Publish"></activity>
+        <activity android:name=".Activity.Publish" />
+        <activity android:name=".Activity.PrivateMessageActivity"></activity>
     </application>
 
 </manifest>

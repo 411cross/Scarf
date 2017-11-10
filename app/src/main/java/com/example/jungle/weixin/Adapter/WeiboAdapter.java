@@ -26,10 +26,18 @@ import java.util.List;
 
 public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.ViewHolder> {
 
+    public static final int TYPE_HEADER = 0;  //说明是带有Header的
+    public static final int TYPE_FOOTER = 1;  //说明是带有Footer的
+    public static final int TYPE_NORMAL = 2;  //说明是不带有header和footer的
+
+    private View mHeaderView;
+    private View mFooterView;
+
+
     private Context mContext;
     private List<Weibo> weiboList;
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private View itemView;
 
@@ -83,8 +91,13 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.ViewHolder> 
 
         public ViewHolder(View view) {
             super(view);
+            if (view == mHeaderView){
+                return;
+            }
+            if (view == mFooterView){
+                return;
+            }
             this.itemView = view;
-
             avatarImage = (ImageView) view.findViewById(R.id.avatar);
             identityIcon = (ImageView) view.findViewById(R.id.identity_icon);
             nickname = (TextView) view.findViewById(R.id.nickname);
@@ -167,6 +180,12 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (mHeaderView != null && viewType == TYPE_HEADER) {
+            return new ViewHolder(mHeaderView);
+        }
+        if (mFooterView != null && viewType == TYPE_FOOTER) {
+            return new ViewHolder(mFooterView);
+        }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weibo, parent, false);
         ViewHolder holder = new ViewHolder(view);
         return holder;
@@ -174,60 +193,117 @@ public class WeiboAdapter extends RecyclerView.Adapter<WeiboAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Weibo weibo = weiboList.get(position);
-        holder.avatarImage.setImageResource(weibo.getAvatarURL());
-        holder.nickname.setText(weibo.getNickname());
-        holder.date.setText(weibo.getDate());
-        holder.time.setText(weibo.getTime());
-        holder.source.setText(weibo.getSource());
-        switch (weibo.getType()) {
-            case 0:
-                holder.goneEverything();
-                holder.bodyView.setVisibility(View.VISIBLE);
-                holder.body.setText(weibo.getBody());
-                break;
-            case 1:
-                holder.goneEverything();
-                holder.singlePicView.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                holder.goneEverything();
-                holder.bodyView.setVisibility(View.VISIBLE);
-                holder.singlePicView.setVisibility(View.VISIBLE);
-                holder.body.setText(weibo.getBody());
-                holder.singlePic.setImageResource(weibo.getImage());
-                break;
-            case 3:
-                holder.goneEverything();
-                holder.bodyView.setVisibility(View.VISIBLE);
-                holder.multiPicsView.setVisibility(View.VISIBLE);
-                holder.body.setText(weibo.getBody());
-                ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-                List<WeiboImage> images = weiboList.get(position).getImageurls();
-                if (images != null) {
-                    for (WeiboImage image : images) {
-                        ImageInfo info = new ImageInfo();
-                        info.setThumbnailUrl(image.getUrl());
-                        info.setBigImageUrl(image.getUrl());
-                        imageInfo.add(info);
-                    }
-                }
-                holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
-                if (images != null && images.size() == 1) {
+        if (getItemViewType(position) == TYPE_NORMAL) {
+            if (holder instanceof ViewHolder) {
+                Weibo weibo = weiboList.get(position-1);
+                holder.avatarImage.setImageResource(weibo.getAvatarURL());
+                holder.nickname.setText(weibo.getNickname());
+                holder.date.setText(weibo.getDate());
+                holder.time.setText(weibo.getTime());
+                holder.source.setText(weibo.getSource());
+                switch (weibo.getType()) {
+                    case 0:
+                        holder.goneEverything();
+                        holder.bodyView.setVisibility(View.VISIBLE);
+                        holder.body.setText(weibo.getBody());
+                        break;
+                    case 1:
+                        holder.goneEverything();
+                        holder.singlePicView.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        holder.goneEverything();
+                        holder.bodyView.setVisibility(View.VISIBLE);
+                        holder.singlePicView.setVisibility(View.VISIBLE);
+                        holder.body.setText(weibo.getBody());
+                        holder.singlePic.setImageResource(weibo.getImage());
+                        break;
+                    case 3:
+                        holder.goneEverything();
+                        holder.bodyView.setVisibility(View.VISIBLE);
+                        holder.multiPicsView.setVisibility(View.VISIBLE);
+                        holder.body.setText(weibo.getBody());
+                        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+                        List<WeiboImage> images = weiboList.get(position-1).getImageurls();
+                        if (images != null) {
+                            for (WeiboImage image : images) {
+                                ImageInfo info = new ImageInfo();
+                                info.setThumbnailUrl(image.getUrl());
+                                info.setBigImageUrl(image.getUrl());
+                                imageInfo.add(info);
+                            }
+                        }
+                        holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
+                        if (images != null && images.size() == 1) {
 //                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
-                    holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
-                } else {
-                    holder.multiPicsGrid.setGridSpacing(16);
+                            holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
+                        } else {
+                            holder.multiPicsGrid.setGridSpacing(16);
+                        }
+                        break;
                 }
-                break;
+                return;
+            }
+            return;
+        } else if (getItemViewType(position) == TYPE_HEADER) {
+            return;
+        } else {
+            return;
         }
 
 
     }
 
     @Override
-    public int getItemCount() {
-        return weiboList.size();
+    public int getItemViewType(int position) {
+        if (mHeaderView == null && mFooterView == null) {
+            return TYPE_NORMAL;
+        }
+        if (position == 0) {
+            //第一个item应该加载Header
+            return TYPE_HEADER;
+        }
+        if (position == getItemCount() -1 ) {
+            //最后一个,应该加载Footer
+            return TYPE_FOOTER;
+        }
+        return TYPE_NORMAL;
     }
+
+
+    public View getmHeaderView() {
+        return mHeaderView;
+    }
+
+    public View getmFooterView() {
+        return mFooterView;
+    }
+
+    public void setmHeaderView(View mHeaderView) {
+        this.mHeaderView = mHeaderView;
+        notifyItemInserted(0);
+
+    }
+
+    public void setmFooterView(View mFooterView) {
+        this.mFooterView = mFooterView;
+        notifyItemInserted(getItemCount()-1);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        if(mHeaderView == null && mFooterView == null){
+            return weiboList.size();
+        }else if(mHeaderView == null && mFooterView != null){
+            return weiboList.size() + 1;
+        }else if (mHeaderView != null && mFooterView == null){
+            return weiboList.size() + 1;
+        }else {
+            return weiboList.size() + 2;
+        }
+    }
+
+
 
 }

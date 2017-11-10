@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jungle.weixin.Adapter.HomePageAdapter;
 import com.example.jungle.weixin.Adapter.WeiboAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
@@ -43,19 +44,19 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initWeibos();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+//        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         initWeibos();
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        WeiboAdapter adapter = new WeiboAdapter(view.getContext(), weiboList);
+        HomePageAdapter adapter = new HomePageAdapter(view.getContext(), weiboList);
         recyclerView.setAdapter(adapter);
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;

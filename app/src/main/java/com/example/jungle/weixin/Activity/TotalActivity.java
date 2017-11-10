@@ -110,6 +110,11 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                         startActivity(intent1);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
+                    case R.id.myCollection :
+                        Intent intent2 = new Intent(TotalActivity.this,PrivateMessageActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                        break;
                     default:
                         drawerLayout.closeDrawers();
                         new CommomDialog(TotalActivity.this, R.style.dialog).show();
@@ -128,6 +133,7 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
             case R.id.edit_button:
             Intent intent = new Intent(TotalActivity.this,Publish.class);
             startActivity(intent);
+                overridePendingTransition(R.anim.left_in,R.anim.right_out);
                 break;
             default:
                 break;
