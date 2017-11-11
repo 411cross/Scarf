@@ -54,6 +54,7 @@
         <activity android:name=".Activity.HotSearchActivity" />
         <activity android:name=".Activity.Publish" />
         <activity android:name=".Activity.PrivateMessageActivity"></activity>
+        <activity android:name=".Activity.WeiboDetailActivity"></activity>
     </application>
 
 </manifest>
