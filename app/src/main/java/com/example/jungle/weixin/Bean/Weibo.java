@@ -1,18 +1,18 @@
 package com.example.jungle.weixin.Bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by derrickJ on 2017/11/8.
  */
 
-public class Weibo {
+public class Weibo implements Serializable{
 
     private int avatarURL;
     private String identity;
     private String nickname;
     private String date;
-    private String time;
     private String source;
     private String body;
     private int image;
@@ -23,12 +23,11 @@ public class Weibo {
 
     }
 
-    public Weibo(int avatarURL, String identity, String nickname, String date, String time, String source, String body, int image, List<WeiboImage> imageurls, int type) {
+    public Weibo(int avatarURL, String identity, String nickname, String date, String source, String body, int image, List<WeiboImage> imageurls, int type) {
         setAvatarURL(avatarURL);
         setIdentity(identity);
         setNickname(nickname);
         setDate(date);
-        setTime(time);
         setSource(source);
         setBody(body);
         setImage(image);
@@ -67,14 +66,6 @@ public class Weibo {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public String getSource() {
@@ -116,4 +107,5 @@ public class Weibo {
     public void setImageurls(List<WeiboImage> imageurls) {
         this.imageurls = imageurls;
     }
+
 }
