@@ -115,6 +115,12 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                         startActivity(intent2);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
+                    case R.id.accountManagement :
+                        Intent intent3 = new Intent(TotalActivity.this,SearchResultActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                        break;
+
                     default:
                         drawerLayout.closeDrawers();
                         new CommomDialog(TotalActivity.this, R.style.dialog).show();
