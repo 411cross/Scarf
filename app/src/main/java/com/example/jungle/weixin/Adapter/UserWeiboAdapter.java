@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
+import com.example.jungle.weixin.Activity.UserDetailActivity;
 import com.example.jungle.weixin.Bean.Weibo;
-import com.example.jungle.weixin.PublicUtils.DateUtils;
-import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.R;
 import com.lzy.ninegrid.ImageInfo;
@@ -28,10 +27,10 @@ import java.util.List;
  * Created by derrickJ on 2017/11/8.
  */
 
-public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHolder> {
+public class UserWeiboAdapter extends RecyclerView.Adapter<UserWeiboAdapter.ViewHolder> {
 
 
-    private TotalActivity mContext;
+    private UserDetailActivity mContext;
     private List<Weibo> weiboList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -168,7 +167,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     }
 
-    public HomePageAdapter(TotalActivity context, List<Weibo> list) {
+    public UserWeiboAdapter(UserDetailActivity context, List<Weibo> list) {
         mContext = context;
         weiboList = list;
     }

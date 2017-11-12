@@ -1,26 +1,20 @@
 package com.example.jungle.weixin.Activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
 import com.example.jungle.weixin.CustomControls.CommomDialog;
@@ -113,6 +107,11 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                     case R.id.myCollection :
                         Intent intent2 = new Intent(TotalActivity.this,PrivateMessageActivity.class);
                         startActivity(intent2);
+                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                        break;
+                    case R.id.accountManagement :
+                        Intent intent3 = new Intent(TotalActivity.this,UserDetailActivity.class);
+                        startActivity(intent3);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     default:

@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jungle.weixin.Activity.TotalActivity;
-import com.example.jungle.weixin.Adapter.HomePageAdapter;
+import com.example.jungle.weixin.Activity.UserDetailActivity;
+import com.example.jungle.weixin.Adapter.UserWeiboAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.R;
@@ -18,23 +18,20 @@ import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by derrickJ on 2017/11/12.
+ */
 
-public class HomePageFragment extends Fragment {
+public class UserWeiboFragement extends Fragment {
 
     private List<Weibo> weiboList = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-
-
-    public HomePageFragment() {
+    public UserWeiboFragement() {
         // Required empty public constructor
     }
 
-
-
-    // TODO: Rename and change types and number of parameters
-    public static HomePageFragment newInstance(String param1, String param2) {
-        HomePageFragment fragment = new HomePageFragment();
+    public static UserWeiboFragement newInstance(String param1, String param2) {
+        UserWeiboFragement fragment = new UserWeiboFragement();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -43,25 +40,22 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_weibo, container, false);
         initWeibos();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.user_weibo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), weiboList);
+        UserWeiboAdapter adapter = new UserWeiboAdapter((UserDetailActivity) getActivity(), weiboList);
         recyclerView.setAdapter(adapter);
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;
     }
-
-
 
     @Override
     public void onAttach(Context context) {

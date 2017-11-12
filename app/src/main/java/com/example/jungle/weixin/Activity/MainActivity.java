@@ -1,24 +1,9 @@
 package com.example.jungle.weixin.Activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.jungle.weixin.Bean.Data;
-import com.example.jungle.weixin.Bean.ResultBean;
 import com.example.jungle.weixin.R;
-import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
-import com.example.jungle.weixin.RetrofitUtil.MyService;
-import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
-import com.example.jungle.weixin.RetrofitUtil.Transform;
-
-import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.Vitamio;
-import io.vov.vitamio.widget.MediaController;
-import io.vov.vitamio.widget.VideoView;
 
 public class MainActivity extends AppCompatActivity   {
 //    private VideoView mVvv;

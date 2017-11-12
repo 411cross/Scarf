@@ -53,8 +53,9 @@
         <activity android:name=".Activity.PeripheralDynamicsActivity" />
         <activity android:name=".Activity.HotSearchActivity" />
         <activity android:name=".Activity.Publish" />
-        <activity android:name=".Activity.PrivateMessageActivity"></activity>
-        <activity android:name=".Activity.WeiboDetailActivity"></activity>
+        <activity android:name=".Activity.PrivateMessageActivity" />
+        <activity android:name=".Activity.WeiboDetailActivity" />
+        <activity android:name=".Activity.UserDetailActivity"></activity>
     </application>
 
 </manifest>

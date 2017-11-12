@@ -11,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.Comment;
+import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
+import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
-import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.R;
@@ -106,8 +106,14 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         setContentView(R.layout.activity_weibo_detail);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
@@ -314,18 +320,6 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
     public void onClick(View v) {
 
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case android.R.id.home:
-                finish();
-                overridePendingTransition(R.anim.left_in, R.anim.right_out);
-        }
-
-        return true;
-    }
-
     @Override
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity

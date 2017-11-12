@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 
 import com.example.jungle.weixin.R;
 
-public class FindFragment extends Fragment {
+/**
+ * Created by derrickJ on 2017/11/12.
+ */
 
-    public FindFragment() {
+public class UserPhotosFragment extends Fragment {
+
+    public UserPhotosFragment() {
         // Required empty public constructor
     }
 
     // TODO: Rename and change types and number of parameters
-    public static FindFragment newInstance(String param1, String param2) {
-        FindFragment fragment = new FindFragment();
+    public static UserPhotosFragment newInstance(String param1, String param2) {
+        UserPhotosFragment fragment = new UserPhotosFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -33,7 +37,7 @@ public class FindFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_find, container, false);
+        return inflater.inflate(R.layout.fragment_user_photos, container, false);
     }
 
 

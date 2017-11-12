@@ -10,6 +10,15 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="actionMenuTextColor">@color/colorBlue</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <!--边框-->
@@ -24,6 +33,16 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!--模糊-->
     </style>
+
+    <style name="shadowText">
+        <item name="android:shadowColor">#9E9E9E</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">3</item>
+
+    </style>
+
+
 
 
 </resources>
