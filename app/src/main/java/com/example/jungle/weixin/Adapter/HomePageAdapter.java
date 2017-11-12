@@ -1,6 +1,6 @@
 package com.example.jungle.weixin.Adapter;
 
-import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.Weibo;
+import com.example.jungle.weixin.PublicUtils.DateUtils;
+import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.R;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
@@ -27,7 +31,7 @@ import java.util.List;
 public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHolder> {
 
 
-    private Context mContext;
+    private TotalActivity mContext;
     private List<Weibo> weiboList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,6 +44,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         TextView date;
         TextView time;
         TextView source;
+
+        View weiboMain;
 
         View bodyView;
         TextView body;
@@ -93,6 +99,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             time = (TextView) view.findViewById(R.id.time);
             source = (TextView) view.findViewById(R.id.source);
             view1 = view;
+//weiboMain = view.findViewById(R.id.weibo_main);
 //
             bodyView = (View) view.findViewById(R.id.body_layout);
             body = (TextView) bodyView.findViewById(R.id.body);
@@ -120,24 +127,24 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             reweiboView = (View) view.findViewById(R.id.reweibo_layout);
 //            reweiboView.setVisibility(View.GONE);
 
-            reweiboBodyView = (View) view.findViewById(R.id.body_layout);
+            reweiboBodyView = (View) view.findViewById(R.id.reweibo_body_layout);
             reweiboBody = (TextView) reweiboBodyView.findViewById(R.id.body);
 //            reweiboBodyView.setVisibility(View.GONE);
 
-            reweiboSinglePicView = (View) view.findViewById(R.id.single_pic_layout);
+            reweiboSinglePicView = (View) view.findViewById(R.id.reweibo_single_pic_layout);
             reweiboSinglePic = (ImageView) reweiboSinglePicView.findViewById(R.id.single_pic);
 //            reweiboSinglePicView.setVisibility(View.GONE);
 
-            reweiboMultiPicsView = (View) view.findViewById(R.id.multi_pics_layout);
+            reweiboMultiPicsView = (View) view.findViewById(R.id.reweibo_multi_pics_layout);
             reweiboMultiPicsGrid = (NineGridView) reweiboMultiPicsView.findViewById(R.id.multi_pics_grid);
 //            reweiboMultiPicsView.setVisibility(View.GONE);
 
-            reweiboVideoView = (View) view.findViewById(R.id.video_layout);
+            reweiboVideoView = (View) view.findViewById(R.id.reweibo_video_layout);
             reweiboVideoContainerView = (View) reweiboVideoView.findViewById(R.id.video_container);
             reweiboVideo = (ImageView) reweiboVideoView.findViewById(R.id.video);
 //            reweiboVideoView.setVisibility(View.GONE);
 
-            reweiboPassageView = (View) view.findViewById(R.id.passage_layout);
+            reweiboPassageView = (View) view.findViewById(R.id.reweibo_passage_layout);
             reweiboPassageImage = (ImageView) reweiboPassageView.findViewById(R.id.passage_image);
             reweiboPassageTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_title);
             reweiboPassageSubTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_subtitle);
@@ -161,7 +168,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     }
 
-    public HomePageAdapter(Context context, List<Weibo> list) {
+    public HomePageAdapter(TotalActivity context, List<Weibo> list) {
         mContext = context;
         weiboList = list;
     }
@@ -177,17 +184,26 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Weibo weibo = weiboList.get(position);
+        final Weibo weibo = weiboList.get(position);
         holder.avatarImage.setImageResource(weibo.getAvatarURL());
         holder.nickname.setText(weibo.getNickname());
-        holder.date.setText(weibo.getDate());
-        holder.time.setText(weibo.getTime());
+        holder.date.setText(DateUtils.formatDate(weibo.getDate()));
         holder.source.setText(weibo.getSource());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, WeiboDetailActivity.class);
+                intent.putExtra("weibo", weibo);
+                mContext.startActivity(intent);
+                mContext.overridePendingTransition(R.anim.left_in,R.anim.right_out);
+
+            }
+        });
         switch (weibo.getType()) {
             case 0:
                 holder.goneEverything();
                 holder.bodyView.setVisibility(View.VISIBLE);
-                holder.body.setText(weibo.getBody());
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
                 break;
             case 1:
                 holder.goneEverything();
@@ -197,14 +213,14 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 holder.goneEverything();
                 holder.bodyView.setVisibility(View.VISIBLE);
                 holder.singlePicView.setVisibility(View.VISIBLE);
-                holder.body.setText(weibo.getBody());
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
                 holder.singlePic.setImageResource(weibo.getImage());
                 break;
             case 3:
                 holder.goneEverything();
                 holder.bodyView.setVisibility(View.VISIBLE);
                 holder.multiPicsView.setVisibility(View.VISIBLE);
-                holder.body.setText(weibo.getBody());
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
                 ArrayList<ImageInfo> imageInfo = new ArrayList<>();
                 List<WeiboImage> images = weiboList.get(position).getImageurls();
                 if (images != null) {

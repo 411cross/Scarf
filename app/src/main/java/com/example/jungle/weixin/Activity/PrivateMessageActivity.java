@@ -1,18 +1,15 @@
 package com.example.jungle.weixin.Activity;
 
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import com.example.jungle.weixin.Adapter.ChatAdapter;
-import com.example.jungle.weixin.Adapter.WeiboAdapter;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
+import com.example.jungle.weixin.Adapter.ChatAdapter;
 import com.example.jungle.weixin.R;
 
 import java.util.ArrayList;

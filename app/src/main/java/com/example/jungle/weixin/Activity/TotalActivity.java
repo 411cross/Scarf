@@ -116,8 +116,13 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     case R.id.accountManagement :
-                        Intent intent3 = new Intent(TotalActivity.this,SearchResultActivity.class);
+                        Intent intent3 = new Intent(TotalActivity.this,UserDetailActivity.class);
                         startActivity(intent3);
+                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                        break;
+                    case R.id.clearCache :
+                        Intent intent4 = new Intent(TotalActivity.this,SearchResultActivity.class);
+                        startActivity(intent4);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
 

@@ -1,2 +1,3 @@
 include ':app', ':vitamio'
 include ':badgeView'
+include ':library'

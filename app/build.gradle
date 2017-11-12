@@ -50,4 +50,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.lzy.widget:ninegridview:0.2.0'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':library')
 }

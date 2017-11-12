@@ -77,6 +77,7 @@ public class Publish extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+                overridePendingTransition(R.anim.left_in,R.anim.right_out);
             }
         });
         chooseImage.setOnClickListener(new View.OnClickListener() {
@@ -233,5 +234,10 @@ public class Publish extends AppCompatActivity {
         option.setScanSpan(1000);//设置发起定位请求的间隔时间为1000ms
         option.setIsNeedAddress(true);//反编译获得具体位置，只有网络定位才可以
         mLocationClient.setLocOption(option);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_in,R.anim.right_out);
     }
 }

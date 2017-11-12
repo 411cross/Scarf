@@ -1,7 +1,6 @@
 package com.example.jungle.weixin.Fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.HomePageAdapter;
-import com.example.jungle.weixin.Adapter.WeiboAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.R;
@@ -56,7 +55,7 @@ public class HomePageFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        HomePageAdapter adapter = new HomePageAdapter(view.getContext(), weiboList);
+        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), weiboList);
         recyclerView.setAdapter(adapter);
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;
@@ -80,10 +79,12 @@ public class HomePageFragment extends Fragment {
         int avatar = R.mipmap.ic_launcher;
         String identity = "认证";
         String nickname = "我是BinBo";
-        String date = "今天";
-        String time = "10:00";
+        String date1 = "Tue May 31 17:46:55 +0800 2011";
+        String date2 = "Tue Oct 31 07:07:07 +0800 2017";
+        String date3 = "Thu Nov 9 17:46:55 +0800 2011";
+        String date4 = "Fri Nov 10 17:16:55 +0800 2017";
         String source = "BinBo客户端";
-        String body = "测试一下";
+        String body = "@Scarf [害羞] [傻笑] [惊恐] #Scarf客户端# [冷笑] [吐舌] [不适配的表情]";
         int image = R.mipmap.ic_launcher;
         String url1 = "http://i-7.vcimg.com/trim/5c94aab049b57ca9e309dc47b38da12a219904/trim.jpg";
         String url2 = "http://ym.zdmimg.com/201412/24/549a276c2cad2.jpg_e600.jpg";
@@ -108,13 +109,13 @@ public class HomePageFragment extends Fragment {
         list.add(image3);
         list1.add(image1);
         for (int i = 0; i < 8; i++) {
-            Weibo weibo = new Weibo(avatar, identity, nickname, date, time, source, body, image, list, 0);
+            Weibo weibo = new Weibo(avatar, identity, nickname, date1, source, body, image, list, 0);
             weiboList.add(weibo);
-            Weibo second = new Weibo(avatar, identity, nickname, date, time, source, body, image, list, 1);
+            Weibo second = new Weibo(avatar, identity, nickname, date2, source, body, image, list, 1);
             weiboList.add(second);
-            Weibo third = new Weibo(avatar, identity, nickname, date, time, source, body, image, list1, 3);
+            Weibo third = new Weibo(avatar, identity, nickname, date3, source, body, image, list1, 3);
             weiboList.add(third);
-            Weibo forth = new Weibo(avatar, identity, nickname, date, time, source, body, image, list, 3);
+            Weibo forth = new Weibo(avatar, identity, nickname, date4, source, body, image, list, 3);
             weiboList.add(forth);
         }
     }

@@ -1,129 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="52dp">
-
-        <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <ImageView
-            android:id="@+id/identity_icon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_alignBottom="@+id/avatar"
-            android:layout_alignRight="@+id/avatar"
-            app:srcCompat="@mipmap/ic_launcher_round" />
-
-        <TextView
-            android:id="@+id/nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/avatar"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="3dp"
-            android:layout_toEndOf="@+id/avatar"
-            android:layout_toRightOf="@+id/avatar"
-            android:text="微博昵称"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/avatar"
-            android:layout_alignLeft="@+id/nickname"
-            android:layout_alignStart="@+id/nickname"
-            android:layout_marginBottom="3dp"
-            android:text="今天"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/date"
-            android:layout_alignBottom="@+id/date"
-            android:layout_marginLeft="2dp"
-            android:layout_toEndOf="@+id/date"
-            android:layout_toRightOf="@+id/date"
-            android:text="10:00"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/source_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/time"
-            android:layout_marginLeft="6dp"
-            android:layout_toEndOf="@+id/time"
-            android:layout_toRightOf="@+id/time"
-            android:text="来自"
-            android:textSize="10sp" />
-
-        <TextView
-            android:id="@+id/source"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/source_tag"
-            android:layout_toEndOf="@+id/source_tag"
-            android:layout_toRightOf="@+id/source_tag"
-            android:text="BinBo客户端"
-            android:textSize="10sp" />
-
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp"
-            app:srcCompat="@android:drawable/arrow_down_float" />
-
-    </RelativeLayout>
+    android:orientation="vertical"
+    android:background="@color/colorWeibo">
 
     <include
-        layout="@layout/weibo_body"
-        android:id="@+id/body_layout"
+        layout="@layout/weibo_head"
+        android:id="@+id/weibo_head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <include
-        layout="@layout/weibo_single_pic"
-        android:id="@+id/single_pic_layout"
+    <LinearLayout
+        android:id="@+id/weibo_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <include
-        layout="@layout/weibo_multi_pics"
-        android:id="@+id/multi_pics_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <include
+            layout="@layout/weibo_body"
+            android:id="@+id/body_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <include
-        layout="@layout/weibo_video"
-        android:id="@+id/video_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <include
+            layout="@layout/weibo_single_pic"
+            android:id="@+id/single_pic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <include
-        layout="@layout/weibo_passage"
-        android:id="@+id/passage_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <include
+            layout="@layout/weibo_multi_pics"
+            android:id="@+id/multi_pics_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            layout="@layout/weibo_video"
+            android:id="@+id/video_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            layout="@layout/weibo_passage"
+            android:id="@+id/passage_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <include
         layout="@layout/reweibo"
@@ -131,103 +55,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RelativeLayout
+    <include
+        layout="@layout/weibo_functions"
+        android:id="@+id/weibo_functions_layout"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="wrap_content" />
 
-        <RelativeLayout
-            android:id="@+id/like_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="12dp">
-
-            <ImageView
-                android:id="@+id/like_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-            <TextView
-                android:id="@+id/like_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/like_image"
-                android:layout_toRightOf="@+id/like_image"
-                android:text="666"
-                android:textSize="10sp" />
+    <include
+        layout="@layout/public_split_line"
+        android:id="@+id/weibo_split"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/comment_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/like_btn"
-            android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@+id/like_btn">
-
-            <ImageView
-                android:id="@+id/comment_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-            <TextView
-                android:id="@+id/comment_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/comment_image"
-                android:layout_toRightOf="@+id/comment_image"
-                android:text="666"
-                android:textSize="10sp" />
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/repost_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/comment_btn"
-            android:layout_marginRight="12dp"
-            android:layout_toLeftOf="@+id/comment_btn">
-
-            <ImageView
-                android:id="@+id/repost_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-            <TextView
-                android:id="@+id/repost_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/repost_image"
-                android:layout_toRightOf="@+id/repost_image"
-                android:text="666"
-                android:textSize="10sp" />
-
-
-        </RelativeLayout>
-
-    </RelativeLayout>
 
 </LinearLayout>
