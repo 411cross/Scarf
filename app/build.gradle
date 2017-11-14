@@ -51,4 +51,5 @@ dependencies {
     compile 'com.lzy.widget:ninegridview:0.2.0'
     testCompile 'junit:junit:4.12'
     compile project(path: ':library')
+    compile project(path: ':multi-image-selector')
 }

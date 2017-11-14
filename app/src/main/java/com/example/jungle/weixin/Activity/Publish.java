@@ -1,16 +1,19 @@
 package com.example.jungle.weixin.Activity;
 
-import android.annotation.TargetApi;
-import android.content.ContentUris;
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.DocumentsContract;
+import me.nereo.multi_image_selector.MultiImageSelector;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -31,19 +34,23 @@ import com.example.jungle.weixin.Adapter.ExpressionAdapter;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
 
+import java.util.ArrayList;
+
 
 public class Publish extends AppCompatActivity {
 
     private ImageButton back;
     private EditText content;
     private ImageButton chooseImage;
-    private int imageNumber = 0;
-    private static final int PHOTO_REQUEST_GALLERY = 2;
+    private static final int REQUEST_IMAGE = 2;
+    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     private GridView expGridView;
     private ExpressionAdapter expressionAdapter;
 
     private LocationClient mLocationClient;
     private Button location;
+    private ArrayList<String> mSelectPath;
+    private static ArrayList<ImageView> imageViewArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +62,7 @@ public class Publish extends AppCompatActivity {
         chooseImage = (ImageButton)findViewById(R.id.chooseImage);
         location = (Button)findViewById(R.id.location);
         expGridView = (GridView)findViewById(R.id.expGridView);
+        initImageViewList();
 
         //expressionFromAdapter
         expressionAdapter = new ExpressionAdapter(this);
@@ -83,12 +91,7 @@ public class Publish extends AppCompatActivity {
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(imageNumber < 9){
-                    openAlbum();
-                }
-                else {
-                    Toast.makeText(Publish.this, "图片数量不能超过9张", Toast.LENGTH_SHORT).show();
-                }
+                    pickImage();
             }
         });
         location.setOnClickListener(new View.OnClickListener() {
@@ -99,133 +102,71 @@ public class Publish extends AppCompatActivity {
             }
         });
     }
-    private void openAlbum(){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent,PHOTO_REQUEST_GALLERY);
+    private void pickImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN // Permission was added in API Level 16
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                    getString(R.string.mis_permission_rationale),
+                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+        }else {
+            MultiImageSelector selector = MultiImageSelector.create(Publish.this);
+            selector.count(9);
+            selector.multi();
+            selector.origin(mSelectPath);//显示上次已选图片
+            selector.start(Publish.this, REQUEST_IMAGE);
+        }
     }
+    private void requestPermission(final String permission, String rationale, final int requestCode){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(this, permission)){
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.mis_permission_dialog_title)
+                    .setMessage(rationale)
+                    .setPositiveButton(R.string.mis_permission_dialog_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(Publish.this, new String[]{permission}, requestCode);
+                        }
+                    })
+                    .setNegativeButton(R.string.mis_permission_dialog_cancel, null)
+                    .create().show();
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        }
+    }
+
+    private void display(ArrayList<String> mSelectPath) {
+        for(int i= 0 ;i<imageViewArrayList.size();i++){
+            imageViewArrayList.get(i).setVisibility(View.GONE);
+        }
+        for(int i = 0;i<mSelectPath.size();i++){
+            imageViewArrayList.get(i).setVisibility(View.VISIBLE);
+            imageViewArrayList.get(i).setImageBitmap(BitmapFactory.decodeFile(mSelectPath.get(i)));
+        }
+    }
+    private void initImageViewList(){
+        imageViewArrayList = new ArrayList<>();
+        imageViewArrayList.add((ImageView)findViewById(R.id.first));
+        imageViewArrayList.add((ImageView)findViewById(R.id.second));
+        imageViewArrayList.add((ImageView)findViewById(R.id.third));
+        imageViewArrayList.add((ImageView)findViewById(R.id.fourth));
+        imageViewArrayList.add((ImageView)findViewById(R.id.fifth));
+        imageViewArrayList.add((ImageView)findViewById(R.id.sixth));
+        imageViewArrayList.add((ImageView)findViewById(R.id.seventh));
+        imageViewArrayList.add((ImageView)findViewById(R.id.eighth));
+        imageViewArrayList.add((ImageView)findViewById(R.id.ninth));
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
-        switch (requestCode){
-            case PHOTO_REQUEST_GALLERY :
-                if(resultCode == RESULT_OK){
-                    if(Build.VERSION.SDK_INT  >= 19){
-                        //安卓4.4及以上
-                        hadleImageOnKiKat(data);
-                    }
-                    else {
-                        //其他
-                        handleImageBeforeKiKat(data);
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-    }
-    @TargetApi(19)
-    private void hadleImageOnKiKat(Intent data){
-        String imagePath = null;
-        Uri uri = data.getData();
-        if(DocumentsContract.isDocumentUri(this,uri)){
-            String docId =DocumentsContract.getDocumentId(uri);
-            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                String id = docId.split(":")[1];
-                String selection = MediaStore.Images.Media._ID + "=" + id;
-                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
-            }else if("com.android.providers.downloads.documents".equals(uri.getAuthority())){
-                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
-                imagePath = getImagePath(contentUri,null);
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_IMAGE){
+            if(resultCode == RESULT_OK){
+                mSelectPath = data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT);
+                //显示图片逻辑
+                display(mSelectPath);
             }
-        }else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            imagePath = getImagePath(uri,null);
-        }else if("file".equalsIgnoreCase(uri.getScheme())){
-            imagePath = uri.getPath();
         }
-        display(imagePath);
-    }
-    private void handleImageBeforeKiKat(Intent data){
-        Uri uri = data.getData();
-        String imagePath = getImagePath(uri,null);
-        display(imagePath);
-    }
-
-    private void display(String imagePath) {
-        ImageView temp;
-        if(imagePath != null){
-            switch (imageNumber){
-                case 0:
-                    temp = (ImageView)findViewById(R.id.first);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 1:
-                    temp = (ImageView)findViewById(R.id.second);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 2:
-                    temp = (ImageView)findViewById(R.id.third);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 3:
-                    temp = (ImageView)findViewById(R.id.fourth);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 4:
-                    temp = (ImageView)findViewById(R.id.fifth);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 5:
-                    temp = (ImageView)findViewById(R.id.sixth);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 6:
-                    temp = (ImageView)findViewById(R.id.seventh);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 7:
-                    temp = (ImageView)findViewById(R.id.eighth);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                case 8:
-                    temp = (ImageView)findViewById(R.id.ninth);
-                    temp.setVisibility(View.VISIBLE);
-                    temp.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-                    imageNumber ++;
-                    break;
-                default:
-                    break;
-            }
-        }else {
-            Toast.makeText(this, "failed", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String getImagePath(Uri uri, String selection) {
-        String path = null;
-        Cursor cursor = getContentResolver().query(uri,null,selection,null,null);
-        if(cursor != null){
-            if(cursor.moveToFirst()){
-                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-            }
-            cursor.close();
-        }
-        return path;
     }
     private void InitLocation(){
         LocationClientOption option = new LocationClientOption();
