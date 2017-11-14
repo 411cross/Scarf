@@ -26,11 +26,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.Comment;
+import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
+import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
-import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.R;
@@ -137,8 +137,14 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         shareMenu  = LayoutInflater.from(WeiboDetailActivity.this).inflate(R.layout.shareto, null);
         initShare();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){

@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+=======
+        "outputFile": "F:\\Scarf\\vitamio\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+>>>>>>> origin/master
         "map": [
             {
                 "to": {
@@ -11,7 +15,11 @@
                     "endOffset": 105
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +38,11 @@
                     "endOffset": 168
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +61,11 @@
                     "endOffset": 216
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +84,11 @@
                     "endOffset": 270
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -88,7 +108,11 @@
                     "endOffset": 422
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -108,7 +132,11 @@
                     "endOffset": 515
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,
@@ -127,7 +155,11 @@
                     "endOffset": 583
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 10,
                         "startColumn": 4,
@@ -146,7 +178,11 @@
                     "endOffset": 649
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 11,
                         "startColumn": 4,
@@ -165,7 +201,11 @@
                     "endOffset": 750
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 12,
                         "startColumn": 4,
@@ -184,7 +224,11 @@
                     "endOffset": 821
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 13,
                         "startColumn": 4,
@@ -203,7 +247,11 @@
                     "endOffset": 934
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 14,
                         "startColumn": 4,
@@ -222,7 +270,11 @@
                     "endOffset": 1021
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 15,
                         "startColumn": 4,
@@ -242,7 +294,11 @@
                     "endOffset": 1150
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -262,7 +318,11 @@
                     "endOffset": 1235
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -281,7 +341,11 @@
                     "endOffset": 1308
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -300,7 +364,11 @@
                     "endOffset": 1376
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -320,7 +388,11 @@
                     "endOffset": 2023
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -341,7 +413,11 @@
                     "endOffset": 2233
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+                    "file": "F:\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 31,
                         "startColumn": 4,

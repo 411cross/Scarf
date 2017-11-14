@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.jungle.weixin.Activity.UserDetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ToolbarTheme">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:collapsedTitleGravity="top"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/shadowText"
+            app:expandedTitleGravity="left|bottom"
+            app:expandedTitleMarginBottom="108dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent"
+            app:titleEnabled="true">
+
+            <ImageView
+                android:id="@+id/imageview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_info_bg"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginTop="48dp"
+                    app:srcCompat="@drawable/dji" />
+
+                <ImageView
+                    android:id="@+id/identity_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignBottom="@+id/avatar"
+                    android:layout_alignRight="@+id/avatar"
+                    app:srcCompat="@drawable/dit" />
+
+                <TextView
+                    android:id="@+id/follow_tag"
+                    style="@style/shadowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/avatar"
+                    android:layout_alignTop="@+id/avatar"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="116dp"
+                    android:text="关注"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/follow_num"
+                    style="@style/shadowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/follow_tag"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/follow_tag"
+                    android:text="666"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    android:id="@+id/line"
+                    style="@style/shadowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/follow_num"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/follow_num"
+                    android:text="|"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/follower_tag"
+                    style="@style/shadowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/line"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/line"
+                    android:text="粉丝"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/follower_num"
+                    style="@style/shadowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/follower_tag"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/follower_tag"
+                    android:text="666万"
+                    android:textAlignment="textStart"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/introduction"
+                    style="@style/shadowText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/follow_tag"
+                    android:layout_below="@+id/line"
+                    android:layout_marginTop="2dp"
+                    android:text="我有一只小毛驴我从来也不骑"
+                    android:textColor="@android:color/white"
+                    android:textSize="10sp" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="top"
+                android:minHeight="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="hello"
+                app:titleMarginTop="15dp" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom"
+                app:tabBackground="@color/colorWhite"
+                app:tabIndicatorColor="@color/colorBlue"
+                app:tabSelectedTextColor="@color/colorWeiboText"
+                app:tabTextColor="@color/colorShadow" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    </android.support.v4.view.ViewPager>
+
+</android.support.design.widget.CoordinatorLayout>

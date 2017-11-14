@@ -1,6 +1,5 @@
 package com.example.jungle.weixin.Adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,11 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.Weibo;
-import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
+import com.example.jungle.weixin.Activity.TotalActivity;
+import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.R;
 import com.lzy.ninegrid.ImageInfo;

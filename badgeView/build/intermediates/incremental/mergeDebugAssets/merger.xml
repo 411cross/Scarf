@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="H:\android-studio\project\Scarf\badgeView\src\main\assets"/><source path="H:\android-studio\project\Scarf\badgeView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="H:\android-studio\project\Scarf\badgeView\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\Scarf\badgeView\src\main\assets"/><source path="F:\Scarf\badgeView\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\Scarf\badgeView\src\debug\assets"/></dataSet></merger>

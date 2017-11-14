@@ -1,7 +1,6 @@
 package com.example.jungle.weixin.Fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.HomePageAdapter;
-import com.example.jungle.weixin.Adapter.WeiboAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.R;

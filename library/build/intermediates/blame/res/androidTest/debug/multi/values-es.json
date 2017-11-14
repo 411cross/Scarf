@@ -1,6 +1,10 @@
 [
     {
+<<<<<<< HEAD
         "outputFile": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-es\\values-es.xml",
+=======
+        "outputFile": "F:\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-es\\values-es.xml",
+>>>>>>> origin/master
         "map": [
             {
                 "to": {
@@ -11,7 +15,11 @@
                     "endOffset": 128
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+=======
+                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +38,11 @@
                     "endOffset": 199
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+=======
+                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +61,11 @@
                     "endOffset": 281
                 },
                 "from": {
+<<<<<<< HEAD
                     "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+=======
+                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+>>>>>>> origin/master
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
