@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/derrickJ/Project/Scarf/library/src/main/assets"/><source path="/Users/derrickJ/Project/Scarf/library/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/derrickJ/Project/Scarf/library/src/release/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="H:\android-studio\project\Scarf\library\src\main\assets"/><source path="H:\android-studio\project\Scarf\library\build\generated\assets\shaders\release"/></dataSet><dataSet config="release"><source path="H:\android-studio\project\Scarf\library\src\release\assets"/></dataSet></merger>

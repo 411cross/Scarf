@@ -1,15 +1,30 @@
 package com.example.jungle.weixin.Activity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.graphics.drawable.DrawableWrapper;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.Comment;
@@ -28,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnClickListener {
+    private PopupWindow popupWindow;
 
     private Weibo weibo;
     private List<Comment> commentList = new ArrayList<>();
@@ -100,11 +116,26 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
     private ImageView floatLikeIcon;
     private TextView floatLikeNum;
 
+    private View shareMenu;
+    private ImageButton share_wechat;
+    private ImageButton share_weibo;
+    private ImageButton share_circle;
+    private Button cancle;
+    private ImageButton more;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.share_menu,menu);
+        return true;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weibo_detail);
 
+        shareMenu  = LayoutInflater.from(WeiboDetailActivity.this).inflate(R.layout.shareto, null);
+        initShare();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -120,7 +151,6 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         // 初始化界面
         initView();
         setData();
-
     }
 
     private void initView() {
@@ -173,6 +203,12 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         reweiboPassageTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_title);
         reweiboPassageSubTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_subtitle);
 
+        share_wechat = (ImageButton)shareMenu.findViewById(R.id.share_wechat);
+        share_weibo = (ImageButton)shareMenu.findViewById(R.id.share_weibo);
+        share_circle = (ImageButton)shareMenu.findViewById(R.id.share_circle);
+        cancle = (Button) shareMenu.findViewById(R.id.cancle);
+        more = (ImageButton)shareMenu.findViewById(R.id.more);
+
         initFunctionTab();
         initListView();
 
@@ -208,8 +244,11 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         floatCommentBtn.setOnClickListener(this);
         floatLikeBtn.setOnClickListener(this);
 
-
-
+        share_wechat.setOnClickListener(this);
+        share_weibo.setOnClickListener(this);
+        share_circle.setOnClickListener(this);
+        more.setOnClickListener(this);
+        cancle.setOnClickListener(this);
     }
 
     public void initListView() {
@@ -312,7 +351,28 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.share_wechat:
+                break;
+            case R.id.share_weibo:
+                break;
+            case R.id.share_circle:
+                break;
+            case R.id.more:
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, this.weibo.getBody());
+                shareIntent = Intent.createChooser(shareIntent, "分享");
+                startActivity(shareIntent);
+                popupWindow.dismiss();
+                break;
+            case R.id.cancle:
+                popupWindow.dismiss();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -321,9 +381,25 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                break;
+            case R.id.shared:
+                popupWindow.showAtLocation(shareMenu, Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 0);
+                break;
+            case R.id.copy:
+                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData mClipData = ClipData.newPlainText("Label", this.weibo.getBody());
+                cm.setPrimaryClip(mClipData);
+                break;
+            default:
+                break;
         }
 
         return true;
+    }
+    private void initShare(){
+        popupWindow = new PopupWindow(shareMenu, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,true);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        popupWindow.setOutsideTouchable(true);
     }
 
     @Override
