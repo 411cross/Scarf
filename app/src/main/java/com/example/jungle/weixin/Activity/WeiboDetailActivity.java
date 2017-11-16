@@ -100,8 +100,10 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
     private View weiboFunctionView;
     private View repostBtn;
+    private ImageView repostIcon;
     private TextView repostNum;
     private View commentBtn;
+    private ImageView commentIcon;
     private TextView commentNum;
     private View likeBtn;
     private ImageView likeIcon;
@@ -109,8 +111,10 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
     private View floatWeiboFunctionView;
     private View floatRepostBtn;
+    private ImageView floatRepostIcon;
     private TextView floatRepostNum;
     private View floatCommentBtn;
+    private ImageView floatCommentIcon;
     private TextView floatCommentNum;
     private View floatLikeBtn;
     private ImageView floatLikeIcon;
@@ -149,7 +153,7 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Title");
+            actionBar.setTitle("微博");
         }
 
         // 传入的微博
@@ -224,13 +228,18 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
         // Header部分Tab
         weiboFunctionView = View.inflate(this, R.layout.weibo_functions, null);
-        repostBtn = weiboFunctionView.findViewById(R.id.repost_btn);
-        repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
-        commentBtn = weiboFunctionView.findViewById(R.id.comment_btn);
-        commentNum = (TextView) weiboFunctionView.findViewById(R.id.comment_num);
         likeBtn = weiboFunctionView.findViewById(R.id.like_btn);
         likeIcon = (ImageView) weiboFunctionView.findViewById(R.id.like_image);
         likeNum = (TextView) weiboFunctionView.findViewById(R.id.like_num);
+        likeIcon.setImageResource(R.drawable.like_icon);
+        commentBtn = weiboFunctionView.findViewById(R.id.comment_btn);
+        commentIcon = (ImageView) weiboFunctionView.findViewById(R.id.comment_image);
+        commentNum = (TextView) weiboFunctionView.findViewById(R.id.comment_num);
+        commentIcon.setImageResource(R.drawable.comment_icon);
+        repostBtn = weiboFunctionView.findViewById(R.id.repost_btn);
+        repostIcon = (ImageView) weiboFunctionView.findViewById(R.id.repost_image);
+        repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
+        repostIcon.setImageResource(R.drawable.repost_icon);
 
         repostBtn.setOnClickListener(this);
         commentBtn.setOnClickListener(this);
@@ -239,12 +248,17 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         // 悬浮部分Tab
         floatWeiboFunctionView = findViewById(R.id.function_float);
         floatRepostBtn = floatWeiboFunctionView.findViewById(R.id.repost_btn);
+        floatRepostIcon = (ImageView) floatWeiboFunctionView.findViewById(R.id.repost_image);
         floatRepostNum = (TextView) floatWeiboFunctionView.findViewById(R.id.repost_num);
         floatCommentBtn = floatWeiboFunctionView.findViewById(R.id.comment_btn);
+        floatCommentIcon = (ImageView) floatWeiboFunctionView.findViewById(R.id.comment_image);
         floatCommentNum = (TextView) floatWeiboFunctionView.findViewById(R.id.comment_num);
         floatLikeBtn = floatWeiboFunctionView.findViewById(R.id.like_btn);
         floatLikeIcon = (ImageView) floatWeiboFunctionView.findViewById(R.id.like_image);
         floatLikeNum = (TextView) floatWeiboFunctionView.findViewById(R.id.like_num);
+        floatRepostIcon.setImageResource(R.drawable.repost_icon);
+        floatCommentIcon.setImageResource(R.drawable.comment_icon);
+        floatLikeIcon.setImageResource(R.drawable.like_icon);
 
         floatRepostBtn.setOnClickListener(this);
         floatCommentBtn.setOnClickListener(this);
@@ -292,7 +306,7 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
             commentList.add(comment);
         }
     }
-    
+
     public void setWeibo() {
         avatarImage.setImageResource(weibo.getAvatarURL());
         nickname.setText(weibo.getNickname());
