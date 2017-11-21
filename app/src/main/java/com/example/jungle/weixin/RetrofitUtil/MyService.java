@@ -4,6 +4,7 @@ package com.example.jungle.weixin.RetrofitUtil;
 
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.Data;
+import com.example.jungle.weixin.Bean.Login;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.ResultBean;
 
@@ -13,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface MyService {
@@ -109,4 +111,8 @@ public interface MyService {
     // 搜索某一话题下的微博
     @GET("search/topics.json")
     Observable<ResultBean<Data>> searchTopics(@Query("access_token") String access_token,@Query("q") String q);
+
+    //请求狒狒数据库的accesstoken，url是自定义的
+    @GET("")
+    Observable<ResultBean<Login>> requestUrl(@Url String url);
 }
