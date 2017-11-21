@@ -23,7 +23,7 @@ public class TypeUtils {
 
         int type = 0;
 
-        if (status.getThumbnail_pic() != null) {
+        if (status.getPic_urls().size() != 0) {
             type = 1;
         }
 

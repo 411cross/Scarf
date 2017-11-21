@@ -20,6 +20,7 @@ import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
@@ -53,6 +54,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         TextView nickname;
         TextView date;
         TextView time;
+        TextView sourceTag;
         TextView source;
         ImageButton moreBtn;
 
@@ -120,6 +122,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             identityIcon = (ImageView) weiboHead.findViewById(R.id.identity_icon);
             nickname = (TextView) weiboHead.findViewById(R.id.nickname);
             date = (TextView) weiboHead.findViewById(R.id.date);
+            sourceTag = (TextView) weiboHead.findViewById(R.id.source_tag);
             source = (TextView) weiboHead.findViewById(R.id.source);
             moreBtn = (ImageButton) weiboHead.findViewById(R.id.more_btn);
             moreBtn.setImageResource(R.drawable.down);
@@ -218,7 +221,18 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         Glide.with(mContext).load(user.getProfile_image_url()).into(holder.avatarImage);
         holder.nickname.setText(user.getScreen_name());
         holder.date.setText(DateUtils.formatDate(status.getCreated_at()));
-        holder.source.setText(status.getSource());
+        String source = status.getSource();
+        if (source.length() != 0) {
+            int start = source.indexOf(">") + 1;
+            int end = source.indexOf("</a>");
+            holder.source.setText(source.substring(start, end));
+        } else {
+            holder.sourceTag.setVisibility(View.GONE);
+            holder.source.setVisibility(View.GONE);
+        }
+        holder.repostNum.setText(status.getReposts_count() + "");
+        holder.commentNum.setText(status.getComments_count() + "");
+        holder.likeNum.setText(status.getAttitudes_count() + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,7 +240,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 intent.putExtra("weibo", status);
                 mContext.startActivity(intent);
                 mContext.overridePendingTransition(R.anim.left_in,R.anim.right_out);
-
             }
         });
 
@@ -248,8 +261,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 if (urls != null) {
                     for (PicURL picURL : urls) {
                         ImageInfo info = new ImageInfo();
-                        info.setThumbnailUrl(picURL.getUrl());
-                        info.setBigImageUrl(picURL.getUrl());
+                        info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
+                        info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
                         imageInfo.add(info);
                     }
                 }
