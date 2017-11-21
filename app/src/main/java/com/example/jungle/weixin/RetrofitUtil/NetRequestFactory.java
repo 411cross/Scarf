@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -66,14 +65,7 @@ public class NetRequestFactory {
         httpClientBuilder.writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
-        HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
-        if(BuildConfig.DEBUG){
-            //显示日志
-            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        }else {
-            logInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
-        httpClientBuilder.addInterceptor(logInterceptor);
+
 
         //设置缓存
 //        File httpCacheDirectory = new File(FileUtils.getCacheDir(SolidApplication.getInstance()), "OkHttpCache");

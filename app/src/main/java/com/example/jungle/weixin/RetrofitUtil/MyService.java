@@ -92,9 +92,6 @@ public interface MyService {
     @GET("users/domain_show.json")
     Observable<ResultBean<Data>> usersDomainShow(@Query("access_token") String access_token, @Query("domain") String domain);
 
-    // 批量获取用户的粉丝数、关注数、微博数
-    @GET("users/counts.json")
-    Observable<ResultBean<Data>> usersCounts(@Query("access_token") String access_token, @Query("uids") String uids);
 
     // 获取用户的关注列表
     @GET("friendships/friends.json")
