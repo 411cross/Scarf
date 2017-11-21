@@ -8,7 +8,7 @@ import com.example.jungle.weixin.Bean.BaseBean.Status;
 
 public class SearchTopicsData {
     private Status[] statuses;
-    private int total_number;
+    private long total_number;
 
     public SearchTopicsData(Status[] statuses, int total_number) {
         this.statuses = statuses;

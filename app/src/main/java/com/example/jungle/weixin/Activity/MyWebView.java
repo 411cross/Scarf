@@ -66,8 +66,8 @@ public class MyWebView extends AppCompatActivity {
                 super.onPageStarted(view, url, favicon);
                 Log.i("fuck", "onPageStarted: "+ url+"     "+url.indexOf("getToken?code="));
             }
-            @Override
-            public void onPageFinished(WebView view, final String url) {
+//            @Override
+//            public void onPageFinished(WebView view, final String url) {
 //                if (url.indexOf("getToken?code=") > 0) {
 //                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<ResultBean<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Login>() {
 //                        @Override
@@ -88,8 +88,8 @@ public class MyWebView extends AppCompatActivity {
 //                        }
 //                    });
 //                }
-                super.onPageFinished(view, url);
-            }
+//                super.onPageFinished(view, url);
+//            }
         });
         mWebView.loadUrl(loginUrl);
 

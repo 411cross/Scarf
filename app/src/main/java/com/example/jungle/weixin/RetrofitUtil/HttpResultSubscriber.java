@@ -3,11 +3,11 @@ package com.example.jungle.weixin.RetrofitUtil;
 import android.util.Log;
 
 
-import com.example.jungle.weixin.Bean.ResultBean;
+
 
 import java.io.IOException;
 
-import javax.security.auth.login.LoginException;
+
 
 import okhttp3.ResponseBody;
 import retrofit2.Response;

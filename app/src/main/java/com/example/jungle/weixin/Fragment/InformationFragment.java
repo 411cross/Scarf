@@ -8,18 +8,35 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.WeiboAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.Comment;
+import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
+import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
+import com.example.jungle.weixin.Bean.ResultBean;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.MyService;
+import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
+import com.example.jungle.weixin.RetrofitUtil.Transform;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Response;
 
 
 public class InformationFragment extends Fragment {
+    private String token;
+    private Comment[] comments;
+    private List<Comment> commentList;
+
 
     WeiboAdapter adapter;
     private List<Weibo> weiboList = new ArrayList<>();
@@ -40,6 +57,21 @@ public class InformationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+        NetRequestFactory.getInstance().createService(MyService.class).commentsToMe(token).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+            @Override
+            public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
+                comments = ReadCommentsData.body().getComments();
+                System.out.println(comments.toString());
+                commentList = Arrays.asList(comments);
+            }
+
+            @Override
+            public void _onError(Response<ReadCommentsData> ReadCommentsData) {
+
+            }
+
+        });
 
 
     }
