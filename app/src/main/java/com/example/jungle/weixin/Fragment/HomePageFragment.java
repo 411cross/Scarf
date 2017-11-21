@@ -58,19 +58,19 @@ public class HomePageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token).compose(Transform.<Response<ResultBean<StatusList>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ResultBean<StatusList>>>() {
-            @Override
-            public void onSuccess(Response<ResultBean<StatusList>> statusList) {
-                statusesList = statusList.body().data.getStatuses();
-            }
-
-            @Override
-            public void _onError(Response<ResultBean<StatusList>> e) {
-                String code = e.body().error_code;
-                Toast.makeText(getContext(),CodeUtils.getChineseMsg(code),Toast.LENGTH_LONG).show();
-            }
-
-        });
+//        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token).compose(Transform.<Response<ResultBean<StatusList>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ResultBean<StatusList>>>() {
+//            @Override
+//            public void onSuccess(Response<ResultBean<StatusList>> statusList) {
+//                statusesList = statusList.body().data.getStatuses();
+//            }
+//
+//            @Override
+//            public void _onError(Response<ResultBean<StatusList>> e) {
+//                String code = e.body().error_code;
+//                Toast.makeText(getContext(),CodeUtils.getChineseMsg(code),Toast.LENGTH_LONG).show();
+//            }
+//
+//        });
     }
 
     @Override

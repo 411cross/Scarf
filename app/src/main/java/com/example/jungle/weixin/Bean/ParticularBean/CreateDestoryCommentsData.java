@@ -8,8 +8,8 @@ import com.example.jungle.weixin.Bean.BaseBean.User;
  */
 
 public class CreateDestoryCommentsData {
-    private int id;
-    private int mid;
+    private long id;
+    private long mid;
     private String created_at;
     private String text;
     private String source;

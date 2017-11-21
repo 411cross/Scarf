@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Status implements Serializable {
 
-    private int id;
-    private int mid;
+    private long id;
+    private long mid;
     private String created_at;
     private String text;
     private String source;
@@ -27,7 +27,7 @@ public class Status implements Serializable {
     private List<PicURL> pic_urls = new ArrayList<>();
     private boolean favorited;
 
-    public Status(int id, int mid, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, boolean favorited) {
+    public Status(long id, long mid, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, boolean favorited) {
         this.id = id;
         this.mid = mid;
         this.created_at = created_at;
@@ -46,19 +46,19 @@ public class Status implements Serializable {
         this.favorited = favorited;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getMid() {
+    public long getMid() {
         return mid;
     }
 
-    public void setMid(int mid) {
+    public void setMid(long mid) {
         this.mid = mid;
     }
 

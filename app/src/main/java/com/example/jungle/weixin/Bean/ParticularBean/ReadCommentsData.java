@@ -8,11 +8,11 @@ import com.example.jungle.weixin.Bean.BaseBean.Comment;
 
 public class ReadCommentsData {
     private Comment[] comments;
-    private int previous_cursor;
-    private int next_cursor;
-    private int total_number;
+    private long previous_cursor;
+    private long next_cursor;
+    private long total_number;
 
-    public ReadCommentsData(Comment[] comments, int previous_cursor, int next_cursor, int total_number) {
+    public ReadCommentsData(Comment[] comments, long previous_cursor, long next_cursor, long total_number) {
         this.comments = comments;
         this.previous_cursor = previous_cursor;
         this.next_cursor = next_cursor;
@@ -27,27 +27,27 @@ public class ReadCommentsData {
         this.comments = comments;
     }
 
-    public int getPrevious_cursor() {
+    public long getPrevious_cursor() {
         return previous_cursor;
     }
 
-    public void setPrevious_cursor(int previous_cursor) {
+    public void setPrevious_cursor(long previous_cursor) {
         this.previous_cursor = previous_cursor;
     }
 
-    public int getNext_cursor() {
+    public long getNext_cursor() {
         return next_cursor;
     }
 
-    public void setNext_cursor(int next_cursor) {
+    public void setNext_cursor(long next_cursor) {
         this.next_cursor = next_cursor;
     }
 
-    public int getTotal_number() {
+    public long getTotal_number() {
         return total_number;
     }
 
-    public void setTotal_number(int total_number) {
+    public void setTotal_number(long total_number) {
         this.total_number = total_number;
     }
 
