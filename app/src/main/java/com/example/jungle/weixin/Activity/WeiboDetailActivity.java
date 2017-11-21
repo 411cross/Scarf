@@ -298,10 +298,10 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
     }
 
     public void initFakeComments(){
-        Comment comment = new Comment("", 1, "阿宝", "哈利路亚", "Fri Nov 10 17:16:55 +0800 2017", 250);
-        for (int i = 0; i < 10; i++) {
-            commentList.add(comment);
-        }
+//        Comment comment = new Comment("", 1, "阿宝", "哈利路亚", "Fri Nov 10 17:16:55 +0800 2017", 250);
+//        for (int i = 0; i < 10; i++) {
+//            commentList.add(comment);
+//        }
     }
 
     public void setWeibo() {
