@@ -6,68 +6,87 @@ package com.example.jungle.weixin.Bean;
 
 public class Comment {
 
-    private String avatarURL;
-    private int indentity;
-    private String name;
-    private String comment;
-    private String date;
-    private int likeNum;
+    private int id;
+    private String created_at;
+    private String text;
+    private String source;
+    private User user;
+    private String mid;
+    private Status status;
+    private Comment reply_comment;
 
-    public Comment(String avatarURL, int indentity, String name, String comment, String date, int likeNum) {
-        this.avatarURL = avatarURL;
-        this.indentity = indentity;
-        this.name = name;
-        this.comment = comment;
-        this.date = date;
-        this.likeNum = likeNum;
+    public Comment(int id, String created_at, String text, String source, User user, String mid, Status status, Comment reply_comment) {
+        this.id = id;
+        this.created_at = created_at;
+        this.text = text;
+        this.source = source;
+        this.user = user;
+        this.mid = mid;
+        this.status = status;
+        this.reply_comment = reply_comment;
     }
 
-    public String getAvatarURL() {
-        return avatarURL;
+    public int getId() {
+        return id;
     }
 
-    public void setAvatarURL(String avatarURL) {
-        this.avatarURL = avatarURL;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getIndentity() {
-        return indentity;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setIndentity(int indentity) {
-        this.indentity = indentity;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
-    public String getName() {
-        return name;
+    public String getText() {
+        return text;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public String getComment() {
-        return comment;
+    public String getSource() {
+        return source;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setSource(String source) {
+        this.source = source;
     }
 
-    public String getDate() {
-        return date;
+    public User getUser() {
+        return user;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getLikeNum() {
-        return likeNum;
+    public String getMid() {
+        return mid;
     }
 
-    public void setLikeNum(int likeNum) {
-        this.likeNum = likeNum;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Comment getReply_comment() {
+        return reply_comment;
+    }
+
+    public void setReply_comment(Comment reply_comment) {
+        this.reply_comment = reply_comment;
+    }
 }

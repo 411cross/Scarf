@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.Adapter;
 
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
@@ -208,7 +210,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final Weibo weibo = weiboList.get(position);
-        holder.avatarImage.setImageResource(weibo.getAvatarURL());
+        Glide.with(mContext).load(weibo.getAvatarURL()).into(holder.avatarImage);
         holder.nickname.setText(weibo.getNickname());
         holder.date.setText(DateUtils.formatDate(weibo.getDate()));
         holder.source.setText(weibo.getSource());
@@ -273,6 +275,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         return weiboList.size();
 
     }
+
+
 
 
 }

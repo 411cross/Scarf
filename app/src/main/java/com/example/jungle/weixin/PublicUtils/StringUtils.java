@@ -69,6 +69,7 @@ public class StringUtils {
                 spannableString.setSpan(clickableSpan, start, start + topicStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
+            // 😊表情部分
             if (emojiStr != null) {
                 int start = matcher.start(3);
 
