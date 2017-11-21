@@ -12,21 +12,14 @@ import android.widget.Toast;
 
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.InformationAdapter;
-import com.example.jungle.weixin.Adapter.WeiboAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
-import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
-import com.example.jungle.weixin.Bean.ResultBean;
-import com.example.jungle.weixin.Bean.Weibo;
-import com.example.jungle.weixin.Bean.WeiboImage;
-import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,6 +33,8 @@ public class InformationFragment extends Fragment {
 
 
     private InformationAdapter adapter;
+    private View view;
+    private RecyclerView recyclerView;
 
 
     public InformationFragment() {
@@ -58,21 +53,7 @@ public class InformationFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).commentsToMe(token).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
-            @Override
-            public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
-                comments = ReadCommentsData.body().getComments();
-                System.out.println(comments.toString());
-                commentList = Arrays.asList(comments);
-            }
 
-            @Override
-            public void _onError(Response<ReadCommentsData> ReadCommentsData) {
-
-            }
-
-        });
 
 
     }
@@ -81,15 +62,30 @@ public class InformationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_information, container, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new InformationAdapter((TotalActivity) getActivity(), commentList);
+        view = inflater.inflate(R.layout.fragment_information, container, false);
+        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+        NetRequestFactory.getInstance().createService(MyService.class).commentsToMe(token).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+            @Override
+            public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
+                comments = ReadCommentsData.body().getComments();
+                recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+                recyclerView.setLayoutManager(layoutManager);
+                commentList = Arrays.asList(comments);
+                System.out.println(commentList.size());
+                adapter = new InformationAdapter((TotalActivity) getActivity(), commentList);
+                recyclerView.setAdapter(adapter);
+                setHeaderView(recyclerView);
+                setFooterView(recyclerView);
+            }
 
-        recyclerView.setAdapter(adapter);
-        setHeaderView(recyclerView);
-        setFooterView(recyclerView);
+            @Override
+            public void _onError(Response<ReadCommentsData> ReadCommentsData) {
+
+            }
+
+        });
+        
         return view;
     }
 

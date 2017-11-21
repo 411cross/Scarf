@@ -60,7 +60,7 @@ public interface MyService {
 
     // 我发出的评论列表
     @GET("comments/by_me.json")
-    Observable<Response<ResultBean<StatusList>>> commentsByMe(@Query("access_token") String access_token);
+    Observable<Response<ReadCommentsData>> commentsByMe(@Query("access_token") String access_token);
 
     // 获取当前登录用户所接收到的评论列表
     @GET("comments/to_me.json")
@@ -68,7 +68,7 @@ public interface MyService {
 
     // 获取@到我的评论
     @GET("comments/mentions.json")
-    Observable<Response<StatusList>> commentsMentions(@Query("access_token") String access_token);
+    Observable<Response<ReadCommentsData>> commentsMentions(@Query("access_token") String access_token);
 
     // 对一条微博进行评论
     @FormUrlEncoded

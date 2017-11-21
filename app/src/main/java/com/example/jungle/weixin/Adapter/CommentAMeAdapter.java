@@ -1,8 +1,12 @@
 package com.example.jungle.weixin.Adapter;
 
+/**
+ * Created by jungle on 2017/11/21.
+ */
+
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,19 +18,15 @@ import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.AMeActivity;
 import com.example.jungle.weixin.Activity.CommentActivity;
 import com.example.jungle.weixin.Activity.TotalActivity;
-import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
-import com.example.jungle.weixin.Bean.Weibo;
-import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
-import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
-import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 
-import java.util.ArrayList;
+
+
 import java.util.List;
 
 
@@ -34,7 +34,7 @@ import java.util.List;
  * Created by derrickJ on 2017/11/8.
  */
 
-public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.ViewHolder> {
+public class CommentAMeAdapter extends RecyclerView.Adapter<CommentAMeAdapter.ViewHolder> {
 
     public static final int TYPE_HEADER = 0;  //说明是带有Header的
     public static final int TYPE_FOOTER = 1;  //说明是带有Footer的
@@ -44,7 +44,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     private View mFooterView;
 
 
-    private TotalActivity mContext;
+    private Context mContext;
     private List<Comment> commentList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -190,7 +190,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     }
 
-    public InformationAdapter(TotalActivity context, List<Comment> list) {
+    public CommentAMeAdapter(Context context, List<Comment> list) {
         mContext = context;
         commentList = list;
     }
@@ -212,7 +212,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             if (holder instanceof ViewHolder) {
-                final Comment comment = commentList.get(position-1);
+                final Comment comment = commentList.get(position);
                 Glide.with(mContext).load(comment.getUser().getProfile_image_url()).into(holder.avatarImage);
                 holder.nickname.setText(comment.getUser().getScreen_name());
                 holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
@@ -272,13 +272,13 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             }
             return;
         } else if (getItemViewType(position) == TYPE_HEADER) {
-                holder.commentLinear.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext,CommentActivity.class);
-                        mContext.startActivity(intent);
-                    }
-                });
+            holder.commentLinear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext,CommentActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
 
             holder.aMeLinear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -300,10 +300,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         if (mHeaderView == null && mFooterView == null) {
             return TYPE_NORMAL;
         }
-        if (position == 0) {
-            //第一个item应该加载Header
-            return TYPE_HEADER;
-        }
+
         if (position == getItemCount() -1 ) {
             //最后一个,应该加载Footer
             return TYPE_FOOTER;
