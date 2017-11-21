@@ -18,14 +18,14 @@ public class User {
     private String profile_url;
     private int followers_count;
     private int friends_count;
-    private int status_count;
+    private int statuses_count;
     private boolean following;
     private boolean allow_all_act_msg;
     private boolean allow_all_comment;
     private boolean verified;
     private boolean follow_me;
 
-    public User(int id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, int followers_count, int friends_count, int status_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me) {
+    public User(int id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, int followers_count, int friends_count, int statuses_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me) {
         this.id = id;
         this.screen_name = screen_name;
         this.location = location;
@@ -38,7 +38,7 @@ public class User {
         this.profile_url = profile_url;
         this.followers_count = followers_count;
         this.friends_count = friends_count;
-        this.status_count = status_count;
+        this.statuses_count = statuses_count;
         this.following = following;
         this.allow_all_act_msg = allow_all_act_msg;
         this.allow_all_comment = allow_all_comment;
@@ -142,12 +142,12 @@ public class User {
         this.friends_count = friends_count;
     }
 
-    public int getStatus_count() {
-        return status_count;
+    public int getStatuses_count() {
+        return statuses_count;
     }
 
-    public void setStatus_count(int status_count) {
-        this.status_count = status_count;
+    public void setStatuses_count(int statuses_count) {
+        this.statuses_count = statuses_count;
     }
 
     public boolean isFollowing() {
