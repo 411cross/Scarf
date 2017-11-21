@@ -1,7 +1,6 @@
 package com.example.jungle.weixin.RetrofitUtil;
 
 
-
 import com.example.jungle.weixin.Bean.Data;
 import com.example.jungle.weixin.Bean.ResultBean;
 
@@ -64,9 +63,6 @@ public interface MyService {
     @GET("users/domain_show.json")
     Observable<ResultBean<Data>> usersDomainShow(@Query("access_token") String access_token, @Query("domain") String domain);
 
-    //批量获取用户的粉丝数、关注数、微博数
-    @GET("users/counts.json")
-    Observable<ResultBean<Data>> usersCounts(@Query("access_token") String access_token, @Query("uids") String uids);
 
     //获取用户的关注列表
     @GET("friendships/friends.json")
@@ -82,5 +78,5 @@ public interface MyService {
 
     //搜索某一话题下的微博
     @GET("search/topics.json")
-    Observable<ResultBean<Data>> searchTopics(@Query("access_token") String access_token,@Query("q") String q);
+    Observable<ResultBean<Data>> searchTopics(@Query("access_token") String access_token, @Query("q") String q);
 }

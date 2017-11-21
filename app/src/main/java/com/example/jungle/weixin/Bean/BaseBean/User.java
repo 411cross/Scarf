@@ -24,8 +24,9 @@ public class User {
     private boolean allow_all_comment;
     private boolean verified;
     private boolean follow_me;
+    private Status status;
 
-    public User(int id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, int followers_count, int friends_count, int status_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me) {
+    public User(int id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, int followers_count, int friends_count, int status_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
         this.id = id;
         this.screen_name = screen_name;
         this.location = location;
@@ -44,6 +45,7 @@ public class User {
         this.allow_all_comment = allow_all_comment;
         this.verified = verified;
         this.follow_me = follow_me;
+        this.status = status;
     }
 
     public int getId() {
@@ -188,5 +190,13 @@ public class User {
 
     public void setFollow_me(boolean follow_me) {
         this.follow_me = follow_me;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

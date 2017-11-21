@@ -1,5 +1,6 @@
 package com.example.jungle.weixin.RetrofitUtil;
 
+import com.example.jungle.weixin.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -63,6 +64,9 @@ public class NetRequestFactory {
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         httpClientBuilder.readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+
+
+
         //设置缓存
 //        File httpCacheDirectory = new File(FileUtils.getCacheDir(SolidApplication.getInstance()), "OkHttpCache");
 //        httpClientBuilder.cache(new Cache(httpCacheDirectory, 10 * 1024 * 1024));
