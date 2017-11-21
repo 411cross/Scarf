@@ -11,17 +11,18 @@ import java.util.List;
 
 public class StatusList {
 
-    private Status[] statuses;
+    private List<Status> statuses = new ArrayList<>();
 
-    public StatusList(Status[] statuses) {
+    public StatusList(List<Status> statuses) {
         this.statuses = statuses;
     }
 
-    public Status[] getStatuses() {
+    public List<Status> getStatuses() {
         return statuses;
     }
 
-    public void setStatuses(Status[] statuses) {
+    public void setStatuses(List<Status> statuses) {
         this.statuses = statuses;
     }
+
 }

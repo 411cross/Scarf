@@ -6,18 +6,17 @@ package com.example.jungle.weixin.Bean.BaseBean;
 
 public class PicURL {
 
-    private String url;
+    private String thumbnail_pic;
 
     public PicURL(String url) {
-        this.url = url;
+        this.thumbnail_pic = url;
     }
 
-    public String getUrl() {
-        return url;
+    public String getThumbnail_pic() {
+        return thumbnail_pic;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setThumbnail_pic(String thumbnail_pic) {
+        this.thumbnail_pic = thumbnail_pic;
     }
-
 }
