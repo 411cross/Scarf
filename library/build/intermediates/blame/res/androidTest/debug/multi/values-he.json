@@ -1,10 +1,6 @@
 [
     {
-<<<<<<< HEAD
-        "outputFile": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-he\\values-he.xml",
-=======
-        "outputFile": "F:\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-he\\values-he.xml",
->>>>>>> origin/master
+        "outputFile": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-he/values-he.xml",
         "map": [
             {
                 "to": {
@@ -15,11 +11,7 @@
                     "endOffset": 118
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-he\\values-he.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-he\\values-he.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values-he/values-he.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -38,11 +30,7 @@
                     "endOffset": 185
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-he\\values-he.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-he\\values-he.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values-he/values-he.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -61,11 +49,7 @@
                     "endOffset": 256
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-he\\values-he.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-he\\values-he.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values-he/values-he.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,

@@ -1,10 +1,6 @@
 [
     {
-<<<<<<< HEAD
-        "outputFile": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
-=======
-        "outputFile": "F:\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
->>>>>>> origin/master
+        "outputFile": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml",
         "map": [
             {
                 "to": {
@@ -15,11 +11,7 @@
                     "endOffset": 1719
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 16,
                         "startColumn": 4,
@@ -38,11 +30,7 @@
                     "endOffset": 1783
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 17,
                         "startColumn": 4,
@@ -61,11 +49,7 @@
                     "endOffset": 1838
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 18,
                         "startColumn": 4,
@@ -84,11 +68,7 @@
                     "endOffset": 1895
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 19,
                         "startColumn": 4,
@@ -107,11 +87,7 @@
                     "endOffset": 1950
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 20,
                         "startColumn": 4,
@@ -130,11 +106,7 @@
                     "endOffset": 1988
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 21,
                         "startColumn": 4,
@@ -153,11 +125,7 @@
                     "endOffset": 2028
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 22,
                         "startColumn": 4,
@@ -176,11 +144,7 @@
                     "endOffset": 2065
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 23,
                         "startColumn": 4,
@@ -199,11 +163,7 @@
                     "endOffset": 2167
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 24,
                         "startColumn": 4,
@@ -222,11 +182,7 @@
                     "endOffset": 2281
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 25,
                         "startColumn": 4,
@@ -245,11 +201,7 @@
                     "endOffset": 2389
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 26,
                         "startColumn": 4,
@@ -268,11 +220,7 @@
                     "endOffset": 2461
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 27,
                         "startColumn": 4,
@@ -291,11 +239,7 @@
                     "endOffset": 2531
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 28,
                         "startColumn": 4,
@@ -314,11 +258,7 @@
                     "endOffset": 2609
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> origin/master
+                    "file": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/values/values.xml",
                     "position": {
                         "startLine": 29,
                         "startColumn": 4,
