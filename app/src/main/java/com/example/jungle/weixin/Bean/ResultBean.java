@@ -5,7 +5,10 @@ package com.example.jungle.weixin.Bean;
  */
 
 public class ResultBean<T> {
-    public String status;
+    public int status_code;
     public String errmsg;
     public T data;
+    public String request;
+    public String error_code;
+    public String error;
 }
