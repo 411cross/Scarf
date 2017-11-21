@@ -69,7 +69,10 @@
                     <android.support.v7.widget.AppCompatImageButton
                         android:id="@+id/edit_button"
                         android:layout_width="40dp"
-                        android:layout_height="40dp" />
+                        android:layout_height="40dp"
+                        android:background="@android:drawable/screen_background_light_transparent"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_edit_grey600_48dp" />
                 </LinearLayout>
 
 

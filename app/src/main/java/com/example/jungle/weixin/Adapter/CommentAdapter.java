@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jungle.weixin.Bean.Comment;
+import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.R;
 

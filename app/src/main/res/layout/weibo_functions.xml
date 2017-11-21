@@ -12,7 +12,7 @@
         <RelativeLayout
             android:id="@+id/like_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -23,12 +23,14 @@
 
             <ImageView
                 android:id="@+id/like_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:layout_marginTop="3dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/like_icon" />
 
             <TextView
                 android:id="@+id/like_num"
@@ -37,6 +39,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/like_image"
                 android:layout_toRightOf="@+id/like_image"
+                android:layout_marginLeft="4dp"
                 android:text="666"
                 android:textSize="10sp" />
 
@@ -46,19 +49,20 @@
         <RelativeLayout
             android:id="@+id/comment_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_alignTop="@+id/like_btn"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/like_btn">
 
             <ImageView
                 android:id="@+id/comment_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:layout_marginTop="3dp"
+                app:srcCompat="@drawable/comment_icon" />
 
             <TextView
                 android:id="@+id/comment_num"
@@ -67,6 +71,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/comment_image"
                 android:layout_toRightOf="@+id/comment_image"
+                android:layout_marginLeft="4dp"
                 android:text="666"
                 android:textSize="10sp" />
 
@@ -76,19 +81,18 @@
         <RelativeLayout
             android:id="@+id/repost_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="16dp"
             android:layout_alignTop="@+id/comment_btn"
             android:layout_marginRight="12dp"
             android:layout_toLeftOf="@+id/comment_btn">
 
             <ImageView
                 android:id="@+id/repost_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_alignParentTop="true"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:layout_marginTop="3dp"
+                app:srcCompat="@drawable/repost_icon" />
 
             <TextView
                 android:id="@+id/repost_num"
@@ -97,6 +101,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/repost_image"
                 android:layout_toRightOf="@+id/repost_image"
+                android:layout_marginLeft="4dp"
                 android:text="666"
                 android:textSize="10sp" />
 

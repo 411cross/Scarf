@@ -1,14 +1,17 @@
 package com.example.jungle.weixin.Adapter;
 
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
@@ -22,6 +25,8 @@ import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.nereo.multi_image_selector.bean.Image;
 
 
 /**
@@ -38,12 +43,14 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
         private View itemView;
 
+        View weiboHead;
         ImageView avatarImage;
         ImageView identityIcon;
         TextView nickname;
         TextView date;
         TextView time;
         TextView source;
+        ImageButton moreBtn;
 
         View weiboMain;
 
@@ -85,6 +92,17 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         TextView reweiboPassageTitle;
         TextView reweiboPassageSubTitle;
 
+        View weiboFunctionView;
+        View likeBtn;
+        ImageView likeIcon;
+        TextView likeNum;
+        View commentBtn;
+        ImageView commentIcon;
+        TextView commentNum;
+        View repostBtn;
+        ImageView repostIcon;
+        TextView repostNum;
+
         View view1;
 
 
@@ -92,63 +110,70 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             super(view);
 
             this.itemView = view;
-            avatarImage = (ImageView) view.findViewById(R.id.avatar);
-            identityIcon = (ImageView) view.findViewById(R.id.identity_icon);
-            nickname = (TextView) view.findViewById(R.id.nickname);
-            date = (TextView) view.findViewById(R.id.date);
-            time = (TextView) view.findViewById(R.id.time);
-            source = (TextView) view.findViewById(R.id.source);
+
+            weiboHead = (View) view.findViewById(R.id.weibo_head_layout);
+            avatarImage = (ImageView) weiboHead.findViewById(R.id.avatar);
+            identityIcon = (ImageView) weiboHead.findViewById(R.id.identity_icon);
+            nickname = (TextView) weiboHead.findViewById(R.id.nickname);
+            date = (TextView) weiboHead.findViewById(R.id.date);
+            source = (TextView) weiboHead.findViewById(R.id.source);
+            moreBtn = (ImageButton) weiboHead.findViewById(R.id.more_btn);
+            moreBtn.setImageResource(R.drawable.down);
+
             view1 = view;
 //weiboMain = view.findViewById(R.id.weibo_main);
 //
             bodyView = (View) view.findViewById(R.id.body_layout);
             body = (TextView) bodyView.findViewById(R.id.body);
-//            bodyView.setVisibility(View.GONE);
 
             singlePicView = (View) view.findViewById(R.id.single_pic_layout);
             singlePic = (ImageView) singlePicView.findViewById(R.id.single_pic);
-//            singlePicView.setVisibility(View.GONE);
 
             multiPicsView = (View) view.findViewById(R.id.multi_pics_layout);
             multiPicsGrid = (NineGridView) multiPicsView.findViewById(R.id.multi_pics_grid);
-//            multiPicsView.setVisibility(View.GONE);
 
             videoView = (View) view.findViewById(R.id.video_layout);
             videoContainerView = (View) videoView.findViewById(R.id.video_container);
             video = (ImageView) videoView.findViewById(R.id.video);
-//            videoView.setVisibility(View.GONE);
 
             passageView = (View) view.findViewById(R.id.passage_layout);
             passageImage = (ImageView) passageView.findViewById(R.id.passage_image);
             passageTitle = (TextView) passageView.findViewById(R.id.passage_title);
             passageSubTitle = (TextView) passageView.findViewById(R.id.passage_subtitle);
-//            passageView.setVisibility(View.GONE);
 
             reweiboView = (View) view.findViewById(R.id.reweibo_layout);
-//            reweiboView.setVisibility(View.GONE);
 
             reweiboBodyView = (View) view.findViewById(R.id.reweibo_body_layout);
             reweiboBody = (TextView) reweiboBodyView.findViewById(R.id.body);
-//            reweiboBodyView.setVisibility(View.GONE);
 
             reweiboSinglePicView = (View) view.findViewById(R.id.reweibo_single_pic_layout);
             reweiboSinglePic = (ImageView) reweiboSinglePicView.findViewById(R.id.single_pic);
-//            reweiboSinglePicView.setVisibility(View.GONE);
 
             reweiboMultiPicsView = (View) view.findViewById(R.id.reweibo_multi_pics_layout);
             reweiboMultiPicsGrid = (NineGridView) reweiboMultiPicsView.findViewById(R.id.multi_pics_grid);
-//            reweiboMultiPicsView.setVisibility(View.GONE);
 
             reweiboVideoView = (View) view.findViewById(R.id.reweibo_video_layout);
             reweiboVideoContainerView = (View) reweiboVideoView.findViewById(R.id.video_container);
             reweiboVideo = (ImageView) reweiboVideoView.findViewById(R.id.video);
-//            reweiboVideoView.setVisibility(View.GONE);
 
             reweiboPassageView = (View) view.findViewById(R.id.reweibo_passage_layout);
             reweiboPassageImage = (ImageView) reweiboPassageView.findViewById(R.id.passage_image);
             reweiboPassageTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_title);
             reweiboPassageSubTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_subtitle);
-//            reweiboPassageView.setVisibility(View.GONE);
+
+            weiboFunctionView = view.findViewById(R.id.weibo_functions_layout);
+            likeBtn = weiboFunctionView.findViewById(R.id.like_btn);
+            likeIcon = (ImageView) weiboFunctionView.findViewById(R.id.like_image);
+            likeNum = (TextView) weiboFunctionView.findViewById(R.id.like_num);
+            likeIcon.setImageResource(R.drawable.like_icon);
+            commentBtn = weiboFunctionView.findViewById(R.id.comment_btn);
+            commentIcon = (ImageView) weiboFunctionView.findViewById(R.id.comment_image);
+            commentNum = (TextView) weiboFunctionView.findViewById(R.id.comment_num);
+            commentIcon.setImageResource(R.drawable.comment_icon);
+            repostBtn = weiboFunctionView.findViewById(R.id.repost_btn);
+            repostIcon = (ImageView) weiboFunctionView.findViewById(R.id.repost_image);
+            repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
+            repostIcon.setImageResource(R.drawable.repost_icon);
 
         }
 
@@ -185,7 +210,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         final Weibo weibo = weiboList.get(position);
-        holder.avatarImage.setImageResource(weibo.getAvatarURL());
+        Glide.with(mContext).load(weibo.getAvatarURL()).into(holder.avatarImage);
         holder.nickname.setText(weibo.getNickname());
         holder.date.setText(DateUtils.formatDate(weibo.getDate()));
         holder.source.setText(weibo.getSource());
@@ -250,6 +275,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         return weiboList.size();
 
     }
+
+
 
 
 }
