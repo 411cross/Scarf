@@ -1,10 +1,6 @@
 [
     {
-<<<<<<< HEAD
-        "outputFile": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-es\\values-es.xml",
-=======
-        "outputFile": "F:\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-es\\values-es.xml",
->>>>>>> origin/master
+        "outputFile": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-es\\values-es.xml",
         "map": [
             {
                 "to": {
@@ -15,11 +11,7 @@
                     "endOffset": 128
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
->>>>>>> origin/master
+                    "file": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -38,11 +30,7 @@
                     "endOffset": 199
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
->>>>>>> origin/master
+                    "file": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -61,11 +49,69 @@
                     "endOffset": 281
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
->>>>>>> origin/master
+                    "file": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 204,
+                        "endColumn": 81,
+                        "endOffset": 281
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-es\\values-es.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 77,
+                    "endOffset": 128
+                },
+                "from": {
+                    "file": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 77,
+                        "endOffset": 128
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 133,
+                    "endColumn": 70,
+                    "endOffset": 199
+                },
+                "from": {
+                    "file": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 133,
+                        "endColumn": 70,
+                        "endOffset": 199
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 204,
+                    "endColumn": 81,
+                    "endOffset": 281
+                },
+                "from": {
+                    "file": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-es\\values-es.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,

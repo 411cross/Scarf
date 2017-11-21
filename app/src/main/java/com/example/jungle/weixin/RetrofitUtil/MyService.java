@@ -1,7 +1,11 @@
 package com.example.jungle.weixin.RetrofitUtil;
 
 
+
+import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.Data;
+import com.example.jungle.weixin.Bean.Login;
+import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.ResultBean;
 
 import retrofit2.http.Field;
@@ -9,6 +13,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface MyService {
@@ -23,60 +28,91 @@ public interface MyService {
     @POST("buyer-cloth/collect-record")
     Observable<ResultBean<Data>> getData(@Field("token") String token);
 
+    // 首页 - 获取当前登录用户及其所关注（授权）用户的最新微博
+    @GET("home_timeline.json")
+    Observable<ResultBean<StatusList>> getHomeTimeline(@Query("access_token") String access_token);
 
-    //    根据微博ID返回某条微博的评论列表
+    // 个人页 - 获取自己最新发表的微博列表
+    @GET("user_timeline.json")
+    Observable<ResultBean<StatusList>> getUserTimeLine(@Query("access_token") String access_token);
+
+    // 个人页 - 使用ID获取其他用户最新发表的微博列表
+    @GET("user_timeline.json")
+    Observable<ResultBean<StatusList>> getOtherTimeLineWithID(@Query("access_token") String access_token, @Query("uid") int uid);
+
+    // 个人页 - 使用昵称获取其他用户最新发表的微博列表
+    @GET("user_timeline.json")
+    Observable<ResultBean<StatusList>> getOtherTimeLineWithName(@Query("access_token") String access_token, @Query("screen_name") String screen_name);
+
+    // 获取最新的提到登录用户的微博列表，即@我的微博
+    @GET("mentions.json")
+    Observable<ResultBean<StatusList>> getMentions(@Query("access_token") String access_token);
+
+    // 根据微博ID获取单条微博内容
+    @GET("show.json")
+    Observable<ResultBean<Status>> getSingleStatus(@Query("access_token") String access_token, @Query("id") int id);
+
+    // 根据微博ID获取单条微博内容
+    @GET("show.json")
+    Observable<ResultBean<Status>> getSingleStatus(@Query("access_token") String access_token);
+
+    // 根据微博ID返回某条微博的评论列表
     @GET("comments/show.json")
     Observable<ResultBean<Data>> commentsShow(@Query("access_token") String access_token, @Query("id") int id);
 
-    //    我发出的评论列表
+    // 我发出的评论列表
     @GET("comments/by_me.json")
     Observable<ResultBean<Data>> commentsByMe(@Query("access_token") String access_token);
 
-    //获取当前登录用户所接收到的评论列表
+    // 获取当前登录用户所接收到的评论列表
     @GET("comments/to_me.json")
     Observable<ResultBean<Data>> commentsToMe(@Query("access_token") String access_token);
 
-    //获取@到我的评论
+    // 获取@到我的评论
     @GET("comments/mentions.json")
     Observable<ResultBean<Data>> commentsMentions(@Query("access_token") String access_token);
 
-    //    对一条微博进行评论
+    // 对一条微博进行评论
     @FormUrlEncoded
     @POST("comments/create.json")
     Observable<ResultBean<Data>> commentsCreate(@Field("access_token") String access_token, @Field("comment") String comment, @Field("id") int id);
 
-    //删除一条我的评论
+    // 删除一条我的评论
     @FormUrlEncoded
     @POST("comments/destroy.json")
     Observable<ResultBean<Data>> commentsDestroy(@Field("access_token") String access_token, @Field("cid") int cid);
 
-    //回复一条我收到的评论
+    // 回复一条我收到的评论
     @FormUrlEncoded
     @POST("comments/reply.json")
     Observable<ResultBean<Data>> commentsReply(@Field("access_token") String access_token, @Field("cid") int cid, @Field("id") int id, @Field("comment") String commment);
 
-    //根据用户ID获取用户信息
+    // 根据用户ID获取用户信息
     @GET("users/show.json")
     Observable<ResultBean<Data>> usersShow(@Query("access_token") String access_token);
 
-    //通过个性域名获取用户信息
+    // 通过个性域名获取用户信息
     @GET("users/domain_show.json")
     Observable<ResultBean<Data>> usersDomainShow(@Query("access_token") String access_token, @Query("domain") String domain);
 
 
-    //获取用户的关注列表
+    // 获取用户的关注列表
     @GET("friendships/friends.json")
     Observable<ResultBean<Data>> friendshipsFriends(@Query("access_token") String access_token);
 
-    //获取用户粉丝列表
+    // 获取用户粉丝列表
     @GET("friendships/followers.json")
     Observable<ResultBean<Data>> friendshipsFollowers(@Query("access_token") String access_token);
 
-    //获取两个用户之间是否存在关注关系
+    // 获取两个用户之间是否存在关注关系
     @GET("friendships/show.json")
     Observable<ResultBean<Data>> friendshipsShow(@Query("access_token") String access_token);
 
-    //搜索某一话题下的微博
+    // 搜索某一话题下的微博
     @GET("search/topics.json")
-    Observable<ResultBean<Data>> searchTopics(@Query("access_token") String access_token, @Query("q") String q);
+    Observable<ResultBean<Data>> searchTopics(@Query("access_token") String access_token,@Query("q") String q);
+
+    //请求狒狒数据库的accesstoken，url是自定义的
+    @GET("")
+    Observable<ResultBean<Login>> requestUrl(@Url String url);
 }

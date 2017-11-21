@@ -1,26 +1,22 @@
 package com.example.jungle.weixin.Activity;
 
-import android.os.ResultReceiver;
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.jungle.weixin.Bean.Data;
-import com.example.jungle.weixin.Bean.ResultBean;
 import com.example.jungle.weixin.R;
-import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
-import com.example.jungle.weixin.RetrofitUtil.MyService;
-import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
-import com.example.jungle.weixin.RetrofitUtil.Transform;
 
 public class MainActivity extends AppCompatActivity   {
-//    private VideoView mVvv;
+    private SharedPreferences sp;
+    //    private VideoView mVvv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        if (!io.vov.vitamio.LibsChecker.checkVitamioLibs(this))
 //            return;
         setContentView(R.layout.activity_main);
-
+        sp = this.getSharedPreferences("Scarf", Activity.MODE_PRIVATE);
 
         //网络请求的例子：
         // —————————————一样———————/MyService方法，要设置URL等/-----------------------------------一样------------------------------------------------------------------------------/

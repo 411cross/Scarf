@@ -4,13 +4,10 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Build;
 import me.nereo.multi_image_selector.MultiImageSelector;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +23,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
@@ -33,11 +31,10 @@ import com.baidu.location.LocationClientOption;
 import com.example.jungle.weixin.Adapter.ExpressionAdapter;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
-
 import java.util.ArrayList;
 
 
-public class Publish extends AppCompatActivity {
+public class Publish extends AppCompatActivity  implements View.OnClickListener{
 
     private ImageButton back;
     private EditText content;
@@ -51,18 +48,24 @@ public class Publish extends AppCompatActivity {
     private Button location;
     private ArrayList<String> mSelectPath;
     private static ArrayList<ImageView> imageViewArrayList;
+    private static ArrayList<RelativeLayout> imageRelativeList;
+    private static ArrayList<ImageButton> imageButtonArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
 
-        back = (ImageButton)findViewById(R.id.back);
-        content = (EditText)findViewById(R.id.content);
-        chooseImage = (ImageButton)findViewById(R.id.chooseImage);
-        location = (Button)findViewById(R.id.location);
-        expGridView = (GridView)findViewById(R.id.expGridView);
+        back = (ImageButton) findViewById(R.id.back);
+        content = (EditText) findViewById(R.id.content);
+        chooseImage = (ImageButton) findViewById(R.id.chooseImage);
+        location = (Button) findViewById(R.id.location);
+        expGridView = (GridView) findViewById(R.id.expGridView);
         initImageViewList();
+        Intent intent = getIntent();
+        if (intent.getIntExtra("previousActivity", -1) == 1) {
+            content.setText(intent.getStringExtra("Body"));
+        }
 
         //expressionFromAdapter
         expressionAdapter = new ExpressionAdapter(this);
@@ -71,7 +74,7 @@ public class Publish extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SpannableString spannableString = new SpannableString(view.getTag().toString());
-                Drawable drawable = ContextCompat.getDrawable(Publish.this,(int) expressionAdapter.getItemId(position));
+                Drawable drawable = ContextCompat.getDrawable(Publish.this, (int) expressionAdapter.getItemId(position));
                 drawable.setBounds(0, 0, 70, 70);
                 ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
                 spannableString.setSpan(imageSpan, 0, view.getTag().toString().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -79,19 +82,19 @@ public class Publish extends AppCompatActivity {
             }
         });
 
-        mLocationClient = ((LocationApplication)getApplication()).mLocationClient;
-        ((LocationApplication)getApplication()).mLocationResult = location;
+        mLocationClient = ((LocationApplication) getApplication()).mLocationClient;
+        ((LocationApplication) getApplication()).mLocationResult = location;
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
-                overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         });
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    pickImage();
+                pickImage();
             }
         });
         location.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +102,13 @@ public class Publish extends AppCompatActivity {
             public void onClick(View v) {
                 InitLocation();
                 mLocationClient.start();
+            }
+        });
+        content.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v){
+                Toast.makeText(Publish.this, "fuck", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
     }
@@ -136,25 +146,90 @@ public class Publish extends AppCompatActivity {
     }
 
     private void display(ArrayList<String> mSelectPath) {
-        for(int i= 0 ;i<imageViewArrayList.size();i++){
-            imageViewArrayList.get(i).setVisibility(View.GONE);
+        for(int i= 0 ;i<imageRelativeList.size();i++){
+            imageRelativeList.get(i).setVisibility(View.GONE);
         }
         for(int i = 0;i<mSelectPath.size();i++){
-            imageViewArrayList.get(i).setVisibility(View.VISIBLE);
+            imageRelativeList.get(i).setVisibility(View.VISIBLE);
             imageViewArrayList.get(i).setImageBitmap(BitmapFactory.decodeFile(mSelectPath.get(i)));
         }
     }
     private void initImageViewList(){
         imageViewArrayList = new ArrayList<>();
-        imageViewArrayList.add((ImageView)findViewById(R.id.first));
-        imageViewArrayList.add((ImageView)findViewById(R.id.second));
-        imageViewArrayList.add((ImageView)findViewById(R.id.third));
-        imageViewArrayList.add((ImageView)findViewById(R.id.fourth));
-        imageViewArrayList.add((ImageView)findViewById(R.id.fifth));
-        imageViewArrayList.add((ImageView)findViewById(R.id.sixth));
-        imageViewArrayList.add((ImageView)findViewById(R.id.seventh));
-        imageViewArrayList.add((ImageView)findViewById(R.id.eighth));
-        imageViewArrayList.add((ImageView)findViewById(R.id.ninth));
+        imageRelativeList = new ArrayList<>();
+        imageButtonArrayList = new ArrayList<>();
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.firstItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(0).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(0).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            imageButtonArrayList.get(0).setTag(0);
+            imageButtonArrayList.get(0).setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.secondItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(1).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(1).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(1);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.thirdItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(2).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(2).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(2);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.fourthItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(3).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(3).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(3);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.fifthItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(4).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(4).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(4);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.sixthItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(5).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(5).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(5);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.seventhItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(6).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(6).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(6);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.eighthItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(7).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(7).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(7);
+            temp.setOnClickListener(this);
+        }
+        {
+            imageRelativeList.add((RelativeLayout)findViewById(R.id.ninthItem));
+            ImageButton temp = (ImageButton) imageRelativeList.get(8).findViewById(R.id.imageItemButton);
+            imageViewArrayList.add((ImageView)imageRelativeList.get(8).findViewById(R.id.imageItem));
+            imageButtonArrayList.add(temp);
+            temp.setTag(8);
+            temp.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -175,6 +250,50 @@ public class Publish extends AppCompatActivity {
         option.setScanSpan(1000);//设置发起定位请求的间隔时间为1000ms
         option.setIsNeedAddress(true);//反编译获得具体位置，只有网络定位才可以
         mLocationClient.setLocOption(option);
+    }
+    @Override
+    public void onClick(View v) {
+        int id = (int)v.getTag();
+        switch (id){
+            case 0:
+                mSelectPath.remove(0);
+                display(mSelectPath);
+                break;
+            case 1:
+                mSelectPath.remove(1);
+                display(mSelectPath);
+                break;
+            case 2:
+                mSelectPath.remove(2);
+                display(mSelectPath);
+                break;
+            case 3:
+                mSelectPath.remove(3);
+                display(mSelectPath);
+                break;
+            case 4:
+                mSelectPath.remove(4);
+                display(mSelectPath);
+                break;
+            case 5:
+                mSelectPath.remove(5);
+                display(mSelectPath);
+                break;
+            case 6:
+                mSelectPath.remove(6);
+                display(mSelectPath);
+                break;
+            case 7:
+                mSelectPath.remove(7);
+                display(mSelectPath);
+                break;
+            case 8:
+                mSelectPath.remove(8);
+                display(mSelectPath);
+                break;
+            default:
+                break;
+        }
     }
     @Override
     public void onBackPressed() {

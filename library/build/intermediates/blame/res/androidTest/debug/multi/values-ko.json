@@ -1,10 +1,6 @@
 [
     {
-<<<<<<< HEAD
-        "outputFile": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ko\\values-ko.xml",
-=======
-        "outputFile": "F:\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ko\\values-ko.xml",
->>>>>>> origin/master
+        "outputFile": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ko\\values-ko.xml",
         "map": [
             {
                 "to": {
@@ -15,11 +11,7 @@
                     "endOffset": 116
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
->>>>>>> origin/master
+                    "file": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -38,11 +30,7 @@
                     "endOffset": 183
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
->>>>>>> origin/master
+                    "file": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -61,11 +49,69 @@
                     "endOffset": 252
                 },
                 "from": {
-<<<<<<< HEAD
-                    "file": "H:\\android-studio\\project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
-=======
-                    "file": "F:\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
->>>>>>> origin/master
+                    "file": "F:\\smallpakeage\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 188,
+                        "endColumn": 68,
+                        "endOffset": 252
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-ko\\values-ko.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 65,
+                    "endOffset": 116
+                },
+                "from": {
+                    "file": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 65,
+                        "endOffset": 116
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 121,
+                    "endColumn": 66,
+                    "endOffset": 183
+                },
+                "from": {
+                    "file": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 121,
+                        "endColumn": 66,
+                        "endOffset": 183
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 188,
+                    "endColumn": 68,
+                    "endOffset": 252
+                },
+                "from": {
+                    "file": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\values-ko\\values-ko.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,

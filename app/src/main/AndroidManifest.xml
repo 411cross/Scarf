@@ -54,9 +54,10 @@
         <activity android:name=".Activity.HotSearchActivity" />
         <activity android:name=".Activity.Publish" />
         <activity android:name=".Activity.PrivateMessageActivity" />
-        <activity android:name=".Activity.SearchResultActivity"></activity>
+        <activity android:name=".Activity.SearchResultActivity" />
         <activity android:name=".Activity.WeiboDetailActivity" />
-        <activity android:name=".Activity.UserDetailActivity"></activity>
+        <activity android:name=".Activity.UserDetailActivity" />
+        <activity android:name=".Activity.MyWebView"></activity>
     </application>
 
 </manifest>
