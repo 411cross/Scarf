@@ -1,4 +1,4 @@
-package com.example.jungle.weixin.Bean;
+package com.example.jungle.weixin.Bean.BaseBean;
 
 /**
  * Created by derrickJ on 2017/11/21.
