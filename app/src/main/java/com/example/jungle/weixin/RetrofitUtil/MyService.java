@@ -14,7 +14,7 @@ import rx.Observable;
 
 public interface MyService {
 
-    String BASE_URL = "https://api.weibo.com/2/";
+    String BASE_URL = "https://api.weibo.com/2/";  // 地址
 
     @FormUrlEncoded
     @POST("buyer-cloth/cloth/get-seller-cloth")
@@ -24,11 +24,63 @@ public interface MyService {
     @POST("buyer-cloth/collect-record")
     Observable<ResultBean<Data>> getData(@Field("token") String token);
 
-    @GET("buyer-cloth/collect-record")
-    Observable<ResultBean<Data>> geData(@Query("token") String token);
 
-    //首页 - 获取当前登录用户及其所关注（授权）用户的最新微博
-    @GET("statuses/home_timeline.json")
-    Observable<ResultBean<Data>> getHomeTimeline(@Query("token") String token);
+    //    根据微博ID返回某条微博的评论列表
+    @GET("comments/show.json")
+    Observable<ResultBean<Data>> commentsShow(@Query("access_token") String access_token, @Query("id") int id);
 
+    //    我发出的评论列表
+    @GET("comments/by_me.json")
+    Observable<ResultBean<Data>> commentsByMe(@Query("access_token") String access_token);
+
+    //获取当前登录用户所接收到的评论列表
+    @GET("comments/to_me.json")
+    Observable<ResultBean<Data>> commentsToMe(@Query("access_token") String access_token);
+
+    //获取@到我的评论
+    @GET("comments/mentions.json")
+    Observable<ResultBean<Data>> commentsMentions(@Query("access_token") String access_token);
+
+    //    对一条微博进行评论
+    @FormUrlEncoded
+    @POST("comments/create.json")
+    Observable<ResultBean<Data>> commentsCreate(@Field("access_token") String access_token, @Field("comment") String comment, @Field("id") int id);
+
+    //删除一条我的评论
+    @FormUrlEncoded
+    @POST("comments/destroy.json")
+    Observable<ResultBean<Data>> commentsDestroy(@Field("access_token") String access_token, @Field("cid") int cid);
+
+    //回复一条我收到的评论
+    @FormUrlEncoded
+    @POST("comments/reply.json")
+    Observable<ResultBean<Data>> commentsReply(@Field("access_token") String access_token, @Field("cid") int cid, @Field("id") int id, @Field("comment") String commment);
+
+    //根据用户ID获取用户信息
+    @GET("users/show.json")
+    Observable<ResultBean<Data>> usersShow(@Query("access_token") String access_token);
+
+    //通过个性域名获取用户信息
+    @GET("users/domain_show.json")
+    Observable<ResultBean<Data>> usersDomainShow(@Query("access_token") String access_token, @Query("domain") String domain);
+
+    //批量获取用户的粉丝数、关注数、微博数
+    @GET("users/counts.json")
+    Observable<ResultBean<Data>> usersCounts(@Query("access_token") String access_token, @Query("uids") String uids);
+
+    //获取用户的关注列表
+    @GET("friendships/friends.json")
+    Observable<ResultBean<Data>> friendshipsFriends(@Query("access_token") String access_token);
+
+    //获取用户粉丝列表
+    @GET("friendships/followers.json")
+    Observable<ResultBean<Data>> friendshipsFollowers(@Query("access_token") String access_token);
+
+    //获取两个用户之间是否存在关注关系
+    @GET("friendships/show.json")
+    Observable<ResultBean<Data>> friendshipsShow(@Query("access_token") String access_token);
+
+    //搜索某一话题下的微博
+    @GET("search/topics.json")
+    Observable<ResultBean<Data>> searchTopics(@Query("access_token") String access_token,@Query("q") String q);
 }
