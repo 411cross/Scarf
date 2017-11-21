@@ -76,10 +76,10 @@ public class CommentAdapter extends BaseAdapter {
         Comment comment = commentList.get(position);
         holder.avatarImage.setImageResource(R.drawable.ic_default_image);
         holder.identityIcon.setImageResource(R.drawable.dit);
-        holder.nickname.setText(comment.getName());
-        holder.comment.setText(comment.getComment());
-        holder.date.setText(DateUtils.formatDate(comment.getDate()));
-        holder.likeNum.setText(String.valueOf(comment.getLikeNum()));
+//        holder.nickname.setText(comment.getName());
+//        holder.comment.setText(comment.getComment());
+//        holder.date.setText(DateUtils.formatDate(comment.getDate()));
+//        holder.likeNum.setText(String.valueOf(comment.getLikeNum()));
 
         return convertView;
     }
