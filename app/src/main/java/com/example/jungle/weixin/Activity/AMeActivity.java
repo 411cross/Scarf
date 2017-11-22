@@ -11,10 +11,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.jungle.weixin.Adapter.AMeAdapter;
 import com.example.jungle.weixin.Adapter.CommentListAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
+import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
+import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -28,10 +32,10 @@ import retrofit2.Response;
 
 public class AMeActivity extends AppCompatSwipeBack {
     private String token;
-    private Comment[] comments;
-    private List<Comment> commentList;
+
+    private List<Status> status;
     private RecyclerView recyclerView;
-    private CommentListAdapter adapter;
+    private  AMeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,35 +53,26 @@ public class AMeActivity extends AppCompatSwipeBack {
         }
 
 
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).commentsMentions(token).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+
+        NetRequestFactory.getInstance().createService(MyService.class).getMentions(CodeUtils.getmToken()).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
             @Override
-            public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
-                comments = ReadCommentsData.body().getComments();
+            public void onSuccess(Response<StatusList> StatusList) {
+                status = StatusList.body().getStatuses();
                 recyclerView = (RecyclerView) findViewById(R.id.weibo_list);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(AMeActivity.this);
                 recyclerView.setLayoutManager(layoutManager);
-                commentList = Arrays.asList(comments);
-                Log.i("TAG1111111111", "onSuccess: "+commentList.size());
-                adapter = new CommentListAdapter(AMeActivity.this, commentList);
+                adapter = new AMeAdapter(AMeActivity.this, status );
                 recyclerView.setAdapter(adapter);
-                setFooterView(recyclerView);
             }
 
             @Override
-            public void _onError(Response<ReadCommentsData> ReadCommentsData) {
+            public void _onError(Response<StatusList> StatusList) {
 
             }
 
         });
 
 
-    }
-
-
-    private void setFooterView(RecyclerView view) {
-        View footer = LayoutInflater.from(AMeActivity.this).inflate(R.layout.recyclerview_footer, view, false);
-        adapter.setmFooterView(footer);
     }
 
     @Override

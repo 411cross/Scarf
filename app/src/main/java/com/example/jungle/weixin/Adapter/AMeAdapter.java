@@ -1,7 +1,11 @@
 package com.example.jungle.weixin.Adapter;
 
+/**
+ * Created by jungle on 2017/11/22.
+ */
+
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,16 +15,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
+import com.example.jungle.weixin.Activity.AMeActivity;
+import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
-import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
-import com.example.jungle.weixin.Activity.TotalActivity;
-import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
@@ -32,17 +34,15 @@ import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.nereo.multi_image_selector.bean.Image;
-
 
 /**
  * Created by derrickJ on 2017/11/8.
  */
 
-public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHolder> {
+public class AMeAdapter extends RecyclerView.Adapter<AMeAdapter.ViewHolder> {
 
 
-    private TotalActivity mContext;
+    private AMeActivity mContext;
     private List<Status> weiboList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -131,7 +131,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             moreBtn.setImageResource(R.drawable.down);
 
             view1 = view;
-
+//weiboMain = view.findViewById(R.id.weibo_main);
+//
             bodyView = (View) view.findViewById(R.id.body_layout);
             body = (TextView) bodyView.findViewById(R.id.body);
 
@@ -185,8 +186,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             repostIcon.setImageResource(R.drawable.repost_icon);
 
 
-
-            transmit_layout  = view.findViewById(R.id.weibo_transmit_layout);
+            transmit_layout = view.findViewById(R.id.weibo_transmit_layout);
 
         }
 
@@ -207,7 +207,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     }
 
-    public HomePageAdapter(TotalActivity context, List<Status> list) {
+    public AMeAdapter(AMeActivity context, List<Status> list) {
         mContext = context;
         weiboList = list;
     }
@@ -246,11 +246,12 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                 intent.putExtra("status", status);
                 mContext.startActivity(intent);
-                mContext.overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                mContext.overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         });
 
         int type = TypeUtils.getStatusType(status);
+        Log.i("是你吗？", "onBindViewHolder: " + status.toString());
         switch (type) {
             case 0:
                 holder.goneEverything();
@@ -286,7 +287,13 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
                 holder.reweiboView.setVisibility(View.VISIBLE);
                 Status restatus = status.getRetweeted_status();
-                String addName = "@" + restatus.getUser().getScreen_name() + " : " + restatus.getText();
+                String addName;
+                if (restatus.getUser() != null) {
+                    addName = "@" + restatus.getUser().getScreen_name() + " : " + restatus.getText();
+                } else {
+                    addName = restatus.getText();
+                }
+
                 int reType = TypeUtils.getStatusType(restatus);
                 switch (reType) {
                     case 0:
@@ -298,12 +305,12 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                         holder.reweiboMultiPicsView.setVisibility(View.VISIBLE);
                         holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
                         ArrayList<ImageInfo> reImageInfo = new ArrayList<>();
-                        List<PicURL> reUrls = restatus.getPic_urls();
+                        List<String> reUrls = restatus.getPic_ids();
                         if (reUrls != null) {
-                            for (PicURL picURL : reUrls) {
+                            for (String picURL : reUrls) {
                                 ImageInfo info = new ImageInfo();
-                                info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
-                                info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
+                                info.setThumbnailUrl("https://wx3.sinaimg.cn/thumbnail/" + picURL + ".jgp");
+                                info.setBigImageUrl("https://wx3.sinaimg.cn/bmiddle/" + picURL + ".jgp");
                                 reImageInfo.add(info);
                             }
                         }
@@ -315,51 +322,34 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                             holder.reweiboMultiPicsGrid.setGridSpacing(16);
                         }
                         break;
+                    case 7:
+                        holder.goneEverything();
+                        holder.bodyView.setVisibility(View.VISIBLE);
+                        holder.multiPicsView.setVisibility(View.VISIBLE);
+                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
+                        ArrayList<ImageInfo> imageInfo1 = new ArrayList<>();
+                        List<String> urls1 = restatus.getPic_ids();
+                        if (urls1 != null) {
+                            for (String picURL : urls1) {
+                                ImageInfo info = new ImageInfo();
+                                info.setThumbnailUrl("https://wx3.sinaimg.cn/thumbnail/" + picURL + ".jgp");
+                                info.setBigImageUrl("https://wx3.sinaimg.cn/bmiddle/" + picURL + ".jgp");
+                                imageInfo1.add(info);
+                            }
+                        }
+                        holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo1));
+                        if (urls1 != null && urls1.size() == 1) {
+//                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
+                            holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
+                        } else {
+                            holder.multiPicsGrid.setGridSpacing(16);
+                        }
+                        break;
                 }
                 break;
+
         }
 
-//        switch (weibo.getType()) {
-//            case 0:
-//                holder.goneEverything();
-//                holder.bodyView.setVisibility(View.VISIBLE);
-//                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                break;
-//            case 1:
-//                holder.goneEverything();
-//                holder.singlePicView.setVisibility(View.VISIBLE);
-//                break;
-//            case 2:
-//                holder.goneEverything();
-//                holder.bodyView.setVisibility(View.VISIBLE);
-//                holder.singlePicView.setVisibility(View.VISIBLE);
-//                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                holder.singlePic.setImageResource(weibo.getImage());
-//                break;
-//            case 3:
-//                holder.goneEverything();
-//                holder.bodyView.setVisibility(View.VISIBLE);
-//                holder.multiPicsView.setVisibility(View.VISIBLE);
-//                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-//                List<WeiboImage> images = weiboList.get(position).getImageurls();
-//                if (images != null) {
-//                    for (WeiboImage image : images) {
-//                        ImageInfo info = new ImageInfo();
-//                        info.setThumbnailUrl(image.getUrl());
-//                        info.setBigImageUrl(image.getUrl());
-//                        imageInfo.add(info);
-//                    }
-//                }
-//                holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
-//                if (images != null && images.size() == 1) {
-////                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
-//                    holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
-//                } else {
-//                    holder.multiPicsGrid.setGridSpacing(16);
-//                }
-//                break;
-//        }
 
     }
 
@@ -372,6 +362,5 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     }
 
 
-
-
 }
+

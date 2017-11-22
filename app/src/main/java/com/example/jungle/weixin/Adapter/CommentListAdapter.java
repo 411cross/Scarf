@@ -103,6 +103,17 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         LinearLayout commentLinear;
         LinearLayout aMeLinear;
 
+        View transmit_layout;
+        ImageView transmit_image;
+        TextView transmit_comment;
+        TextView transmit_weibo_title;
+        TextView transmit_weibo_content;
+
+        View weiboFunctionView;
+        TextView repostNum;
+        TextView commentNum;
+        TextView likeNum;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -172,6 +183,18 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             reweiboPassageSubTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_subtitle);
 //            reweiboPassageView.setVisibility(View.GONE);
 
+            transmit_layout = view.findViewById(R.id.weibo_transmit_layout);
+            transmit_comment = (TextView) transmit_layout.findViewById(R.id.transmit_comment);
+            transmit_image = (ImageView) transmit_layout.findViewById(R.id.transmit_weibo_image);
+            transmit_weibo_title = (TextView) transmit_layout.findViewById(R.id.transmit_weibo_title);
+            transmit_weibo_content = (TextView) transmit_layout.findViewById(R.id.transmit_weibo_passage);
+
+            weiboFunctionView = view.findViewById(R.id.weibo_functions_layout);
+            repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
+            commentNum = (TextView) weiboFunctionView.findViewById(R.id.comment_num);
+            likeNum = (TextView) weiboFunctionView.findViewById(R.id.like_num);
+            weiboFunctionView.setVisibility(View.GONE);
+
         }
 
         private void goneEverything() {
@@ -186,6 +209,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             reweiboMultiPicsView.setVisibility(View.GONE);
             reweiboVideoView.setVisibility(View.GONE);
             reweiboPassageView.setVisibility(View.GONE);
+            transmit_layout.setVisibility(View.GONE);
         }
 
     }
@@ -235,48 +259,15 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 //
 //                    }
 //                });
-                switch (TypeUtils.getStatusType(comment.getStatus())) {
-                    case 0:
-                        holder.goneEverything();
-                        holder.bodyView.setVisibility(View.VISIBLE);
-                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body,comment.getText()));
-                        break;
-//                    case 1:
-//                        holder.goneEverything();
-//                        holder.singlePicView.setVisibility(View.VISIBLE);
-//                        break;
-//                    case 2:
-//                        holder.goneEverything();
-//                        holder.bodyView.setVisibility(View.VISIBLE);
-//                        holder.singlePicView.setVisibility(View.VISIBLE);
-//                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                        holder.singlePic.setImageResource(weibo.getImage());
-//                        break;
-//                    case 3:
-//                        holder.goneEverything();
-//                        holder.bodyView.setVisibility(View.VISIBLE);
-//                        holder.multiPicsView.setVisibility(View.VISIBLE);
-//                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-//                        List<WeiboImage> images = commentList.get(position-1).getImageurls();
-//                        if (images != null) {
-//                            for (WeiboImage image : images) {
-//                                ImageInfo info = new ImageInfo();
-//                                info.setThumbnailUrl(image.getUrl());
-//                                info.setBigImageUrl(image.getUrl());
-//                                imageInfo.add(info);
-//                            }
-//                        }
-//                        holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
-//                        if (images != null && images.size() == 1) {
-////                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
-//                            holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
-//                        } else {
-//                            holder.multiPicsGrid.setGridSpacing(16);
-//                        }
-//                        break;
-                }
-                return;
+                holder.goneEverything();
+                holder.bodyView.setVisibility(View.VISIBLE);
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getText()));
+                holder.transmit_layout.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(comment.getStatus().getThumbnail_pic()).centerCrop().into(holder.transmit_image);
+                holder.transmit_weibo_content.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getStatus().getText()));
+                holder.transmit_weibo_title.setText(comment.getStatus().getUser().getScreen_name());
+                holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
+
             }
             return;
         } else if (getItemViewType(position) == TYPE_HEADER) {

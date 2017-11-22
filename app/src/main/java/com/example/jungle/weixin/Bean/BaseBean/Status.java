@@ -26,8 +26,10 @@ public class Status implements Serializable {
     private int attitudes_count; // 赞数
     private List<PicURL> pic_urls = new ArrayList<>();
     private boolean favorited;
+    private List<String> pic_ids = new ArrayList<>();
 
-    public Status(long id, long mid, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, boolean favorited) {
+
+    public Status(long id, long mid, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, boolean favorited, List<String> pic_ids) {
         this.id = id;
         this.mid = mid;
         this.created_at = created_at;
@@ -44,6 +46,7 @@ public class Status implements Serializable {
         this.attitudes_count = attitudes_count;
         this.pic_urls = pic_urls;
         this.favorited = favorited;
+        this.pic_ids = pic_ids;
     }
 
     public long getId() {
@@ -174,4 +177,11 @@ public class Status implements Serializable {
         this.favorited = favorited;
     }
 
+    public List<String> getPic_ids() {
+        return pic_ids;
+    }
+
+    public void setPic_ids(List<String> pic_ids) {
+        this.pic_ids = pic_ids;
+    }
 }

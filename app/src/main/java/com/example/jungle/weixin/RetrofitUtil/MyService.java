@@ -48,7 +48,7 @@ public interface MyService {
 
     // 获取最新的提到登录用户的微博列表，即@我的微博
     @GET("statuses/mentions.json")
-    Observable<ResultBean<StatusList>> getMentions(@Query("access_token") String access_token);
+    Observable<Response<StatusList>> getMentions(@Query("access_token") String access_token);
 
     // 根据微博ID获取单条微博内容
     @GET("statuses/show.json")

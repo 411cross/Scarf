@@ -205,6 +205,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
             commentNum = (TextView) weiboFunctionView.findViewById(R.id.comment_num);
             likeNum = (TextView) weiboFunctionView.findViewById(R.id.like_num);
+            weiboFunctionView.setVisibility(View.GONE);
 
         }
 
