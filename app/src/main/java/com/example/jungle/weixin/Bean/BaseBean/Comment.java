@@ -6,16 +6,16 @@ package com.example.jungle.weixin.Bean.BaseBean;
 
 public class Comment {
 
-    private int id;
+    private long id;
     private String created_at;
     private String text;
     private String source;
     private User user;
     private String mid;
     private Status status;
-    private Comment reply_comment;
+    private Object reply_comment;
 
-    public Comment(int id, String created_at, String text, String source, User user, String mid, Status status, Comment reply_comment) {
+    public Comment(long id, String created_at, String text, String source, User user, String mid, Status status, Object reply_comment) {
         this.id = id;
         this.created_at = created_at;
         this.text = text;
@@ -26,11 +26,11 @@ public class Comment {
         this.reply_comment = reply_comment;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -82,11 +82,11 @@ public class Comment {
         this.status = status;
     }
 
-    public Comment getReply_comment() {
+    public Object getReply_comment() {
         return reply_comment;
     }
 
-    public void setReply_comment(Comment reply_comment) {
+    public void setReply_comment(Object reply_comment) {
         this.reply_comment = reply_comment;
     }
 }

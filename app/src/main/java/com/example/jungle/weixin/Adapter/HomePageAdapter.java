@@ -13,11 +13,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
+import com.example.jungle.weixin.Bean.BaseBean.PicURL;
+import com.example.jungle.weixin.Bean.BaseBean.Status;
+import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
+import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
@@ -37,7 +42,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
 
     private TotalActivity mContext;
-    private List<Weibo> weiboList;
+    private List<Status> weiboList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -49,6 +54,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         TextView nickname;
         TextView date;
         TextView time;
+        TextView sourceTag;
         TextView source;
         ImageButton moreBtn;
 
@@ -116,6 +122,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             identityIcon = (ImageView) weiboHead.findViewById(R.id.identity_icon);
             nickname = (TextView) weiboHead.findViewById(R.id.nickname);
             date = (TextView) weiboHead.findViewById(R.id.date);
+            sourceTag = (TextView) weiboHead.findViewById(R.id.source_tag);
             source = (TextView) weiboHead.findViewById(R.id.source);
             moreBtn = (ImageButton) weiboHead.findViewById(R.id.more_btn);
             moreBtn.setImageResource(R.drawable.down);
@@ -193,7 +200,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     }
 
-    public HomePageAdapter(TotalActivity context, List<Weibo> list) {
+    public HomePageAdapter(TotalActivity context, List<Status> list) {
         mContext = context;
         weiboList = list;
     }
@@ -209,62 +216,110 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final Weibo weibo = weiboList.get(position);
-        Glide.with(mContext).load(weibo.getAvatarURL()).into(holder.avatarImage);
-        holder.nickname.setText(weibo.getNickname());
-        holder.date.setText(DateUtils.formatDate(weibo.getDate()));
-        holder.source.setText(weibo.getSource());
+        final Status status = weiboList.get(position);
+        User user = status.getUser();
+        Glide.with(mContext).load(user.getProfile_image_url()).into(holder.avatarImage);
+        holder.nickname.setText(user.getScreen_name());
+        holder.date.setText(DateUtils.formatDate(status.getCreated_at()));
+        String source = status.getSource();
+        if (source.length() != 0) {
+            int start = source.indexOf(">") + 1;
+            int end = source.indexOf("</a>");
+            holder.source.setText(source.substring(start, end));
+        } else {
+            holder.sourceTag.setVisibility(View.GONE);
+            holder.source.setVisibility(View.GONE);
+        }
+        holder.repostNum.setText(status.getReposts_count() + "");
+        holder.commentNum.setText(status.getComments_count() + "");
+        holder.likeNum.setText(status.getAttitudes_count() + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
-                intent.putExtra("weibo", weibo);
+                intent.putExtra("weibo", status);
                 mContext.startActivity(intent);
                 mContext.overridePendingTransition(R.anim.left_in,R.anim.right_out);
-
             }
         });
-        switch (weibo.getType()) {
+
+        int type = TypeUtils.getStatusType(status);
+
+        switch (type) {
             case 0:
                 holder.goneEverything();
                 holder.bodyView.setVisibility(View.VISIBLE);
-                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
                 break;
             case 1:
                 holder.goneEverything();
-                holder.singlePicView.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                holder.goneEverything();
-                holder.bodyView.setVisibility(View.VISIBLE);
-                holder.singlePicView.setVisibility(View.VISIBLE);
-                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-                holder.singlePic.setImageResource(weibo.getImage());
-                break;
-            case 3:
-                holder.goneEverything();
                 holder.bodyView.setVisibility(View.VISIBLE);
                 holder.multiPicsView.setVisibility(View.VISIBLE);
-                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
                 ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-                List<WeiboImage> images = weiboList.get(position).getImageurls();
-                if (images != null) {
-                    for (WeiboImage image : images) {
+                List<PicURL> urls = weiboList.get(position).getPic_urls();
+                if (urls != null) {
+                    for (PicURL picURL : urls) {
                         ImageInfo info = new ImageInfo();
-                        info.setThumbnailUrl(image.getUrl());
-                        info.setBigImageUrl(image.getUrl());
+                        info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
+                        info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
                         imageInfo.add(info);
                     }
                 }
                 holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
-                if (images != null && images.size() == 1) {
+                if (urls != null && urls.size() == 1) {
 //                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
                     holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
                 } else {
                     holder.multiPicsGrid.setGridSpacing(16);
                 }
                 break;
+            case 5:
+
+                break;
         }
+
+//        switch (weibo.getType()) {
+//            case 0:
+//                holder.goneEverything();
+//                holder.bodyView.setVisibility(View.VISIBLE);
+//                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
+//                break;
+//            case 1:
+//                holder.goneEverything();
+//                holder.singlePicView.setVisibility(View.VISIBLE);
+//                break;
+//            case 2:
+//                holder.goneEverything();
+//                holder.bodyView.setVisibility(View.VISIBLE);
+//                holder.singlePicView.setVisibility(View.VISIBLE);
+//                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
+//                holder.singlePic.setImageResource(weibo.getImage());
+//                break;
+//            case 3:
+//                holder.goneEverything();
+//                holder.bodyView.setVisibility(View.VISIBLE);
+//                holder.multiPicsView.setVisibility(View.VISIBLE);
+//                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
+//                ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+//                List<WeiboImage> images = weiboList.get(position).getImageurls();
+//                if (images != null) {
+//                    for (WeiboImage image : images) {
+//                        ImageInfo info = new ImageInfo();
+//                        info.setThumbnailUrl(image.getUrl());
+//                        info.setBigImageUrl(image.getUrl());
+//                        imageInfo.add(info);
+//                    }
+//                }
+//                holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
+//                if (images != null && images.size() == 1) {
+////                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
+//                    holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
+//                } else {
+//                    holder.multiPicsGrid.setGridSpacing(16);
+//                }
+//                break;
+//        }
 
     }
 

@@ -66,30 +66,30 @@ public class MyWebView extends AppCompatActivity {
                 super.onPageStarted(view, url, favicon);
                 Log.i("fuck", "onPageStarted: "+ url+"     "+url.indexOf("getToken?code="));
             }
-            @Override
-            public void onPageFinished(WebView view, final String url) {
-                if (url.indexOf("getToken?code=") > 0) {
-                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<ResultBean<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Login>() {
-                        @Override
-                        public void onSuccess(Login login) {
-                            ed.putString("Access_token",login.getAccess_token());
-                            ed.commit();
-                            Log.i("Success", login.getAccess_token());
-                            Log.i("sp", sp.getString("Access_token",null));
-                            //请求完成后需要将此activity结束 避免用户看到关键信息
-                            finish();
-                        }
-
-                        @Override
-                        public void _onError(Throwable e) {
-                            //重新加载授权页面
-                            mWebView.loadUrl(loginUrl);
-                            Log.i("error", e.toString());
-                        }
-                    });
-                }
-                super.onPageFinished(view, url);
-            }
+//            @Override
+//            public void onPageFinished(WebView view, final String url) {
+//                if (url.indexOf("getToken?code=") > 0) {
+//                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<ResultBean<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Login>() {
+//                        @Override
+//                        public void onSuccess(Login login) {
+//                            ed.putString("Access_token",login.getAccess_token());
+//                            ed.commit();
+//                            Log.i("Success", login.getAccess_token());
+//                            Log.i("sp", sp.getString("Access_token",null));
+//                            //请求完成后需要将此activity结束 避免用户看到关键信息
+//                            finish();
+//                        }
+//
+//                        @Override
+//                        public void _onError(Throwable e) {
+//                            //重新加载授权页面
+//                            mWebView.loadUrl(loginUrl);
+//                            Log.i("error", e.toString());
+//                        }
+//                    });
+//                }
+//                super.onPageFinished(view, url);
+//            }
         });
         mWebView.loadUrl(loginUrl);
 

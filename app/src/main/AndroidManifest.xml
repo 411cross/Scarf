@@ -57,7 +57,9 @@
         <activity android:name=".Activity.SearchResultActivity" />
         <activity android:name=".Activity.WeiboDetailActivity" />
         <activity android:name=".Activity.UserDetailActivity" />
-        <activity android:name=".Activity.MyWebView"></activity>
+        <activity android:name=".Activity.MyWebView" />
+        <activity android:name=".Activity.CommentActivity" />
+        <activity android:name=".Activity.AMeActivity"></activity>
     </application>
 
 </manifest>

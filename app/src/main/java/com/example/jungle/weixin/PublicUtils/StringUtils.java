@@ -3,7 +3,10 @@ package com.example.jungle.weixin.PublicUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
@@ -23,15 +26,16 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
-    public static SpannableString transformWeiboBody(final Context context, final TextView tv, String original) {
+    public static SpannableStringBuilder transformWeiboBody(final Context context, final TextView tv, String original) {
 
         String regexAt = "@[\u4e00-\u9fa5\\w]+";
         String regexTopic = "#[\u4e00-\u9fa5\\w]+#";
         String regexEmoji = "\\[[\u4e00-\u9fa5\\w]+\\]";
+        String regexLink = "http://[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
 
-        String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")";
+        String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")|(" + regexLink + ")";
 
-        SpannableString spannableString = new SpannableString(original);
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(original);
         Pattern pattern = Pattern.compile(regexGroup);
         Matcher matcher = pattern.matcher(spannableString);
 
@@ -44,17 +48,22 @@ public class StringUtils {
             final String atStr = matcher.group(1);
             final String topicStr = matcher.group(2);
             String emojiStr = matcher.group(3);
+            final String linkStr = matcher.group(4);
+
+            int size = (int) tv.getTextSize();
 
             // @部分
             if (atStr != null) {
                 int start = matcher.start(1);
+                int end = matcher.end(1);
                 ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
                     @Override
                     public void onClick(View widget) {
                         ToastUtils.showShortToast(context, "用户: " + atStr);
                     }
                 };
-                spannableString.setSpan(clickableSpan, start, start + atStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                spannableString.removeSpan(atStr);
+                spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
 
             // #话题部分
@@ -77,11 +86,28 @@ public class StringUtils {
                 Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imgRes);
 
                 if (bitmap != null) {
-                    int size = (int) tv.getTextSize();
                     bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
                     ImageSpan imageSpan = new ImageSpan(context, bitmap);
                     spannableString.setSpan(imageSpan, start, start + emojiStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
+            }
+
+            // 🔗链接部分
+            if (linkStr != null) {
+                int start = matcher.start(4);
+                int end = matcher.end(4);
+                System.out.println("_+_++_+_+_+_+_+_+_+_+" + start);
+                System.out.println("+_+_+_+_+_+_+_+_+_+_+" + end);
+                ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
+                    @Override
+                    public void onClick(View widget) {
+                        ToastUtils.showShortToast(context, "链接: " + linkStr);
+                    }
+                };
+                SpannableStringBuilder urlSpannableString = getUrlTextSpannableString(context, linkStr, size);
+                spannableString.replace(start, end, urlSpannableString);
+                spannableString.setSpan(clickableSpan, start, start + urlSpannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                matcher = pattern.matcher(spannableString);
             }
 
         }
@@ -107,6 +133,26 @@ public class StringUtils {
             ds.setColor(context.getResources().getColor(R.color.colorLink));
             ds.setUnderlineText(false);
         }
+    }
+
+    private static SpannableStringBuilder getUrlTextSpannableString(Context context, String source, int size) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(source);
+        String prefix = " ";
+        builder.replace(0, source.length(), prefix);
+//        Drawable drawable = context.getResources().getDrawable(R.drawable.link_icon);
+//        drawable.setBounds(0, 0, size, size);
+//        builder.setSpan(drawable, 0, prefix.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        builder.append(" 网页链接");
+//
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.link_icon);
+
+        if (bitmap != null) {
+            bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
+            ImageSpan imageSpan = new ImageSpan(context, bitmap);
+            builder.setSpan(imageSpan, 0, prefix.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            builder.append(" 网页链接");
+        }
+        return builder;
     }
 
 }

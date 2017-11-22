@@ -1,13 +1,17 @@
 package com.example.jungle.weixin.Bean.BaseBean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by derrickJ on 2017/11/21.
  */
 
-public class Status {
+public class Status implements Serializable {
 
-    private int id;
-    private int mid;
+    private long id;
+    private long mid;
     private String created_at;
     private String text;
     private String source;
@@ -20,13 +24,13 @@ public class Status {
     private int reposts_count;
     private int comments_count;
     private int attitudes_count; // 赞数
-    private PicIds[] pic_ids; //用返回字段thumbnail_pic的地址配上该返回字段的图片ID，即可得到多个图片url。
+    private List<PicURL> pic_urls = new ArrayList<>();
     private boolean favorited;
 
-    public Status(String created_at, int id, int mid, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, PicIds[] pic_ids, boolean favorited) {
-        this.created_at = created_at;
+    public Status(long id, long mid, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, boolean favorited) {
         this.id = id;
         this.mid = mid;
+        this.created_at = created_at;
         this.text = text;
         this.source = source;
         this.thumbnail_pic = thumbnail_pic;
@@ -38,8 +42,24 @@ public class Status {
         this.reposts_count = reposts_count;
         this.comments_count = comments_count;
         this.attitudes_count = attitudes_count;
-        this.pic_ids = pic_ids;
+        this.pic_urls = pic_urls;
         this.favorited = favorited;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getMid() {
+        return mid;
+    }
+
+    public void setMid(long mid) {
+        this.mid = mid;
     }
 
     public String getCreated_at() {
@@ -48,22 +68,6 @@ public class Status {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getMid() {
-        return mid;
-    }
-
-    public void setMid(int mid) {
-        this.mid = mid;
     }
 
     public String getText() {
@@ -154,12 +158,12 @@ public class Status {
         this.attitudes_count = attitudes_count;
     }
 
-    public PicIds[] getPic_ids() {
-        return pic_ids;
+    public List<PicURL> getPic_urls() {
+        return pic_urls;
     }
 
-    public void setPic_ids(PicIds[] pic_ids) {
-        this.pic_ids = pic_ids;
+    public void setPic_urls(List<PicURL> pic_urls) {
+        this.pic_urls = pic_urls;
     }
 
     public boolean isFavorited() {
@@ -168,22 +172,6 @@ public class Status {
 
     public void setFavorited(boolean favorited) {
         this.favorited = favorited;
-    }
-
-    public class PicIds {
-        private int id;
-
-        public PicIds(int id) {
-            this.id = id;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
     }
 
 }
