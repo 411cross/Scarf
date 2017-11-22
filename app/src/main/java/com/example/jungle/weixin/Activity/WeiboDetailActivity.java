@@ -372,6 +372,10 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
             case R.id.share_wechat:
                 break;
             case R.id.share_weibo:
+                Intent intent = new Intent(WeiboDetailActivity.this,Publish.class);
+                intent.putExtra("previousActivity",1);
+                intent.putExtra("Body",weibo.getBody());
+                startActivity(intent);
                 break;
             case R.id.share_circle:
                 break;

@@ -59,7 +59,8 @@
         <activity android:name=".Activity.UserDetailActivity" />
         <activity android:name=".Activity.MyWebView" />
         <activity android:name=".Activity.CommentActivity" />
-        <activity android:name=".Activity.AMeActivity"></activity>
+        <activity android:name=".Activity.AMeActivity" />
+        <activity android:name=".Activity.HotTopicActivity"></activity>
     </application>
 
 </manifest>
