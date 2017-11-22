@@ -1,10 +1,12 @@
 package com.example.jungle.weixin.Bean.BaseBean;
 
+import java.io.Serializable;
+
 /**
  * Created by derrickJ on 2017/11/21.
  */
 
-public class PicURL {
+public class PicURL implements Serializable {
 
     private String thumbnail_pic;
 
