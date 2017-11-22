@@ -237,7 +237,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
-                intent.putExtra("weibo", status);
+                intent.putExtra("status", status);
                 mContext.startActivity(intent);
                 mContext.overridePendingTransition(R.anim.left_in,R.anim.right_out);
             }
@@ -257,7 +257,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 holder.multiPicsView.setVisibility(View.VISIBLE);
                 holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
                 ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-                List<PicURL> urls = weiboList.get(position).getPic_urls();
+                List<PicURL> urls = status.getPic_urls();
                 if (urls != null) {
                     for (PicURL picURL : urls) {
                         ImageInfo info = new ImageInfo();
@@ -275,7 +275,41 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 }
                 break;
             case 5:
-
+                holder.goneEverything();
+                holder.bodyView.setVisibility(View.VISIBLE);
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
+                holder.reweiboView.setVisibility(View.VISIBLE);
+                Status restatus = status.getRetweeted_status();
+                String addName = "@" + restatus.getUser().getScreen_name() + " : " + restatus.getText();
+                int reType = TypeUtils.getStatusType(restatus);
+                switch (reType) {
+                    case 0:
+                        holder.reweiboBodyView.setVisibility(View.VISIBLE);
+                        holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
+                        break;
+                    case 1:
+                        holder.reweiboBodyView.setVisibility(View.VISIBLE);
+                        holder.reweiboMultiPicsView.setVisibility(View.VISIBLE);
+                        holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
+                        ArrayList<ImageInfo> reImageInfo = new ArrayList<>();
+                        List<PicURL> reUrls = restatus.getPic_urls();
+                        if (reUrls != null) {
+                            for (PicURL picURL : reUrls) {
+                                ImageInfo info = new ImageInfo();
+                                info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
+                                info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
+                                reImageInfo.add(info);
+                            }
+                        }
+                        holder.reweiboMultiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, reImageInfo));
+                        if (reUrls != null && reUrls.size() == 1) {
+//                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
+                            holder.reweiboMultiPicsGrid.setSingleImageRatio(3.0f / 2);
+                        } else {
+                            holder.reweiboMultiPicsGrid.setGridSpacing(16);
+                        }
+                        break;
+                }
                 break;
         }
 
