@@ -18,7 +18,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"
-        app:srcCompat="@drawable/dji" />
+        app:srcCompat="@drawable/wechat" />
 
     <ImageView
         android:id="@+id/identity_icon"
@@ -26,7 +26,7 @@
         android:layout_height="20dp"
         android:layout_alignBottom="@+id/avatar"
         android:layout_alignRight="@+id/avatar"
-        app:srcCompat="@drawable/dit" />
+        app:srcCompat="@drawable/search" />
 
     <TextView
         style="@style/shadowText"

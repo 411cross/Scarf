@@ -23,9 +23,9 @@ public class TypeUtils {
 
         int type = 0;
 
-        if (status.getPic_urls().size() != 0) {
-            type = 1;
-        }
+//        if (status.getPic_urls().size() != 0) {
+//            type = 1;
+//        }
 
         if (status.getRetweeted_status() != null) {
             type = 5;

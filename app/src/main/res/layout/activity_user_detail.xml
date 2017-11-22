@@ -51,7 +51,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="28dp"
                     android:layout_marginTop="48dp"
-                    app:srcCompat="@drawable/dji" />
+                    app:srcCompat="@drawable/ciircle" />
 
                 <ImageView
                     android:id="@+id/identity_icon"
@@ -59,7 +59,7 @@
                     android:layout_height="20dp"
                     android:layout_alignBottom="@+id/avatar"
                     android:layout_alignRight="@+id/avatar"
-                    app:srcCompat="@drawable/dit" />
+                    app:srcCompat="@drawable/wechat" />
 
                 <TextView
                     android:id="@+id/follow_tag"

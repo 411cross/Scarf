@@ -15,11 +15,11 @@ public class EmojiUtils {
 
     static {
         emojiMap = new HashMap<String, Integer>();
-        emojiMap.put("[害羞]", R.drawable.dit);
-        emojiMap.put("[吐舌]", R.drawable.diy);
-        emojiMap.put("[傻笑]", R.drawable.diz);
-        emojiMap.put("[冷笑]", R.drawable.djg);
-        emojiMap.put("[惊恐]", R.drawable.djl);
+//        emojiMap.put("[害羞]", R.drawable.dit);
+//        emojiMap.put("[吐舌]", R.drawable.diy);
+//        emojiMap.put("[傻笑]", R.drawable.diz);
+//        emojiMap.put("[冷笑]", R.drawable.djg);
+//        emojiMap.put("[惊恐]", R.drawable.djl);
     }
 
     public static int getEmojiByName(String emojiName) {
