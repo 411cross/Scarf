@@ -1,10 +1,12 @@
 package com.example.jungle.weixin.Bean.BaseBean;
 
+import java.io.Serializable;
+
 /**
  * Created by derrickJ on 2017/11/21.
  */
 
-public class Geo {
+public class Geo implements Serializable {
 
     private String city_name;
     private String province_name;

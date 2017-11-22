@@ -1,10 +1,12 @@
 package com.example.jungle.weixin.Bean.BaseBean;
 
+import java.io.Serializable;
+
 /**
  * Created by derrickJ on 2017/11/21.
  */
 
-public class User {
+public class User implements Serializable{
 
     private long id;
     private String screen_name;

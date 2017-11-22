@@ -28,12 +28,13 @@ public class StringUtils {
 
     public static SpannableStringBuilder transformWeiboBody(final Context context, final TextView tv, String original) {
 
-        String regexAt = "@[\u4e00-\u9fa5\\w]+";
-        String regexTopic = "#[\u4e00-\u9fa5\\w]+#";
+        String regexAt = "@[\u4e00-\u9fa5a-zA-Z0-9+&@#/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+";
+        String regexTopic = "#[\u4e00-\u9fa5a-zA-Z0-9+&@#/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+#";
         String regexEmoji = "\\[[\u4e00-\u9fa5\\w]+\\]";
         String regexLink = "http://[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
+        String regexMore = "全文： http://m\\.weibo\\.cn[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
 
-        String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")|(" + regexLink + ")";
+        String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")|(" + regexLink + ")|(" + regexMore + ")";
 
         SpannableStringBuilder spannableString = new SpannableStringBuilder(original);
         Pattern pattern = Pattern.compile(regexGroup);
@@ -49,6 +50,7 @@ public class StringUtils {
             final String topicStr = matcher.group(2);
             String emojiStr = matcher.group(3);
             final String linkStr = matcher.group(4);
+            final String moreStr = matcher.group(5);
 
             int size = (int) tv.getTextSize();
 
@@ -96,8 +98,6 @@ public class StringUtils {
             if (linkStr != null) {
                 int start = matcher.start(4);
                 int end = matcher.end(4);
-                System.out.println("_+_++_+_+_+_+_+_+_+_+" + start);
-                System.out.println("+_+_+_+_+_+_+_+_+_+_+" + end);
                 ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
                     @Override
                     public void onClick(View widget) {
@@ -110,10 +110,28 @@ public class StringUtils {
                 matcher = pattern.matcher(spannableString);
             }
 
+            // 全文部分
+            if (moreStr != null) {
+                int start = matcher.start(5);
+                int end = matcher.end(5);
+                ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
+                    @Override
+                    public void onClick(View widget) {
+                        ToastUtils.showShortToast(context, moreStr);
+                    }
+                };
+                SpannableStringBuilder moreSpannableString = getMoreSpannableString(moreStr);
+                spannableString.replace(start, end, moreSpannableString);
+                spannableString.setSpan(clickableSpan, start, start + moreSpannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                matcher = pattern.matcher(spannableString);
+            }
+
         }
 
         return spannableString;
     }
+
+
 
     static class ScarfClickableSpan extends ClickableSpan {
 
@@ -139,11 +157,6 @@ public class StringUtils {
         SpannableStringBuilder builder = new SpannableStringBuilder(source);
         String prefix = " ";
         builder.replace(0, source.length(), prefix);
-//        Drawable drawable = context.getResources().getDrawable(R.drawable.link_icon);
-//        drawable.setBounds(0, 0, size, size);
-//        builder.setSpan(drawable, 0, prefix.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//        builder.append(" 网页链接");
-//
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.link_icon);
 
         if (bitmap != null) {
@@ -153,6 +166,36 @@ public class StringUtils {
             builder.append(" 网页链接");
         }
         return builder;
+    }
+
+    private static SpannableStringBuilder getMoreSpannableString(String source) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(source);
+        String prefix = " ";
+        builder.replace(0, source.length(), prefix);
+        builder.append("全文");
+        return builder;
+    }
+
+    public static String getMoreURL(String original) {
+
+        String result = "noMore";
+
+        String regexMore = "全文： http://m\\.weibo\\.cn[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
+
+        String regexGroup = "(" + regexMore + ")";
+
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(original);
+        Pattern pattern = Pattern.compile(regexGroup);
+        Matcher matcher = pattern.matcher(spannableString);
+
+        while (matcher.find()) {
+            final String moreStr = matcher.group(1);
+            if (moreStr != null) {
+                result = moreStr.replaceAll("全文： ", "");
+            }
+        }
+
+        return result;
     }
 
 }
