@@ -3,6 +3,7 @@ package com.example.jungle.weixin.Adapter;
 import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,6 +112,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
         View view1;
 
+        View transmit_layout;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -182,6 +185,10 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
             repostIcon.setImageResource(R.drawable.repost_icon);
 
+
+
+            transmit_layout  = view.findViewById(R.id.weibo_transmit_layout);
+
         }
 
         private void goneEverything() {
@@ -196,6 +203,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             reweiboMultiPicsView.setVisibility(View.GONE);
             reweiboVideoView.setVisibility(View.GONE);
             reweiboPassageView.setVisibility(View.GONE);
+            transmit_layout.setVisibility(View.GONE);
         }
 
     }
@@ -244,7 +252,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         });
 
         int type = TypeUtils.getStatusType(status);
-
+        Log.i("是你吗？" , "onBindViewHolder: "+status.toString());
         switch (type) {
             case 0:
                 holder.goneEverything();

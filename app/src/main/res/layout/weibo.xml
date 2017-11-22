@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/colorWeibo">
+    android:background="@color/colorWeibo"
+    android:orientation="vertical">
 
     <include
-        layout="@layout/weibo_head"
         android:id="@+id/weibo_head_layout"
+        layout="@layout/weibo_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -18,55 +18,60 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/weibo_body"
             android:id="@+id/body_layout"
+            layout="@layout/weibo_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
-            layout="@layout/weibo_single_pic"
             android:id="@+id/single_pic_layout"
+            layout="@layout/weibo_single_pic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
-            layout="@layout/weibo_multi_pics"
             android:id="@+id/multi_pics_layout"
+            layout="@layout/weibo_multi_pics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
-            layout="@layout/weibo_video"
             android:id="@+id/video_layout"
+            layout="@layout/weibo_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <include
-            layout="@layout/weibo_passage"
             android:id="@+id/passage_layout"
+            layout="@layout/weibo_passage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
     <include
-        layout="@layout/reweibo"
         android:id="@+id/reweibo_layout"
+        layout="@layout/reweibo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
     <include
-        layout="@layout/weibo_functions"
+        android:id="@+id/weibo_transmit_layout"
+        layout="@layout/weibo_transmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <include
         android:id="@+id/weibo_functions_layout"
+        layout="@layout/weibo_functions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
 
     <include
-        layout="@layout/public_split_line"
         android:id="@+id/weibo_split"
+        layout="@layout/public_split_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 
 
 </LinearLayout>

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.AMeActivity;
 import com.example.jungle.weixin.Activity.CommentActivity;
-import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
@@ -34,7 +33,7 @@ import java.util.List;
  * Created by derrickJ on 2017/11/8.
  */
 
-public class CommentAMeAdapter extends RecyclerView.Adapter<CommentAMeAdapter.ViewHolder> {
+public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.ViewHolder> {
 
     public static final int TYPE_HEADER = 0;  //说明是带有Header的
     public static final int TYPE_FOOTER = 1;  //说明是带有Footer的
@@ -57,6 +56,7 @@ public class CommentAMeAdapter extends RecyclerView.Adapter<CommentAMeAdapter.Vi
         TextView date;
         TextView time;
         TextView source;
+        TextView sourceTag;
 
         View weiboMain;
 
@@ -120,7 +120,7 @@ public class CommentAMeAdapter extends RecyclerView.Adapter<CommentAMeAdapter.Vi
             nickname = (TextView) view.findViewById(R.id.nickname);
             date = (TextView) view.findViewById(R.id.date);
             source = (TextView) view.findViewById(R.id.source);
-
+            sourceTag = (TextView) view.findViewById(R.id.source_tag);
             weiboMain = view.findViewById(R.id.weibo_main);
 //
             bodyView = (View) view.findViewById(R.id.body_layout);
@@ -190,7 +190,7 @@ public class CommentAMeAdapter extends RecyclerView.Adapter<CommentAMeAdapter.Vi
 
     }
 
-    public CommentAMeAdapter(Context context, List<Comment> list) {
+    public CommentListAdapter(Context context, List<Comment> list) {
         mContext = context;
         commentList = list;
     }
@@ -216,7 +216,15 @@ public class CommentAMeAdapter extends RecyclerView.Adapter<CommentAMeAdapter.Vi
                 Glide.with(mContext).load(comment.getUser().getProfile_image_url()).into(holder.avatarImage);
                 holder.nickname.setText(comment.getUser().getScreen_name());
                 holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
-                holder.source.setText(comment.getSource());
+                String source = comment.getSource();
+                if (source.length() != 0) {
+                    int start = source.indexOf(">") + 1;
+                    int end = source.indexOf("</a>");
+                    holder.source.setText(source.substring(start, end));
+                } else {
+                    holder.sourceTag.setVisibility(View.GONE);
+                    holder.source.setVisibility(View.GONE);
+                }
 //                holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
