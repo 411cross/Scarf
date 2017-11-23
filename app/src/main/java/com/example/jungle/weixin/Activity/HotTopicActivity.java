@@ -1,5 +1,6 @@
 package com.example.jungle.weixin.Activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,10 +29,10 @@ public class HotTopicActivity extends AppCompatActivity implements View.OnClickL
         back = (ImageButton) findViewById(R.id.back);
         back.setOnClickListener(this);
         List<HotTopic> list = new ArrayList<>();
-        list.add(new HotTopic("#测试标题1#","测试内容1",R.drawable.z2_org));
+        list.add(new HotTopic("#测试标题1#","测试内容1",R.drawable.choose));
         list.add(new HotTopic("#测试标题2#","测试内容2",R.drawable.ic_default_image));
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        HotTopicAdapter hotTopicAdapter = new HotTopicAdapter(list);
+        HotTopicAdapter hotTopicAdapter = new HotTopicAdapter(list,this);
         hotTopic.setLayoutManager(layoutManager);
         hotTopic.setAdapter(hotTopicAdapter);
     }
