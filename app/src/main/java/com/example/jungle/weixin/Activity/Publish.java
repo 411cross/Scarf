@@ -16,9 +16,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -44,6 +46,7 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
     private EditText content;
     private ImageButton chooseImage;
     private ImageButton hot;
+    private ImageButton send;
     private static final int REQUEST_IMAGE = 2;
     private static final int REQUEST_HOTTOPIC = 1;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
@@ -67,6 +70,7 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
         chooseImage = (ImageButton) findViewById(R.id.chooseImage);
         location = (Button) findViewById(R.id.location);
         hot = (ImageButton) findViewById(R.id.hot);
+        send = (ImageButton) findViewById(R.id.send);
         expGridView = (GridView) findViewById(R.id.expGridView);
         initImageViewList();
         Intent intent = getIntent();
@@ -117,6 +121,29 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
             public boolean onLongClick(View v){
                 Toast.makeText(Publish.this, "fuck", Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater layoutInflater = LayoutInflater.from(Publish.this); // 创建视图容器并设置上下文
+                final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取list_item布局文件的视图
+                final AlertDialog.Builder temp = new AlertDialog.Builder(Publish.this);
+                final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
+                Button ensure = (Button) view.findViewById(R.id.ensure);
+                Button cancle = (Button) view.findViewById(R.id.cancle);
+                ensure.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(Publish.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        a.dismiss();
+                    }
+                });
             }
         });
         hot.setOnClickListener(new View.OnClickListener() {
