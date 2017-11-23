@@ -71,6 +71,7 @@ public class UserWeiboFragement extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
         token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+        getOthersListByID();
 
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;

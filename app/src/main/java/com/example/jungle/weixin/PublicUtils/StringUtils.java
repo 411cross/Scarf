@@ -75,6 +75,7 @@ public class StringUtils {
                     public void onClick(View widget) {
                         ToastUtils.showShortToast(context, "用户: " + atStr);
                         String username = atStr.replaceAll("@", "");
+                        goToUserDetail(context, username);
                     }
                 };
                 spannableString.removeSpan(atStr);
@@ -214,7 +215,7 @@ public class StringUtils {
         return result;
     }
 
-    public void goToUserDetail(final Context context, String username) {
+    public static void goToUserDetail(final Context context, String username) {
         NetRequestFactory.getInstance().createService(MyService.class).usersShowWithName(CodeUtils.getmToken(), username).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
             @Override
             public void onSuccess(Response<User> userResponse) {
