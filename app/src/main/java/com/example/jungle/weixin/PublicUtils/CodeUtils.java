@@ -12,7 +12,7 @@ import java.util.Map;
 public class CodeUtils {
 
     public static Map<String, String> codeMap;
-    public static String mToken = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+    public static String mToken = "2.008CRz6CCgNPqC5078195875JjQ_KE";
     static {
         codeMap = new HashMap<String, String>();
         codeMap.put("20003", "该用户不存在");

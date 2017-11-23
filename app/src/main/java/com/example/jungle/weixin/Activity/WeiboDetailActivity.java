@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -24,26 +26,37 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.jungle.weixin.Adapter.AMeAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
+import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
+import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.MyService;
+import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
+import com.example.jungle.weixin.RetrofitUtil.Transform;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Response;
 
 public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnClickListener {
     private PopupWindow popupWindow;
@@ -171,6 +184,7 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
         weiboView = View.inflate(this, R.layout.weibo, null);
         weiboView.findViewById(R.id.weibo_functions_layout).setVisibility(View.GONE);
+        weiboView.findViewById(R.id.weibo_transmit_layout).setVisibility(View.GONE);
 
         weiboHead = (View) weiboView.findViewById(R.id.weibo_head_layout);
         avatarImage = (ImageView) weiboHead.findViewById(R.id.avatar);
@@ -223,6 +237,8 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         share_circle = (ImageButton)shareMenu.findViewById(R.id.share_circle);
         cancle = (Button) shareMenu.findViewById(R.id.cancle);
         more = (ImageButton)shareMenu.findViewById(R.id.more);
+
+
 
         initFunctionTab();
         initListView();
@@ -278,9 +294,23 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
     public void initListView() {
         // ListView主体
+
+        NetRequestFactory.getInstance().createService(MyService.class).commentsShow(CodeUtils.getmToken(),status.getId(),50,1).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+            @Override
+            public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
+                commentList = Arrays.asList(ReadCommentsData.body().getComments());
+                adapter = new CommentAdapter(WeiboDetailActivity.this, commentList);
+                pullLV.setAdapter(adapter );
+            }
+
+            @Override
+            public void _onError(Response<ReadCommentsData> ReadCommentsData) {
+
+            }
+
+        });
+
         pullLV = (PullToRefreshListView) findViewById(R.id.pull_list_view);
-        adapter = new CommentAdapter(this, commentList);
-        pullLV.setAdapter(adapter);
         // HeaderView
         final ListView listView = pullLV.getRefreshableView();
         listView.addHeaderView(weiboView);

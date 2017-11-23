@@ -56,7 +56,7 @@ public interface MyService {
 
     // 根据微博ID返回某条微博的评论列表
     @GET("comments/show.json")
-    Observable<Response<ReadCommentsData>> commentsShow(@Query("access_token") String access_token, @Query("id") int id,@Query("count") int count);
+    Observable<Response<ReadCommentsData>> commentsShow(@Query("access_token") String access_token, @Query("id") long id,@Query("count") int count,@Query("page") int page);
 
     // 我发出的评论列表
     @GET("comments/by_me.json")

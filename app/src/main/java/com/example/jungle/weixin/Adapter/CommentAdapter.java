@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.R;
@@ -74,12 +75,12 @@ public class CommentAdapter extends BaseAdapter {
         }
 
         Comment comment = commentList.get(position);
-        holder.avatarImage.setImageResource(R.drawable.ic_default_image);
-//        holder.identityIcon.setImageResource(R.drawable.dit);
-//        holder.nickname.setText(comment.getName());
-//        holder.comment.setText(comment.getComment());
-//        holder.date.setText(DateUtils.formatDate(comment.getDate()));
-//        holder.likeNum.setText(String.valueOf(comment.getLikeNum()));
+        Glide.with(context).load(comment.getUser().getProfile_image_url()).fitCenter().into(holder.avatarImage);
+        holder.identityIcon.setImageResource(R.mipmap.ic_launcher);
+        holder.nickname.setText(comment.getUser().getScreen_name());
+        holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
+        holder.likeNum.setVisibility(View.GONE);
+        holder.comment.setText(comment.getText());
 
         return convertView;
     }
