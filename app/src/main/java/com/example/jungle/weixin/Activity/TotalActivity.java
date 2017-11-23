@@ -22,12 +22,20 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.jungle.weixin.Adapter.HomePageAdapter;
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.User;
+import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.Fragment.FindFragment;
 import com.example.jungle.weixin.Fragment.HomePageFragment;
 import com.example.jungle.weixin.Fragment.InformationFragment;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.MyService;
+import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
+import com.example.jungle.weixin.RetrofitUtil.Transform;
 import com.jauker.widget.BadgeView;
 
 
@@ -35,10 +43,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Response;
 
 public class TotalActivity extends FragmentActivity implements View.OnClickListener{
     private Toolbar toolbar;
     private de.hdodenhof.circleimageview.CircleImageView iconImage;
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +101,8 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                 drawerLayout.openDrawer(Gravity.START);
             }
         });
+
+        getUserInfo();
 
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
@@ -150,5 +163,22 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                 break;
 
         }
+    }
+
+    public void getUserInfo() {
+        String token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+        NetRequestFactory.getInstance().createService(MyService.class).usersShow(token).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
+            @Override
+            public void onSuccess(Response<User> userResponse) {
+                user = userResponse.body();
+                Glide.with(TotalActivity.this).load(user.getProfile_image_url()).into(iconImage);
+            }
+
+            @Override
+            public void _onError(Response<User> userResponse) {
+
+            }
+
+        });
     }
 }

@@ -49,12 +49,11 @@
         android:id="@+id/source_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/date"
         android:layout_marginLeft="6dp"
-        android:layout_toEndOf="@+id/date"
-        android:layout_toRightOf="@+id/date"
         android:text="来自"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+        android:layout_alignTop="@+id/identity_icon"
+        android:layout_toEndOf="@+id/date" />
 
     <TextView
         android:id="@+id/source"

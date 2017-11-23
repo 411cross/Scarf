@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.Adapter;
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,18 +17,28 @@ import com.example.jungle.weixin.Activity.CommentActivity;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
+import com.example.jungle.weixin.Bean.BaseBean.PicURL;
+import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
+import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.MyService;
+import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
+import com.example.jungle.weixin.RetrofitUtil.Transform;
 import com.lzy.ninegrid.ImageInfo;
 import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Response;
 
 
 /**
@@ -57,6 +68,8 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         TextView date;
         TextView time;
         TextView source;
+        TextView sourceTag;
+
 
         View weiboMain;
 
@@ -103,15 +116,25 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         LinearLayout commentLinear;
         LinearLayout aMeLinear;
 
+        View transmit_layout;
+        ImageView transmit_image;
+        TextView transmit_comment;
+        TextView transmit_weibo_title;
+        TextView transmit_weibo_content;
+
+        View weiboFunctionView;
+        TextView repostNum;
+        TextView commentNum;
+        TextView likeNum;
 
         public ViewHolder(View view) {
             super(view);
-            if (view == mHeaderView){
+            if (view == mHeaderView) {
                 commentLinear = (LinearLayout) mHeaderView.findViewById(R.id.comment);
                 aMeLinear = (LinearLayout) mHeaderView.findViewById(R.id.a_me);
                 return;
             }
-            if (view == mFooterView){
+            if (view == mFooterView) {
                 return;
             }
             this.itemView = view;
@@ -120,7 +143,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             nickname = (TextView) view.findViewById(R.id.nickname);
             date = (TextView) view.findViewById(R.id.date);
             source = (TextView) view.findViewById(R.id.source);
-
+            sourceTag = (TextView) view.findViewById(R.id.source_tag);
             weiboMain = view.findViewById(R.id.weibo_main);
 //
             bodyView = (View) view.findViewById(R.id.body_layout);
@@ -172,6 +195,18 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             reweiboPassageSubTitle = (TextView) reweiboPassageView.findViewById(R.id.passage_subtitle);
 //            reweiboPassageView.setVisibility(View.GONE);
 
+            transmit_layout = view.findViewById(R.id.weibo_transmit_layout);
+            transmit_comment = (TextView) transmit_layout.findViewById(R.id.transmit_comment);
+            transmit_image = (ImageView) transmit_layout.findViewById(R.id.transmit_weibo_image);
+            transmit_weibo_title = (TextView) transmit_layout.findViewById(R.id.transmit_weibo_title);
+            transmit_weibo_content = (TextView) transmit_layout.findViewById(R.id.transmit_weibo_passage);
+
+            weiboFunctionView = view.findViewById(R.id.weibo_functions_layout);
+            repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
+            commentNum = (TextView) weiboFunctionView.findViewById(R.id.comment_num);
+            likeNum = (TextView) weiboFunctionView.findViewById(R.id.like_num);
+            weiboFunctionView.setVisibility(View.GONE);
+
         }
 
         private void goneEverything() {
@@ -186,6 +221,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             reweiboMultiPicsView.setVisibility(View.GONE);
             reweiboVideoView.setVisibility(View.GONE);
             reweiboPassageView.setVisibility(View.GONE);
+            transmit_layout.setVisibility(View.GONE);
         }
 
     }
@@ -212,11 +248,20 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (getItemViewType(position) == TYPE_NORMAL) {
             if (holder instanceof ViewHolder) {
-                final Comment comment = commentList.get(position-1);
+                final Comment comment = commentList.get(position - 1);
                 Glide.with(mContext).load(comment.getUser().getProfile_image_url()).into(holder.avatarImage);
                 holder.nickname.setText(comment.getUser().getScreen_name());
                 holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
-                holder.source.setText(comment.getSource());
+                String source = comment.getSource();
+                if (source.length() != 0) {
+                    int start = source.indexOf(">") + 1;
+                    int end = source.indexOf("</a>");
+                    holder.source.setText(source.substring(start, end));
+                } else {
+                    holder.sourceTag.setVisibility(View.GONE);
+                    holder.source.setVisibility(View.GONE);
+                }
+
 //                holder.itemView.setOnClickListener(new View.OnClickListener() {
 //                    @Override
 //                    public void onClick(View v) {
@@ -227,63 +272,30 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 //
 //                    }
 //                });
-                switch (TypeUtils.getStatusType(comment.getStatus())) {
-                    case 0:
-                        holder.goneEverything();
-                        holder.bodyView.setVisibility(View.VISIBLE);
-                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body,comment.getText()));
-                        break;
-//                    case 1:
-//                        holder.goneEverything();
-//                        holder.singlePicView.setVisibility(View.VISIBLE);
-//                        break;
-//                    case 2:
-//                        holder.goneEverything();
-//                        holder.bodyView.setVisibility(View.VISIBLE);
-//                        holder.singlePicView.setVisibility(View.VISIBLE);
-//                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                        holder.singlePic.setImageResource(weibo.getImage());
-//                        break;
-//                    case 3:
-//                        holder.goneEverything();
-//                        holder.bodyView.setVisibility(View.VISIBLE);
-//                        holder.multiPicsView.setVisibility(View.VISIBLE);
-//                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, weibo.getBody()));
-//                        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-//                        List<WeiboImage> images = commentList.get(position-1).getImageurls();
-//                        if (images != null) {
-//                            for (WeiboImage image : images) {
-//                                ImageInfo info = new ImageInfo();
-//                                info.setThumbnailUrl(image.getUrl());
-//                                info.setBigImageUrl(image.getUrl());
-//                                imageInfo.add(info);
-//                            }
-//                        }
-//                        holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
-//                        if (images != null && images.size() == 1) {
-////                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
-//                            holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
-//                        } else {
-//                            holder.multiPicsGrid.setGridSpacing(16);
-//                        }
-//                        break;
-                }
+                holder.goneEverything();
+                holder.bodyView.setVisibility(View.VISIBLE);
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getText()));
+                holder.transmit_layout.setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(comment.getStatus().getThumbnail_pic()).centerCrop().into(holder.transmit_image);
+                holder.transmit_weibo_content.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getStatus().getText()));
+                holder.transmit_weibo_title.setText(comment.getStatus().getUser().getScreen_name());
+                holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
                 return;
+
             }
-            return;
         } else if (getItemViewType(position) == TYPE_HEADER) {
-                holder.commentLinear.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext,CommentActivity.class);
-                        mContext.startActivity(intent);
-                    }
-                });
+            holder.commentLinear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, CommentActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
 
             holder.aMeLinear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext,AMeActivity.class);
+                    Intent intent = new Intent(mContext, AMeActivity.class);
                     mContext.startActivity(intent);
                 }
             });
@@ -304,7 +316,7 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
             //第一个item应该加载Header
             return TYPE_HEADER;
         }
-        if (position == getItemCount() -1 ) {
+        if (position == getItemCount() - 1) {
             //最后一个,应该加载Footer
             return TYPE_FOOTER;
         }
@@ -328,23 +340,25 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
 
     public void setmFooterView(View mFooterView) {
         this.mFooterView = mFooterView;
-        notifyItemInserted(getItemCount()-1);
+        notifyItemInserted(getItemCount() - 1);
 
     }
 
     @Override
     public int getItemCount() {
-        if(mHeaderView == null && mFooterView == null){
+        if (mHeaderView == null && mFooterView == null) {
             return commentList.size();
-        }else if(mHeaderView == null && mFooterView != null){
+        } else if (mHeaderView == null && mFooterView != null) {
             return commentList.size() + 1;
-        }else if (mHeaderView != null && mFooterView == null){
+        } else if (mHeaderView != null && mFooterView == null) {
             return commentList.size() + 1;
-        }else {
+        } else {
             return commentList.size() + 2;
         }
     }
 
-
-
 }
+
+
+
+

@@ -12,7 +12,7 @@ import java.util.Map;
 public class CodeUtils {
 
     public static Map<String, String> codeMap;
-
+    public static String mToken = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
     static {
         codeMap = new HashMap<String, String>();
         codeMap.put("20003", "该用户不存在");
@@ -38,5 +38,20 @@ public class CodeUtils {
         String chineseMsg = codeMap.get(code);
         return chineseMsg == null ? "内部错误" : chineseMsg;
     }
-    
+
+    public static Map<String, String> getCodeMap() {
+        return codeMap;
+    }
+
+    public static void setCodeMap(Map<String, String> codeMap) {
+        CodeUtils.codeMap = codeMap;
+    }
+
+    public static String getmToken() {
+        return mToken;
+    }
+
+    public static void setmToken(String mToken) {
+        CodeUtils.mToken = mToken;
+    }
 }

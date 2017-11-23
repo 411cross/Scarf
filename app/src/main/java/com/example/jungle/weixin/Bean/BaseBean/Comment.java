@@ -13,9 +13,9 @@ public class Comment {
     private User user;
     private String mid;
     private Status status;
-    private Object reply_comment;
+    private Comment reply_comment;
 
-    public Comment(long id, String created_at, String text, String source, User user, String mid, Status status, Object reply_comment) {
+    public Comment(long id, String created_at, String text, String source, User user, String mid, Status status, Comment reply_comment) {
         this.id = id;
         this.created_at = created_at;
         this.text = text;
@@ -82,11 +82,11 @@ public class Comment {
         this.status = status;
     }
 
-    public Object getReply_comment() {
+    public Comment  getReply_comment() {
         return reply_comment;
     }
 
-    public void setReply_comment(Object reply_comment) {
+    public void setReply_comment(Comment  reply_comment) {
         this.reply_comment = reply_comment;
     }
 }
