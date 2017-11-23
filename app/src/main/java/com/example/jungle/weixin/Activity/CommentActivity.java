@@ -1,7 +1,6 @@
 package com.example.jungle.weixin.Activity;
 
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.jungle.weixin.Adapter.CommentAMeAdapter;
-import com.example.jungle.weixin.Adapter.InformationAdapter;
+import com.example.jungle.weixin.Adapter.CommentListAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -33,7 +32,8 @@ public class CommentActivity extends AppCompatSwipeBack {
     private Comment[] comments;
     private List<Comment> commentList;
     private RecyclerView recyclerView;
-    private CommentAMeAdapter adapter;
+    private CommentListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +44,12 @@ public class CommentActivity extends AppCompatSwipeBack {
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar!=null){
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("Title");
         }
 
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).commentsByMe(token).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+        NetRequestFactory.getInstance().createService(MyService.class).commentsByMe(CodeUtils.getmToken()).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
             @Override
             public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
                 comments = ReadCommentsData.body().getComments();
@@ -58,8 +57,7 @@ public class CommentActivity extends AppCompatSwipeBack {
                 LinearLayoutManager layoutManager = new LinearLayoutManager(CommentActivity.this);
                 recyclerView.setLayoutManager(layoutManager);
                 commentList = Arrays.asList(comments);
-                Log.i("TAG1111111111", "onSuccess: "+commentList.size());
-                adapter = new CommentAMeAdapter(CommentActivity.this, commentList);
+                adapter = new CommentListAdapter(CommentActivity.this, commentList);
                 recyclerView.setAdapter(adapter);
                 setFooterView(recyclerView);
 
@@ -71,7 +69,6 @@ public class CommentActivity extends AppCompatSwipeBack {
             }
 
         });
-
 
 
     }

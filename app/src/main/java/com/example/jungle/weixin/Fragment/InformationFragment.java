@@ -14,6 +14,7 @@ import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.InformationAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -63,8 +64,7 @@ public class InformationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_information, container, false);
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).commentsToMe(token).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+        NetRequestFactory.getInstance().createService(MyService.class).commentsToMe(CodeUtils.getmToken()).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
             @Override
             public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
                 comments = ReadCommentsData.body().getComments();
