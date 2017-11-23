@@ -10,56 +10,38 @@ import android.widget.ImageView;
 
 import com.example.jungle.weixin.R;
 
-
 /**
  * Created by chf on 2017/11/9.
  */
 
 public class ExpressionAdapter extends BaseAdapter{
     private Context mContext;
-    private static int[] mImageIds = new int[] {R.drawable.ad_new0902_org,R.drawable.aliwanew_org,
-            R.drawable.alizuoguiliannew_org,R.drawable.allstar_dp_org,R.drawable.angrya_org,R.drawable.bba_org,
-            R.drawable.bhsj5_nainai_thumb,R.drawable.blankstar_dp_org,R.drawable.bmkeai_org,R.drawable.boaini_org,
-            R.drawable.bs2_org,R.drawable.bs_org,R.drawable.buyao_org,R.drawable.byebye,R.drawable.bz_org,
-            R.drawable.cakev2_org,R.drawable.camera_org,R.drawable.carnation_org,R.drawable.cheer,R.drawable.cj_org,
-            R.drawable.clock_org,R.drawable.come_org,R.drawable.crazya_org,R.drawable.cry,R.drawable.cza_org,
-            R.drawable.d_org,R.drawable.dalian_org,R.drawable.dintuizhuang_org,R.drawable.dizzya_org,R.drawable.doge_org,
-            R.drawable.dora_kaixin_org,R.drawable.dora_meiwei_org,R.drawable.dora_qinqin_org,R.drawable.dora_wunai_org,
-            R.drawable.dora_xiao_org,R.drawable.dorachijing_org,R.drawable.dorahaipa_org,R.drawable.dorahan_org,
-            R.drawable.dorahaose_org,R.drawable.earth1r_org,R.drawable.eventtravel_org,R.drawable.fan,R.drawable.flag_org,
-            R.drawable.flower_org,R.drawable.football,R.drawable.fuyun_org,R.drawable.gangnamstyle_org,R.drawable.geiliv2_org,
-            R.drawable.gm_org,R.drawable.good_org,R.drawable.green_band_org,R.drawable.gza_org,R.drawable.h_org,
-            R.drawable.ha_org,R.drawable.halfstar_dp_org,R.drawable.haqianv2_org,R.drawable.hatea_org,R.drawable.hearta_org,
-            R.drawable.heia_org,R.drawable.hongbaofei2014_org,R.drawable.hongyun_org,R.drawable.horse2_org,R.drawable.huanglianse_org,
-            R.drawable.huangliansj_org,R.drawable.huanglianwx_org,R.drawable.huatongv2_org,R.drawable.hufen_org,R.drawable.j_org,
-            R.drawable.jiqimaodaxiong_org,R.drawable.jiqimaojingxiang_org,R.drawable.jiqimaopanghu_org,R.drawable.jiqimaoxiaofu_org,
-            R.drawable.jqmbwtxing_org,R.drawable.jqmweixiao_org,R.drawable.kandiev2_org,R.drawable.kanzhangv2_org,R.drawable.kissboy_org,
-            R.drawable.kissgirl_org,R.drawable.kl2_org,R.drawable.kl_org,R.drawable.kunv2_org,R.drawable.kxwanpi_org,R.drawable.landeln_org,
-            R.drawable.lang_org,R.drawable.laugh,R.drawable.lazhuv2_org,R.drawable.liwu_org,R.drawable.lovea_org,R.drawable.ltqiekenao_org,
-            R.drawable.lxhainio_org,R.drawable.lxhdeyidixiao_org,R.drawable.lxhlike_org,R.drawable.lxhqiuguanzhu_org,
-            R.drawable.lxhtouxiao_org,R.drawable.lxhwahaha_org,R.drawable.lxhxiudada_org,R.drawable.lxhxuyuan_org,R.drawable.lxhzan_org,
-            R.drawable.lxhzhuanfa_org,R.drawable.madaochenggong_org,R.drawable.mango_02_org,R.drawable.mango_03_org,R.drawable.mango_07_org,
-            R.drawable.mango_11_org,R.drawable.mango_12_org,R.drawable.mashangyouduixiang_org,R.drawable.mb_org,R.drawable.mm_org,
-            R.drawable.moczhuanfa_org,R.drawable.money_org,R.drawable.moon,R.drawable.moren_bbjdnew_org,R.drawable.moren_chiguaqunzhong_org,
-            R.drawable.moren_chongjing_org,R.drawable.moren_feijie_org,R.drawable.moren_hashiqi_org,R.drawable.moren_xiaoerbuyu_org,
-            R.drawable.moren_yunbei_org,R.drawable.mothersday_org,R.drawable.music_org,R.drawable.numav2_org,R.drawable.o_org,
-            R.drawable.ok_org,R.drawable.otm_org,R.drawable.panda_org,R.drawable.pcmoren_baobao_org,R.drawable.pcmoren_cool2017_org,
-            R.drawable.pcmoren_guile_org,R.drawable.pcmoren_huaixiao_org,R.drawable.pcmoren_jiayou_org,R.drawable.pcmoren_tanshou_org,
-            R.drawable.pcmoren_tian_org,R.drawable.pcmoren_wu_org,R.drawable.pig,R.drawable.ppbguzhang_org,R.drawable.qq_org,
-            R.drawable.rabbit_org,R.drawable.rain,R.drawable.sad_org,R.drawable.sada_org,R.drawable.sb_org,R.drawable.sc_org,
-            R.drawable.shamea_org,R.drawable.shayan_org,R.drawable.shenshou_org,R.drawable.sk_org,R.drawable.snow_org,R.drawable.soap_org,
-            R.drawable.sun,R.drawable.sw_org,R.drawable.sweata_org,R.drawable.t_org,R.drawable.tootha_org,R.drawable.travel_org,
-            R.drawable.tza_org,R.drawable.unheart,R.drawable.vw_org,R.drawable.wabi_org,R.drawable.watermelon,R.drawable.weijin_org,
-            R.drawable.wg_org,R.drawable.wind_org,R.drawable.wq_org,R.drawable.ws_org,R.drawable.x_org,R.drawable.xi_org,
-            R.drawable.xiaohuangren_baiyan_org,R.drawable.xiaohuangren_buxie_org,R.drawable.xiaohuangren_deyi_org,R.drawable.xiaohuangren_gaoxing_org,
-            R.drawable.xiaohuangren_huaixiao_org,R.drawable.xiaohuangren_jiandaoshou_org,R.drawable.xiaohuangren_jingya_org,
-            R.drawable.xiaohuangren_weiqu_org,R.drawable.xiaohuangren_weixiao_org,R.drawable.xiaohuangren_wunai_org,R.drawable.xiaoku_org,
-            R.drawable.xklzhuanquan_org,R.drawable.xman_baofengnv_org,R.drawable.xman_kuaiyin_org,R.drawable.yangniandj_org,R.drawable.ye_org,
-            R.drawable.yhh_org,R.drawable.youqian_org,R.drawable.yunying_zylmbianfuxia_org,R.drawable.yunying_zylmganggu_org,
-            R.drawable.yunying_zylmhaiwang_org,R.drawable.yunying_zylmlogo_org,R.drawable.yunying_zylmshandianxia_org,R.drawable.yunying_zylmshenqi_org,
-            R.drawable.yw_org,R.drawable.yx_org,R.drawable.z2_org,R.drawable.zhaji_org,R.drawable.zhh_org,R.drawable.zuoyi_org,
-            R.drawable.zy_org
-            };
+    private static int[] mImageIds = new int[] {R.drawable.d_aini,R.drawable.d_baibai, R.drawable.d_beishang,
+            R.drawable.d_bishi,R.drawable.d_bizui,R.drawable.d_chanzui,R.drawable.d_chijing, R.drawable.d_dahaqi,
+            R.drawable.d_dalian,R.drawable.d_ding,R.drawable.d_doge, R.drawable.d_ganmao,R.drawable.d_guzhang,
+            R.drawable.d_haha,R.drawable.d_haixiu,R.drawable.d_han, R.drawable.d_hehe,R.drawable.d_heixian,
+            R.drawable.d_heng,R.drawable.d_huaxin,R.drawable.d_jiyan, R.drawable.d_keai, R.drawable.d_kelian,
+            R.drawable.d_ku,R.drawable.d_kun,R.drawable.d_landelini, R.drawable.d_lei,R.drawable.d_nu,R.drawable.d_numa,
+            R.drawable.d_qian,R.drawable.d_qinqin,R.drawable.d_shayan,R.drawable.d_shengbing,
+            R.drawable.d_shiwang,R.drawable.d_shuai,R.drawable.d_shuijiao,R.drawable.d_sikao, R.drawable.d_taikaixin,
+            R.drawable.d_touxiao,R.drawable.d_tu,R.drawable.d_tuzi,R.drawable.d_wabishi, R.drawable.d_weiqu,
+            R.drawable.d_xiaoku,R.drawable.d_xixi,R.drawable.d_xu, R.drawable.d_yinxian, R.drawable.d_yiwen,
+            R.drawable.d_youhengheng,R.drawable.d_zuohengheng,R.drawable.d_yun,R.drawable.d_zhuakuang,
+            R.drawable.d_bingbujiandan,R.drawable.d_chigua,R.drawable.d_chongjing,R.drawable.d_feijie,R.drawable.d_tianping,
+            R.drawable.d_wu,R.drawable.d_xiaoerbuyu,R.drawable.d_yunbei,R.drawable.d_baobao,R.drawable.d_guile,
+            R.drawable.d_tanshou,R.drawable.f_hufen, R.drawable.d_shenshou,R.drawable.d_xiongmao, R.drawable.d_zhutou,
+            R.drawable.f_geili, R.drawable.f_jiong,R.drawable.f_shenma,R.drawable.f_v5,R.drawable.f_xi,
+            R.drawable.h_buyao,R.drawable.h_good,R.drawable.h_lai,R.drawable.h_haha,R.drawable.quantou,R.drawable.h_ok,R.drawable.h_ruo, R.drawable.h_woshou,
+            R.drawable.h_ye,R.drawable.h_zan,R.drawable.h_zuoyi,R.drawable.l_shangxin,R.drawable.l_xin, R.drawable.o_dangao,
+            R.drawable.o_feiji,R.drawable.o_ganbei,R.drawable.o_huatong,R.drawable.o_lazhu, R.drawable.o_liwu,
+            R.drawable.o_lvsidai,R.drawable.o_weiguan,R.drawable.o_yinyue, R.drawable.o_zhaoxiangji,R.drawable.o_zhong,
+            R.drawable.w_fuyun,R.drawable.w_shachenbao,R.drawable.w_taiyang, R.drawable.w_weifeng,R.drawable.w_xianhua,
+            R.drawable.w_xiayu,R.drawable.w_yueliang,R.drawable.d_aoteman,R.drawable.d_feizao,R.drawable.o_weibo,
+            R.drawable.d_nanhaier,R.drawable.d_nvhaier,R.drawable.d_lang,R.drawable.d_miao,R.drawable.erha,R.drawable.guanggao,
+            R.drawable.kulou,R.drawable.duola_chijing,R.drawable.duola_han,R.drawable.duola_huaxin,R.drawable.duola_kaixin,
+            R.drawable.duola_meiwei,R.drawable.duola_weixiao,R.drawable.xiaohuangren_deyi,R.drawable.xiaohuangren_huaixiao,
+            R.drawable.xiaohuangren_jiandaoshou,R.drawable.xiaohuangren_jingya,R.drawable.xiaohuangren_weiqu,R.drawable.zylm_logo,
+            R.drawable.zylm_bianfuxia, R.drawable.zylm_ganggu,R.drawable.zylm_haiwang,R.drawable.zylm_shandianxia,R.drawable.zylm_shenqinvxia};
     public ExpressionAdapter(Context c){
         this.mContext = c;
     }

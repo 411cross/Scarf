@@ -1,5 +1,6 @@
 package com.example.jungle.weixin.Adapter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
@@ -42,7 +43,7 @@ import me.nereo.multi_image_selector.bean.Image;
 public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHolder> {
 
 
-    private TotalActivity mContext;
+    private Context mContext;
     private List<Status> weiboList;
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -207,7 +208,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     }
 
-    public HomePageAdapter(TotalActivity context, List<Status> list) {
+    public HomePageAdapter(Context context, List<Status> list) {
         mContext = context;
         weiboList = list;
     }
@@ -246,7 +247,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                 intent.putExtra("status", status);
                 mContext.startActivity(intent);
-                mContext.overridePendingTransition(R.anim.left_in,R.anim.right_out);
             }
         });
 

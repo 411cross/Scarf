@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.jungle.weixin.Adapter.ExpressionAdapter;
+import com.example.jungle.weixin.Bean.HotTopic;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
 import java.util.ArrayList;
@@ -41,7 +43,9 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
     private ImageButton back;
     private EditText content;
     private ImageButton chooseImage;
+    private ImageButton hot;
     private static final int REQUEST_IMAGE = 2;
+    private static final int REQUEST_HOTTOPIC = 1;
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     private GridView expGridView;
     private ExpressionAdapter expressionAdapter;
@@ -62,10 +66,12 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
         content = (EditText) findViewById(R.id.content);
         chooseImage = (ImageButton) findViewById(R.id.chooseImage);
         location = (Button) findViewById(R.id.location);
+        hot = (ImageButton) findViewById(R.id.hot);
         expGridView = (GridView) findViewById(R.id.expGridView);
         initImageViewList();
         Intent intent = getIntent();
         if (intent.getIntExtra("previousActivity", -1) == 1) {
+            //判断来源是否为微博detail的分享到微博按钮
             content.setText(intent.getStringExtra("Body"));
         }
 
@@ -111,6 +117,14 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
             public boolean onLongClick(View v){
                 Toast.makeText(Publish.this, "fuck", Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+        hot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Publish.this, HotTopicActivity.class);
+                startActivityForResult(intent , REQUEST_HOTTOPIC);
+                overridePendingTransition(R.anim.left_in,R.anim.right_out);
             }
         });
     }
@@ -243,6 +257,9 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
                 //显示图片逻辑
                 display(mSelectPath);
             }
+        }else if(requestCode == REQUEST_HOTTOPIC){
+            if(resultCode == RESULT_OK)
+            content.getText().insert(content.getSelectionStart(),data.getStringExtra("title"));
         }
     }
     private void InitLocation(){
