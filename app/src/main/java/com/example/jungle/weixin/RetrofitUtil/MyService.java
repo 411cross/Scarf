@@ -42,7 +42,7 @@ public interface MyService {
 
     // 个人页 - 使用ID获取其他用户最新发表的微博列表
     @GET("statuses/user_timeline.json")
-    Observable<Response<StatusList>> getOtherTimeLineWithID(@Query("access_token") String access_token, @Query("uid") int uid);
+    Observable<Response<StatusList>> getOtherTimeLineWithID(@Query("access_token") String access_token, @Query("uid") long uid);
 
     // 个人页 - 使用昵称获取其他用户最新发表的微博列表
     @GET("statuses/user_timeline.json")

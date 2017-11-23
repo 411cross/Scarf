@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import com.example.jungle.weixin.Activity.UserDetailActivity;
 import com.example.jungle.weixin.Adapter.HomePageAdapter;
 import com.example.jungle.weixin.Adapter.UserWeiboAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
+import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
@@ -35,7 +37,10 @@ public class UserWeiboFragement extends Fragment {
 
     private RecyclerView recyclerView;
     private List<Status> statusesList = new ArrayList<>();
+    private User user;
     private String token;
+    private long id;
+    private String screenName;
 
     public UserWeiboFragement() {
         // Required empty public constructor
@@ -51,6 +56,10 @@ public class UserWeiboFragement extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user =(User) getActivity().getIntent().getSerializableExtra("user");
+        id = user.getId();
+
+
     }
 
     @Override
@@ -62,20 +71,6 @@ public class UserWeiboFragement extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
         token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).getUserTimeLine(token).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
-            @Override
-            public void onSuccess(Response<StatusList> statusList) {
-                statusesList = statusList.body().getStatuses();
-                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void _onError(Response<StatusList> statusList) {
-
-            }
-
-        });
 
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;
@@ -91,6 +86,40 @@ public class UserWeiboFragement extends Fragment {
     public void onDetach() {
         super.onDetach();
 
+    }
+
+    public void getMyList() {
+        NetRequestFactory.getInstance().createService(MyService.class).getUserTimeLine(token).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+            @Override
+            public void onSuccess(Response<StatusList> statusList) {
+                statusesList = statusList.body().getStatuses();
+                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void _onError(Response<StatusList> statusList) {
+
+            }
+
+        });
+    }
+
+    public void getOthersListByID() {
+        NetRequestFactory.getInstance().createService(MyService.class).getOtherTimeLineWithID(token, id).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+            @Override
+            public void onSuccess(Response<StatusList> statusList) {
+                statusesList = statusList.body().getStatuses();
+                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void _onError(Response<StatusList> statusList) {
+
+            }
+
+        });
     }
 
 }

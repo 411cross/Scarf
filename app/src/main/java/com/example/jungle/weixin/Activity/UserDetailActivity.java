@@ -1,5 +1,6 @@
 package com.example.jungle.weixin.Activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.Fragment.UserPhotosFragment;
 import com.example.jungle.weixin.Fragment.UserWeiboFragement;
@@ -27,11 +29,14 @@ public class UserDetailActivity extends AppCompatSwipeBack {
 
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
+
+        user = (User) getIntent().getSerializableExtra("user");
 
 //        Window window = getWindow();
 //        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -56,7 +61,7 @@ public class UserDetailActivity extends AppCompatSwipeBack {
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
 //        collapsingToolbarLayout.setStatusBarScrimColor(Color.WHITE);
-        collapsingToolbarLayout.setTitle("大河向东流");
+        collapsingToolbarLayout.setTitle(user.getScreen_name());
         collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorWhite));
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorBlue));
 

@@ -61,6 +61,7 @@
         <activity android:name=".Activity.CommentActivity" />
         <activity android:name=".Activity.AMeActivity" />
         <activity android:name=".Activity.HotTopicActivity"></activity>
+        <activity android:name=".Activity.PublicWebViewActivity"></activity>
     </application>
 
 </manifest>

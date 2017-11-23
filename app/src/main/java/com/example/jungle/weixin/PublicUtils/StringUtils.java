@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.PublicUtils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -15,10 +16,21 @@ import android.text.style.ImageSpan;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.jungle.weixin.Activity.PublicWebViewActivity;
+import com.example.jungle.weixin.Activity.UserDetailActivity;
+import com.example.jungle.weixin.Adapter.HomePageAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.User;
+import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.MyService;
+import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
+import com.example.jungle.weixin.RetrofitUtil.Transform;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Response;
 
 /**
  * Created by derrickJ on 2017/11/10.
@@ -62,6 +74,7 @@ public class StringUtils {
                     @Override
                     public void onClick(View widget) {
                         ToastUtils.showShortToast(context, "用户: " + atStr);
+                        String username = atStr.replaceAll("@", "");
                     }
                 };
                 spannableString.removeSpan(atStr);
@@ -101,7 +114,10 @@ public class StringUtils {
                 ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
                     @Override
                     public void onClick(View widget) {
-                        ToastUtils.showShortToast(context, "链接: " + linkStr);
+//                        ToastUtils.showShortToast(context, "链接: " + linkStr);
+                        Intent intent = new Intent(context, PublicWebViewActivity.class);
+                        intent.putExtra("url", linkStr);
+                        context.startActivity(intent);
                     }
                 };
                 SpannableStringBuilder urlSpannableString = getUrlTextSpannableString(context, linkStr, size);
@@ -196,6 +212,24 @@ public class StringUtils {
         }
 
         return result;
+    }
+
+    public void goToUserDetail(final Context context, String username) {
+        NetRequestFactory.getInstance().createService(MyService.class).usersShowWithName(CodeUtils.getmToken(), username).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
+            @Override
+            public void onSuccess(Response<User> userResponse) {
+                User user = userResponse.body();
+                Intent intent = new Intent(context, UserDetailActivity.class);
+                intent.putExtra("user", user);
+                context.startActivity(intent);
+            }
+
+            @Override
+            public void _onError(Response<User> userResponse) {
+
+            }
+
+        });
     }
 
 }
