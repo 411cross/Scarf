@@ -1,10 +1,6 @@
 [
     {
-        "merged": "F:\\smallpakeage\\Scarf\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
-        "source": "F:\\smallpakeage\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
-    },
-    {
-        "merged": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
-        "source": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
+        "merged": "H:\\android-studio\\Scarf\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\raw\\libarm.so",
+        "source": "H:\\android-studio\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\raw\\libarm.so"
     }
 ]

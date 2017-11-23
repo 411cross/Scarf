@@ -1,10 +1,6 @@
 [
     {
-        "merged": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mediacontroller.xml",
-        "source": "F:\\Users\\derrickJ\\Desktop\\Project\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\layout\\mediacontroller.xml"
-    },
-    {
-        "merged": "F:\\smallpakeage\\Scarf\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mediacontroller.xml",
-        "source": "F:\\smallpakeage\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\layout\\mediacontroller.xml"
+        "merged": "H:\\android-studio\\Scarf\\vitamio\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\mediacontroller.xml",
+        "source": "H:\\android-studio\\Scarf\\vitamio\\build\\intermediates\\bundles\\debug\\res\\layout\\mediacontroller.xml"
     }
 ]

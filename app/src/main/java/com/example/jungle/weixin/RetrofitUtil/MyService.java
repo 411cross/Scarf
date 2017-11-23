@@ -34,7 +34,7 @@ public interface MyService {
     // 首页 - 获取当前登录用户及其所关注（授权）用户的最新微博
     @GET("statuses/home_timeline.json")
 //    Observable<Response<StatusList>> getHomeTimeline(@Query("access_token") String access_token, @Query("count") int count, @Query("page") int page);
-    Observable<Response<StatusList>> getHomeTimeline(@Query("access_token") String access_token);
+    Observable<Response<StatusList>> getHomeTimeline(@Query("access_token") String access_token,@Query("count") int count ,@Query("page") int page);
 
     // 个人页 - 获取自己最新发表的微博列表
     @GET("statuses/user_timeline.json")
@@ -58,7 +58,7 @@ public interface MyService {
 
     // 根据微博ID返回某条微博的评论列表
     @GET("comments/show.json")
-    Observable<Response<ReadCommentsData>> commentsShow(@Query("access_token") String access_token, @Query("id") int id,@Query("count") int count);
+    Observable<Response<ReadCommentsData>> commentsShow(@Query("access_token") String access_token, @Query("id") long id,@Query("count") int count,@Query("page") int page);
 
     // 我发出的评论列表
     @GET("comments/by_me.json")
