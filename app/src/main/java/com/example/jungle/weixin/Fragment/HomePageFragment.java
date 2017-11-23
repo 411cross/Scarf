@@ -8,29 +8,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.HomePageAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
-import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
-import com.example.jungle.weixin.Bean.ResultBean;
-import com.example.jungle.weixin.Bean.Weibo;
-import com.example.jungle.weixin.Bean.WeiboImage;
-import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import io.vov.vitamio.utils.Log;
 import retrofit2.Response;
 
 
@@ -59,21 +49,7 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token, 20, 1).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
-            @Override
-            public void onSuccess(Response<StatusList> statusList) {
-                statusesList = statusList.body().getStatuses();
-                HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), statusesList);
-                recyclerView.setAdapter(adapter);
-            }
 
-            @Override
-            public void _onError(Response<StatusList> statusList) {
-
-            }
-
-        });
     }
 
     @Override
@@ -88,6 +64,24 @@ public class HomePageFragment extends Fragment {
 //        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), statusesList);
 //        recyclerView.setAdapter(adapter);
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
+        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+            @Override
+            public void onSuccess(Response<StatusList> statusList) {
+                statusesList = statusList.body().getStatuses();
+                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void _onError(Response<StatusList> statusList) {
+
+            }
+
+        });
+
+
+
         return view;
     }
 
