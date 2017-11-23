@@ -266,7 +266,12 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                 Glide.with(mContext).load(comment.getStatus().getThumbnail_pic()).centerCrop().into(holder.transmit_image);
                 holder.transmit_weibo_content.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getStatus().getText()));
                 holder.transmit_weibo_title.setText(comment.getStatus().getUser().getScreen_name());
-                holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
+                if(comment.getReply_comment()!=null){
+                    holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
+                }else{
+                    holder.transmit_comment.setVisibility(View.GONE);
+                }
+
 
             }
             return;
