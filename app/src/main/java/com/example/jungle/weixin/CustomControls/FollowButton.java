@@ -100,4 +100,5 @@ public class FollowButton extends LinearLayout {
         typedArray.recycle();
     }
 
+
 }

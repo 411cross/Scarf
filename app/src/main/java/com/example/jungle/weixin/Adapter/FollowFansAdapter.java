@@ -67,4 +67,5 @@ public class FollowFansAdapter extends RecyclerView.Adapter<FollowFansAdapter.Vi
         }
 
     }
+
 }

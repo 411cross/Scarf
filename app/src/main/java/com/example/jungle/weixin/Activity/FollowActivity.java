@@ -95,4 +95,5 @@ public class FollowActivity extends AppCompatSwipeBack {
         scrollToFinishActivity();//左滑退出activity
     }
 
+
 }
