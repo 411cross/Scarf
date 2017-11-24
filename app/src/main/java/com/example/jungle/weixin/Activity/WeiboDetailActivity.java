@@ -507,4 +507,5 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         scrollToFinishActivity();//左滑退出activity
     }
 
+
 }

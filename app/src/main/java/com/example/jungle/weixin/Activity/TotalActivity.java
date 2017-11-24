@@ -186,4 +186,5 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
 
         });
     }
+
 }

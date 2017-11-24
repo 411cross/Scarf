@@ -319,4 +319,5 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
         super.onBackPressed();
         overridePendingTransition(R.anim.left_in,R.anim.right_out);
     }
+
 }

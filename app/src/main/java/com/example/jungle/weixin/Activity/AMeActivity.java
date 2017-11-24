@@ -96,4 +96,5 @@ public class AMeActivity extends AppCompatSwipeBack {
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity
     }
+
 }
