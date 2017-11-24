@@ -1,18 +1,18 @@
 package com.example.jungle.weixin.Activity;
 
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.jungle.weixin.Adapter.CommentListAdapter;
-import com.example.jungle.weixin.Bean.BaseBean.Comment;
+import com.example.jungle.weixin.Adapter.FollowFansAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.User;
+import com.example.jungle.weixin.Bean.ParticularBean.FriendsFriendFollowersFriendships;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
@@ -27,17 +27,16 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class CommentActivity extends AppCompatSwipeBack {
-    private String token;
-    private Comment[] comments;
-    private List<Comment> commentList;
+public class FansActivity extends AppCompatSwipeBack {
+    private User[] users;
+    private List<User> userList;
     private RecyclerView recyclerView;
-    private CommentListAdapter adapter;
+    private FollowFansAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        setContentView(R.layout.activity_fans);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -46,37 +45,32 @@ public class CommentActivity extends AppCompatSwipeBack {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("评论");
+            actionBar.setTitle("Title");
         }
 
-        NetRequestFactory.getInstance().createService(MyService.class).commentsByMe(CodeUtils.getmToken()).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
+        NetRequestFactory.getInstance().createService(MyService.class).friendshipsFriends(CodeUtils.getmToken(),"我是步轩同学的分身",0).compose(Transform.<Response<FriendsFriendFollowersFriendships>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<FriendsFriendFollowersFriendships>>() {
             @Override
-            public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
-                comments = ReadCommentsData.body().getComments();
+            public void onSuccess(Response<FriendsFriendFollowersFriendships> FriendsFriendFollowersFriendships) {
+                users= FriendsFriendFollowersFriendships.body().getUsers();
+                userList = Arrays.asList(users);
                 recyclerView = (RecyclerView) findViewById(R.id.weibo_list);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(CommentActivity.this);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(FansActivity.this);
                 recyclerView.setLayoutManager(layoutManager);
-                commentList = Arrays.asList(comments);
-                adapter = new CommentListAdapter(CommentActivity.this, commentList);
+                adapter = new FollowFansAdapter(FansActivity.this,userList);
                 recyclerView.setAdapter(adapter);
-                setFooterView(recyclerView);
 
             }
 
             @Override
-            public void _onError(Response<ReadCommentsData> ReadCommentsData) {
+            public void _onError(Response<FriendsFriendFollowersFriendships> FriendsFriendFollowersFriendships) {
 
             }
 
         });
 
-
     }
 
-    private void setFooterView(RecyclerView view) {
-        View footer = LayoutInflater.from(CommentActivity.this).inflate(R.layout.recyclerview_footer, view, false);
-        adapter.setmFooterView(footer);
-    }
+
 
 
     @Override
@@ -100,5 +94,9 @@ public class CommentActivity extends AppCompatSwipeBack {
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity
     }
+
+
+
+
 
 }

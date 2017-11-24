@@ -80,4 +80,5 @@ public class UserDetailActivity extends AppCompatSwipeBack {
         scrollToFinishActivity();//左滑退出activity
     }
 
+
 }

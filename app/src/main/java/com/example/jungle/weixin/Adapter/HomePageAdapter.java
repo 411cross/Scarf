@@ -19,6 +19,7 @@ import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Weibo;
+import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.WeiboImage;
@@ -31,7 +32,9 @@ import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import me.nereo.multi_image_selector.bean.Image;
 
@@ -120,7 +123,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             super(view);
 
             this.itemView = view;
-
             weiboHead = (View) view.findViewById(R.id.weibo_head_layout);
             avatarImage = (ImageView) weiboHead.findViewById(R.id.avatar);
             identityIcon = (ImageView) weiboHead.findViewById(R.id.identity_icon);
@@ -247,9 +249,26 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                 intent.putExtra("status", status);
                 mContext.startActivity(intent);
+
             }
         });
-
+        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String,Status> map = new HashMap<String,Status>();
+                map.put("status",status);
+                new CommomDialog(mContext, R.style.dialog,map).show();
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Map<String,Status> map = new HashMap<String,Status>();
+                map.put("status",status);
+                new CommomDialog(mContext, R.style.dialog,map).show();
+                return true;
+            }
+        });
         int type = TypeUtils.getStatusType(status);
         switch (type) {
             case 0:
