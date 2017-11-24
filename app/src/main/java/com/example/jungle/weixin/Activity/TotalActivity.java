@@ -147,7 +147,6 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
 
                     default:
                         drawerLayout.closeDrawers();
-                        new CommomDialog(TotalActivity.this, R.style.dialog).show();
                         break;
                 }
 
