@@ -6,6 +6,7 @@ import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Data;
 import com.example.jungle.weixin.Bean.Login;
+import com.example.jungle.weixin.Bean.ParticularBean.CreateDestoryCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.FriendsFriendFollowersFriendships;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
@@ -76,7 +77,7 @@ public interface MyService {
     // 对一条微博进行评论
     @FormUrlEncoded
     @POST("comments/create.json")
-    Observable<Response<ResultBean<StatusList>>> commentsCreate(@Field("access_token") String access_token, @Field("comment") String comment, @Field("id") int id);
+    Observable<Response<CreateDestoryCommentsData>> commentsCreate(@Field("access_token") String access_token, @Field("comment") String comment, @Field("id") Long id);
 
     // 删除一条我的评论
     @FormUrlEncoded
