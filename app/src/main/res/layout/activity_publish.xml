@@ -37,8 +37,6 @@
         >
         <EditText
             android:id="@+id/content"
-            android:cursorVisible="true"
-            android:textCursorDrawable="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="分享我的新鲜事..."
@@ -143,7 +141,6 @@
             android:scaleType="fitCenter"
             android:layout_marginLeft="20dp"/>
         <ImageButton
-            android:id="@+id/send"
             android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"

@@ -24,8 +24,6 @@ import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 
-import retrofit2.Response;
-
 public class MyWebView extends AppCompatActivity {
     private WebView mWebView;
     private TextView title_WebView;
@@ -66,30 +64,32 @@ public class MyWebView extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
+                Log.i("fuck", "onPageStarted: "+ url+"     "+url.indexOf("getToken?code="));
             }
-            @Override
-            public void onPageFinished(WebView view, final String url) {
-                if (url.indexOf("getToken?code=") > 0) {
-                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<Login>>() {
-                        @Override
-                        public void onSuccess(Response<Login> loginResponse) {
-                            Login login = loginResponse.body();
-                            ed.putString("Access_token",login.getAccess_token());
-                            ed.putString("Uid",login.getUid());
-                            ed.commit();
-                            //请求完成后需要将此activity结束 避免用户看到关键信息
-                            finish();
-                        }
-
-                        @Override
-                        public void _onError(Response<Login> loginResponse) {
-                            //重新加载授权页面
-                            mWebView.loadUrl(loginUrl);
-                        }
-                    });
-                }
-                super.onPageFinished(view, url);
-            }
+//            @Override
+//            public void onPageFinished(WebView view, final String url) {
+//                if (url.indexOf("getToken?code=") > 0) {
+//                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<ResultBean<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Login>() {
+//                        @Override
+//                        public void onSuccess(Login login) {
+//                            ed.putString("Access_token",login.getAccess_token());
+//                            ed.commit();
+//                            Log.i("Success", login.getAccess_token());
+//                            Log.i("sp", sp.getString("Access_token",null));
+//                            //请求完成后需要将此activity结束 避免用户看到关键信息
+//                            finish();
+//                        }
+//
+//                        @Override
+//                        public void _onError(Throwable e) {
+//                            //重新加载授权页面
+//                            mWebView.loadUrl(loginUrl);
+//                            Log.i("error", e.toString());
+//                        }
+//                    });
+//                }
+//                super.onPageFinished(view, url);
+//            }
         });
         mWebView.loadUrl(loginUrl);
 

@@ -59,8 +59,8 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token,20,1).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+
+        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(CodeUtils.getmToken(), 20, 1).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
             @Override
             public void onSuccess(Response<StatusList> statusList) {
                 statusesList = statusList.body().getStatuses();
@@ -84,10 +84,9 @@ public class HomePageFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-//        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), weiboList);
-//        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), statusesList);
-//        recyclerView.setAdapter(adapter);
-//        return inflater.inflate(R.layout.fragment_home_page, container, false);
+
+
+
 
         return view;
     }

@@ -12,6 +12,8 @@ import com.example.jungle.weixin.R;
 public class PeripheralDynamicsActivity extends AppCompatSwipeBack {
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,4 +54,6 @@ public class PeripheralDynamicsActivity extends AppCompatSwipeBack {
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity
     }
+
+
 }
