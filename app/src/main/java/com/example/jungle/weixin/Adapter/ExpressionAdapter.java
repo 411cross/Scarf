@@ -18,7 +18,7 @@ public class ExpressionAdapter extends BaseAdapter{
     private Context mContext;
     private static int[] mImageIds = new int[] {R.drawable.d_aini,R.drawable.d_baibai, R.drawable.d_beishang,
             R.drawable.d_bishi,R.drawable.d_bizui,R.drawable.d_chanzui,R.drawable.d_chijing, R.drawable.d_dahaqi,
-            R.drawable.d_dalian,R.drawable.d_ding,R.drawable.d_doge, R.drawable.d_ganmao,R.drawable.d_guzhang,
+            R.drawable.d_dalian,R.drawable.d_ding,R.drawable.d_doge, R.drawable.d_huaixiao, R.drawable.d_ganmao,R.drawable.d_guzhang,
             R.drawable.d_haha,R.drawable.d_haixiu,R.drawable.d_han, R.drawable.d_hehe,R.drawable.d_heixian,
             R.drawable.d_heng,R.drawable.d_huaxin,R.drawable.d_jiyan, R.drawable.d_keai, R.drawable.d_kelian,
             R.drawable.d_ku,R.drawable.d_kun,R.drawable.d_landelini, R.drawable.d_lei,R.drawable.d_nu,R.drawable.d_numa,
@@ -41,7 +41,9 @@ public class ExpressionAdapter extends BaseAdapter{
             R.drawable.kulou,R.drawable.duola_chijing,R.drawable.duola_han,R.drawable.duola_huaxin,R.drawable.duola_kaixin,
             R.drawable.duola_meiwei,R.drawable.duola_weixiao,R.drawable.xiaohuangren_deyi,R.drawable.xiaohuangren_huaixiao,
             R.drawable.xiaohuangren_jiandaoshou,R.drawable.xiaohuangren_jingya,R.drawable.xiaohuangren_weiqu,R.drawable.zylm_logo,
-            R.drawable.zylm_bianfuxia, R.drawable.zylm_ganggu,R.drawable.zylm_haiwang,R.drawable.zylm_shandianxia,R.drawable.zylm_shenqinvxia};
+            R.drawable.zylm_bianfuxia, R.drawable.zylm_ganggu,R.drawable.zylm_haiwang,R.drawable.zylm_shandianxia,R.drawable.zylm_shenqinvxia,
+            R.drawable.lxh_xiudada, R.drawable.lxh_haoaio, R.drawable.lxh_toule, R.drawable.lxh_zana,
+            R.drawable.lxh_xiaohaha, R.drawable.lxh_haoxihuan, R.drawable.lxh_qiuguanzhu};
     public ExpressionAdapter(Context c){
         this.mContext = c;
     }

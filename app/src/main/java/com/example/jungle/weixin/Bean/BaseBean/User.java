@@ -18,6 +18,7 @@ public class User implements Serializable{
     private String avatar_hd;
     private String gender;  //性别，m：男、f：女、n：未知
     private String profile_url;
+    private String cover_image_phone;
     private int followers_count;
     private int friends_count;
     private int statuses_count;
@@ -28,7 +29,7 @@ public class User implements Serializable{
     private boolean follow_me;
     private Status status;
 
-    public User(long id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, int followers_count, int friends_count, int status_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
+    public User(long id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int friends_count, int statuses_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
         this.id = id;
         this.screen_name = screen_name;
         this.location = location;
@@ -39,6 +40,7 @@ public class User implements Serializable{
         this.avatar_hd = avatar_hd;
         this.gender = gender;
         this.profile_url = profile_url;
+        this.cover_image_phone = cover_image_phone;
         this.followers_count = followers_count;
         this.friends_count = friends_count;
         this.statuses_count = statuses_count;
@@ -128,6 +130,14 @@ public class User implements Serializable{
 
     public void setProfile_url(String profile_url) {
         this.profile_url = profile_url;
+    }
+
+    public String getCover_image_phone() {
+        return cover_image_phone;
+    }
+
+    public void setCover_image_phone(String cover_image_phone) {
+        this.cover_image_phone = cover_image_phone;
     }
 
     public int getFollowers_count() {

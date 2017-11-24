@@ -33,6 +33,7 @@ import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.bean.Image;
 
 
@@ -51,7 +52,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         private View itemView;
 
         View weiboHead;
-        ImageView avatarImage;
+        CircleImageView avatarImage;
         ImageView identityIcon;
         TextView nickname;
         TextView date;
@@ -122,7 +123,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             this.itemView = view;
 
             weiboHead = (View) view.findViewById(R.id.weibo_head_layout);
-            avatarImage = (ImageView) weiboHead.findViewById(R.id.avatar);
+            avatarImage = (CircleImageView) weiboHead.findViewById(R.id.avatar);
             identityIcon = (ImageView) weiboHead.findViewById(R.id.identity_icon);
             nickname = (TextView) weiboHead.findViewById(R.id.nickname);
             date = (TextView) weiboHead.findViewById(R.id.date);
@@ -226,7 +227,12 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
         final Status status = weiboList.get(position);
         User user = status.getUser();
-        Glide.with(mContext).load(user.getProfile_image_url()).into(holder.avatarImage);
+        Glide.with(mContext).load(user.getAvatar_hd()).into(holder.avatarImage);
+        if (user.isVerified()) {
+            holder.identityIcon.setImageResource(R.drawable.avatar_vip);
+        } else {
+            holder.identityIcon.setVisibility(View.GONE);
+        }
         holder.nickname.setText(user.getScreen_name());
         holder.date.setText(DateUtils.formatDate(status.getCreated_at()));
         String source = status.getSource();

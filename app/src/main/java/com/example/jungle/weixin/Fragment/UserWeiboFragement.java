@@ -58,7 +58,8 @@ public class UserWeiboFragement extends Fragment {
         super.onCreate(savedInstanceState);
         user =(User) getActivity().getIntent().getSerializableExtra("user");
         id = user.getId();
-
+        screenName = user.getScreen_name();
+        System.out.println(screenName);
 
     }
 

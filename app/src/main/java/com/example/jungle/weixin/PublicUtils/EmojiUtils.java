@@ -12,9 +12,10 @@ import java.util.Map;
 public class EmojiUtils {
 
     public static Map<String, Integer> emojiMap;
-    private static int[] mImageIds = new int[] {R.drawable.d_aini,R.drawable.d_baibai, R.drawable.d_beishang,
+    private static int[] mImageIds = new int[] {
+            R.drawable.d_aini,R.drawable.d_baibai, R.drawable.d_beishang,
             R.drawable.d_bishi,R.drawable.d_bizui,R.drawable.d_chanzui,R.drawable.d_chijing, R.drawable.d_dahaqi,
-            R.drawable.d_dalian,R.drawable.d_ding,R.drawable.d_doge, R.drawable.d_ganmao,R.drawable.d_guzhang,
+            R.drawable.d_dalian,R.drawable.d_ding,R.drawable.d_doge, R.drawable.d_huaixiao, R.drawable.d_ganmao,R.drawable.d_guzhang,
             R.drawable.d_haha,R.drawable.d_haixiu,R.drawable.d_han, R.drawable.d_hehe,R.drawable.d_heixian,
             R.drawable.d_heng,R.drawable.d_huaxin,R.drawable.d_jiyan, R.drawable.d_keai, R.drawable.d_kelian,
             R.drawable.d_ku,R.drawable.d_kun,R.drawable.d_landelini, R.drawable.d_lei,R.drawable.d_nu,R.drawable.d_numa,
@@ -40,19 +41,20 @@ public class EmojiUtils {
             R.drawable.duola_meiwei,R.drawable.duola_weixiao,R.drawable.xiaohuangren_deyi,R.drawable.xiaohuangren_huaixiao,
             R.drawable.xiaohuangren_jiandaoshou,R.drawable.xiaohuangren_jingya,R.drawable.xiaohuangren_weiqu,R.drawable.zylm_logo,
             R.drawable.zylm_bianfuxia, R.drawable.zylm_ganggu,R.drawable.zylm_haiwang,R.drawable.zylm_shandianxia,
-            R.drawable.zylm_shenqinvxia};
+            R.drawable.zylm_shenqinvxia, R.drawable.lxh_xiudada, R.drawable.lxh_haoaio, R.drawable.lxh_toule, R.drawable.lxh_zana,
+            R.drawable.lxh_xiaohaha, R.drawable.lxh_haoxihuan, R.drawable.lxh_qiuguanzhu};
     private static String[] name = new String[]{
-            "爱你","拜拜","悲伤","鄙视","闭嘴","馋嘴","吃惊","哈欠","打脸","顶","doge","感冒","鼓掌",
-            "哈哈","害羞","汗","呵呵","黑线","哼","花心","挤眼","可爱","可怜","酷","困","白眼","泪",
-            "怒","怒骂","钱","亲亲","傻眼","生病", "失望","衰","睡觉","思考","太开心","偷笑","吐","兔子",
+            "爱你","拜拜","悲伤","鄙视","闭嘴","馋嘴","吃惊","哈欠","打脸","顶","doge","坏笑","感冒","鼓掌",
+            "哈哈","害羞","汗","微笑","黑线","哼","色","挤眼","可爱","可怜","酷","困","白眼","泪",
+            "怒","怒骂","钱","亲亲","傻眼","生病", "失望","衰","睡","思考","太开心","偷笑","吐","兔子",
             "挖鼻","委屈", "笑cry","嘻嘻","嘘","阴险","疑问","右哼哼","左哼哼","晕","抓狂",
-            "并不简单","吃瓜","憧憬","费解","舔屏","污","笑而不语","允悲","抱抱","跪了","摊手","互粉","神兽",
-            "熊猫","猪头","给力","囧","神马","威武","喜","不要","good","来","haha","拳头","ok","弱","握手","耶",
+            "并不简单","吃瓜","憧憬","费解","舔屏","污","笑而不语","允悲","抱抱","跪了","摊手","互粉","草泥马",
+            "熊猫","猪头","给力","囧","神马","威武","喜","NO","good","来","haha","拳头","ok","弱","握手","耶",
             "赞","作揖","伤心","心","蛋糕","飞机","干杯","话筒","蜡烛","礼物","绿丝带","围观","音乐","照相机",
             "钟","浮云","沙尘暴","太阳","微风","鲜花","下雨","月亮","奥特曼","肥皂","围脖","男孩儿","女孩儿",
             "浪","喵喵","二哈","广告","骷髅","哆啦A梦吃惊","哆啦A梦汗","哆啦A梦花心","哆啦A梦开心","哆啦A梦美味",
             "哆啦A梦微笑","小黄人得意","小黄人坏笑","小黄人剪刀手","小黄人惊讶","小黄人委屈","正义联盟logo",
-            "蝙蝠侠", "钢骨","海王","闪电侠","神奇女侠",
+            "蝙蝠侠", "钢骨","海王","闪电侠","神奇女侠","羞嗒嗒","好爱哦","偷乐","赞啊","笑哈哈","好喜欢","求关注"
     };
 
     static {

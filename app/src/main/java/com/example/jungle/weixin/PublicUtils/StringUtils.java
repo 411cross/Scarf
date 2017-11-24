@@ -40,7 +40,7 @@ public class StringUtils {
 
     public static SpannableStringBuilder transformWeiboBody(final Context context, final TextView tv, String original) {
 
-        String regexAt = "@[\u4e00-\u9fa5a-zA-Z0-9+&@#/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+";
+        String regexAt = "@[\u4e00-\u9fa5a-zA-Z0-9+&@#\\-/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+";
         String regexTopic = "#[\u4e00-\u9fa5a-zA-Z0-9+&@#/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+#";
         String regexEmoji = "\\[[\u4e00-\u9fa5\\w]+\\]";
         String regexLink = "http://[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
@@ -73,7 +73,7 @@ public class StringUtils {
                 ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
                     @Override
                     public void onClick(View widget) {
-                        ToastUtils.showShortToast(context, "用户: " + atStr);
+//                        ToastUtils.showShortToast(context, "用户: " + atStr);
                         String username = atStr.replaceAll("@", "");
                         goToUserDetail(context, username);
                     }

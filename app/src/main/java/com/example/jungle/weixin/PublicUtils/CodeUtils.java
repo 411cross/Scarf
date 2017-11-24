@@ -12,7 +12,9 @@ import java.util.Map;
 public class CodeUtils {
 
     public static Map<String, String> codeMap;
-    public static String mToken = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+    public static String mToken = "2.008CRz6CCgNPqC5078195875JjQ_KE";
+    public static long mID = 2216277571L;
+
     static {
         codeMap = new HashMap<String, String>();
         codeMap.put("20003", "该用户不存在");
@@ -53,5 +55,13 @@ public class CodeUtils {
 
     public static void setmToken(String mToken) {
         CodeUtils.mToken = mToken;
+    }
+
+    public static long getmID() {
+        return mID;
+    }
+
+    public static void setmID(long mID) {
+        CodeUtils.mID = mID;
     }
 }

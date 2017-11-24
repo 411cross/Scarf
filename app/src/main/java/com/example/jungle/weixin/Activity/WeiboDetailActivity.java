@@ -45,6 +45,8 @@ import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnClickListener {
     private PopupWindow popupWindow;
 
@@ -57,7 +59,7 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
     private View weiboView;
 
     private View weiboHead;
-    private ImageView avatarImage;
+    private CircleImageView avatarImage;
     private ImageView identityIcon;
     private TextView nickname;
     private TextView date;
@@ -173,7 +175,7 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
         weiboView.findViewById(R.id.weibo_functions_layout).setVisibility(View.GONE);
 
         weiboHead = (View) weiboView.findViewById(R.id.weibo_head_layout);
-        avatarImage = (ImageView) weiboHead.findViewById(R.id.avatar);
+        avatarImage = (CircleImageView) weiboHead.findViewById(R.id.avatar);
         identityIcon = (ImageView) weiboHead.findViewById(R.id.identity_icon);
         nickname = (TextView) weiboHead.findViewById(R.id.nickname);
         date = (TextView) weiboHead.findViewById(R.id.date);
@@ -314,7 +316,12 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
     public void setWeibo() {
         User user = status.getUser();
-        Glide.with(this).load(user.getProfile_image_url()).into(avatarImage);
+        Glide.with(this).load(user.getAvatar_hd()).into(avatarImage);
+        if (user.isVerified()) {
+            identityIcon.setImageResource(R.drawable.avatar_vip);
+        } else {
+            identityIcon.setVisibility(View.GONE);
+        }
         nickname.setText(user.getScreen_name());
         date.setText(DateUtils.formatDate(status.getCreated_at()));
         String theSource = status.getSource();

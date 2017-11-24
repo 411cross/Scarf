@@ -19,6 +19,7 @@ import com.example.jungle.weixin.Bean.ResultBean;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
+import com.example.jungle.weixin.PublicUtils.EndlessRecyclerOnScrollListener;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -38,7 +39,6 @@ public class HomePageFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private List<Status> statusesList = new ArrayList<>();
-    private String token;
 
     // TODO: Rename and change types of parameters
 
@@ -59,21 +59,6 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
-            @Override
-            public void onSuccess(Response<StatusList> statusList) {
-                statusesList = statusList.body().getStatuses();
-                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void _onError(Response<StatusList> statusList) {
-
-            }
-
-        });
     }
 
     @Override
@@ -84,12 +69,13 @@ public class HomePageFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
-//        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), weiboList);
-//        HomePageAdapter adapter = new HomePageAdapter((TotalActivity) getActivity(), statusesList);
-//        recyclerView.setAdapter(adapter);
-//        return inflater.inflate(R.layout.fragment_home_page, container, false);
-        token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(token).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+        recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+
+            }
+        });
+        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(CodeUtils.getmToken()).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
             @Override
             public void onSuccess(Response<StatusList> statusList) {
                 statusesList = statusList.body().getStatuses();
@@ -122,43 +108,21 @@ public class HomePageFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser) {
-//            NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline("2.008CRz6CCgNPqC0042daeb2eiqqbNC").compose(Transform.<ResultBean<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<StatusList>() {
-//                @Override
-//                public void onSuccess(StatusList statusList) {
-//                    Log.i("statusList😊😊😊", statusList);
-////                    statusesList = statusList.getStatuses();
-//                }
-//
-//                @Override
-//                public void _onError(ResultBean<StatusList> e) {
-//                    String code = e.error_code;
-//                    Toast.makeText(getContext(),CodeUtils.getChineseMsg(code),Toast.LENGTH_LONG).show();
-//                }
-//            });
-//        }
-//    }
-//
-//    @Override
-//    public void onHiddenChanged(boolean hidden) {
-//        super.onHiddenChanged(hidden);
-//        if (!hidden) {
-//            NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline("2.008CRz6CCgNPqC0042daeb2eiqqbNC").compose(Transform.<ResultBean<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<StatusList>() {
-//                @Override
-//                public void onSuccess(StatusList statusList) {
-//                    Log.i("statusList😊😊😊", statusList);
-////                    statusesList = statusList.getStatuses();
-//                }
-//
-//                @Override
-//                public void _onError(ResultBean<StatusList> e) {
-//                    String code = e.error_code;
-//                    Toast.makeText(getContext(),CodeUtils.getChineseMsg(code),Toast.LENGTH_LONG).show();
-//                }
-//            });
-//        }
-//    }
+    private void loadData(int page) {
+        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(CodeUtils.getmToken()).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+            @Override
+            public void onSuccess(Response<StatusList> statusList) {
+                statusesList = statusList.body().getStatuses();
+                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void _onError(Response<StatusList> statusList) {
+
+            }
+
+        });
+    }
+
 }

@@ -1,6 +1,10 @@
 package com.example.jungle.weixin.Activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 
@@ -20,6 +24,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +37,7 @@ import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.Fragment.FindFragment;
 import com.example.jungle.weixin.Fragment.HomePageFragment;
 import com.example.jungle.weixin.Fragment.InformationFragment;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -43,18 +50,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.nereo.multi_image_selector.bean.Image;
 import retrofit2.Response;
 
 public class TotalActivity extends FragmentActivity implements View.OnClickListener{
     private Toolbar toolbar;
     private de.hdodenhof.circleimageview.CircleImageView iconImage;
+    private de.hdodenhof.circleimageview.CircleImageView iconImageInDrawer;
+    private ImageView backgroundImgV;
+    private TextView usernameTv;
+    private TextView descTv;
     private User user;
+    private SharedPreferences sp;
+    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_total);
         final DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
+
+        try {
+            Context otherAppContext = createPackageContext("com.example.jungle.weixin", Context.CONTEXT_IGNORE_SECURITY);
+            sp = otherAppContext.getSharedPreferences("Scarf", Activity.MODE_PRIVATE);
+            id = sp.getLong("Uid", CodeUtils.getmID());
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -73,9 +95,7 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(mViewPagerAdapter);
 
-
-
-//角标
+        //角标
         BadgeView badgeView1 = new BadgeView(TotalActivity.this);
         badgeView1.setTargetView(((ViewGroup)tabLayout.getChildAt(0)).getChildAt(0));
         badgeView1.setBadgeCount(3);
@@ -102,10 +122,19 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
             }
         });
 
-        getUserInfo();
+
 
         NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
+        View header = navView.getHeaderView(0);
+        iconImageInDrawer = (CircleImageView) header.findViewById(R.id.icon_image);
+        usernameTv = (TextView) header.findViewById(R.id.username);
+        descTv = (TextView) header.findViewById(R.id.description);
+        backgroundImgV = (ImageView) header.findViewById(R.id.background);
+
+        getUserInfo();
+
+
 
 //        navView.setCheckedItem(R.id.nav_call); //设置默认选择项
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
@@ -166,12 +195,25 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
     }
 
     public void getUserInfo() {
-        String token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        NetRequestFactory.getInstance().createService(MyService.class).usersShow(token).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
+        NetRequestFactory.getInstance().createService(MyService.class).usersShowWithID(CodeUtils.getmToken(), id).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
             @Override
             public void onSuccess(Response<User> userResponse) {
                 user = userResponse.body();
                 Glide.with(TotalActivity.this).load(user.getProfile_image_url()).into(iconImage);
+                Glide.with(TotalActivity.this).load(user.getAvatar_hd()).into(iconImageInDrawer);
+                Glide.with(TotalActivity.this).load(user.getCover_image_phone()).into(backgroundImgV);
+                usernameTv.setText(user.getScreen_name());
+                descTv.setText(user.getDescription());
+
+                iconImageInDrawer.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(TotalActivity.this, UserDetailActivity.class);
+                        intent.putExtra("user", user);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                    }
+                });
             }
 
             @Override
