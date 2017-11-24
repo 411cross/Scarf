@@ -49,7 +49,7 @@ public class AMeActivity extends AppCompatSwipeBack {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Title");
+            actionBar.setTitle("@我");
         }
 
 

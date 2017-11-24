@@ -46,7 +46,7 @@ public class CommentActivity extends AppCompatSwipeBack {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Title");
+            actionBar.setTitle("评论");
         }
 
         NetRequestFactory.getInstance().createService(MyService.class).commentsByMe(CodeUtils.getmToken()).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
