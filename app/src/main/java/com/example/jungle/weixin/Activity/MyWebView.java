@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.Data;
 import com.example.jungle.weixin.Bean.Login;
 import com.example.jungle.weixin.Bean.ResultBean;
@@ -23,6 +24,12 @@ import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
+
+import retrofit2.Response;
+
+import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.addUser;
+import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.getSp;
+import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.getUserCount;
 
 public class MyWebView extends AppCompatActivity {
     private WebView mWebView;
@@ -43,13 +50,7 @@ public class MyWebView extends AppCompatActivity {
         back = (ImageButton) findViewById(R.id.back);
 
         //尝试操作MainActivity中的sharedpreferences
-        try {
-            Context otherAppContext = createPackageContext("com.example.jungle.weixin", Context.CONTEXT_IGNORE_SECURITY);
-            sp = otherAppContext.getSharedPreferences("Scarf", Activity.MODE_PRIVATE);
-            ed = sp.edit();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        sp = getSp(this);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
         WebChromeClient wcc = new WebChromeClient() {
@@ -64,32 +65,28 @@ public class MyWebView extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                Log.i("fuck", "onPageStarted: "+ url+"     "+url.indexOf("getToken?code="));
             }
-//            @Override
-//            public void onPageFinished(WebView view, final String url) {
-//                if (url.indexOf("getToken?code=") > 0) {
-//                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<ResultBean<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Login>() {
-//                        @Override
-//                        public void onSuccess(Login login) {
-//                            ed.putString("Access_token",login.getAccess_token());
-//                            ed.commit();
-//                            Log.i("Success", login.getAccess_token());
-//                            Log.i("sp", sp.getString("Access_token",null));
-//                            //请求完成后需要将此activity结束 避免用户看到关键信息
-//                            finish();
-//                        }
-//
-//                        @Override
-//                        public void _onError(Throwable e) {
-//                            //重新加载授权页面
-//                            mWebView.loadUrl(loginUrl);
-//                            Log.i("error", e.toString());
-//                        }
-//                    });
-//                }
-//                super.onPageFinished(view, url);
-//            }
+            @Override
+            public void onPageFinished(WebView view, final String url) {
+                if (url.indexOf("getToken?code=") > 0) {
+                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<Login>>() {
+                        @Override
+                        public void onSuccess(Response<Login> loginResponse) {
+                            Login login = loginResponse.body();
+                            addUser(sp,new SharedPreUser(login.getUid(),login.getAccess_token(),null,null));
+                            //请求完成后需要将此activity结束 避免用户看到关键信息
+                            finish();
+                        }
+
+                        @Override
+                        public void _onError(Response<Login> loginResponse) {
+                            //重新加载授权页面
+                            mWebView.loadUrl(loginUrl);
+                        }
+                    });
+                }
+                super.onPageFinished(view, url);
+            }
         });
         mWebView.loadUrl(loginUrl);
 

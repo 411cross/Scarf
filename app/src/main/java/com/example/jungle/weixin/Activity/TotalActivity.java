@@ -31,7 +31,6 @@ import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.Fragment.FindFragment;
 import com.example.jungle.weixin.Fragment.HomePageFragment;
 import com.example.jungle.weixin.Fragment.InformationFragment;
-import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -130,18 +129,13 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     case R.id.accountManagement :
-                        Intent intent3 = new Intent(TotalActivity.this,UserDetailActivity.class);
+                        Intent intent3 = new Intent(TotalActivity.this,UserManager.class);
                         startActivity(intent3);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     case R.id.clearCache :
                         Intent intent4 = new Intent(TotalActivity.this,SearchResultActivity.class);
                         startActivity(intent4);
-                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
-                        break;
-                    case R.id.signOut:
-                        Intent intent5 = new Intent(TotalActivity.this,FansActivity.class);
-                        startActivity(intent5);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
 
@@ -171,8 +165,8 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
     }
 
     public void getUserInfo() {
-
-        NetRequestFactory.getInstance().createService(MyService.class).usersShow(CodeUtils.mToken).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
+        String token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
+        NetRequestFactory.getInstance().createService(MyService.class).usersShow(token).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
             @Override
             public void onSuccess(Response<User> userResponse) {
                 user = userResponse.body();

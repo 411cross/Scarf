@@ -124,6 +124,6 @@ public interface MyService {
 
     // 请求狒狒数据库的accesstoken，url是自定义的
     @GET("")
-    Observable<ResultBean<Login>> requestUrl(@Url String url);
+    Observable<Response<Login>> requestUrl(@Url String url);
 
 }
