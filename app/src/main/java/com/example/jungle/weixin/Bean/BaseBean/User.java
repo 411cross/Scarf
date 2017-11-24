@@ -22,6 +22,7 @@ public class User implements Serializable{
     private int followers_count;
     private int friends_count;
     private int statuses_count;
+    private int verified_type;
     private boolean following;
     private boolean allow_all_act_msg;
     private boolean allow_all_comment;
@@ -29,7 +30,7 @@ public class User implements Serializable{
     private boolean follow_me;
     private Status status;
 
-    public User(long id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int friends_count, int statuses_count, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
+    public User(long id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int friends_count, int statuses_count, int verified_type, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
         this.id = id;
         this.screen_name = screen_name;
         this.location = location;
@@ -44,6 +45,7 @@ public class User implements Serializable{
         this.followers_count = followers_count;
         this.friends_count = friends_count;
         this.statuses_count = statuses_count;
+        this.verified_type = verified_type;
         this.following = following;
         this.allow_all_act_msg = allow_all_act_msg;
         this.allow_all_comment = allow_all_comment;
@@ -162,6 +164,14 @@ public class User implements Serializable{
 
     public void setStatuses_count(int statuses_count) {
         this.statuses_count = statuses_count;
+    }
+
+    public int getVerified_type() {
+        return verified_type;
+    }
+
+    public void setVerified_type(int verified_type) {
+        this.verified_type = verified_type;
     }
 
     public boolean isFollowing() {

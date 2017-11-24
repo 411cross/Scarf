@@ -18,6 +18,7 @@ import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.BaseBean.PicURL;
+import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
@@ -249,8 +250,25 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
         if (getItemViewType(position) == TYPE_NORMAL) {
             if (holder instanceof ViewHolder) {
                 final Comment comment = commentList.get(position - 1);
+                User user = comment.getUser();
                 Glide.with(mContext).load(comment.getUser().getProfile_image_url()).into(holder.avatarImage);
-                holder.nickname.setText(comment.getUser().getScreen_name());
+
+                switch (user.getVerified_type()) {
+                    case 0:
+                        holder.identityIcon.setImageResource(R.drawable.avatar_vip_golden);
+                        break;
+                    case 2:
+                        holder.identityIcon.setImageResource(R.drawable.avatar_enterprise_vip);
+                        break;
+                    case 220:
+                        holder.identityIcon.setImageResource(R.drawable.avatar_grassroot);
+                        break;
+                    default:
+                        holder.identityIcon.setVisibility(View.GONE);
+                        break;
+                }
+
+                holder.nickname.setText(user.getScreen_name());
                 holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
                 String source = comment.getSource();
                 if (source.length() != 0) {
@@ -276,10 +294,15 @@ public class InformationAdapter extends RecyclerView.Adapter<InformationAdapter.
                 holder.bodyView.setVisibility(View.VISIBLE);
                 holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getText()));
                 holder.transmit_layout.setVisibility(View.VISIBLE);
-                Glide.with(mContext).load(comment.getStatus().getThumbnail_pic()).centerCrop().into(holder.transmit_image);
+                if (comment.getStatus().getThumbnail_pic() != null) {
+                    Glide.with(mContext).load(comment.getStatus().getThumbnail_pic()).centerCrop().into(holder.transmit_image);
+                } else {
+                    Glide.with(mContext).load(comment.getStatus().getUser().getAvatar_hd()).centerCrop().into(holder.transmit_image);
+                }
                 holder.transmit_weibo_content.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getStatus().getText()));
                 holder.transmit_weibo_title.setText(comment.getStatus().getUser().getScreen_name());
-                holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
+                String replyCommentWithName = "@" + comment.getReply_comment().getUser().getScreen_name() + ":" + comment.getReply_comment().getText();
+                holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, replyCommentWithName));
                 return;
 
             }

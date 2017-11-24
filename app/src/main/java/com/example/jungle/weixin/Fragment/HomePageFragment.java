@@ -38,7 +38,9 @@ import retrofit2.Response;
 public class HomePageFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private HomePageAdapter adapter;
     private List<Status> statusesList = new ArrayList<>();
+    private int page;
 
     // TODO: Rename and change types of parameters
 
@@ -59,6 +61,9 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        page = 1;
+        loadStatus(page);
+
     }
 
     @Override
@@ -69,28 +74,14 @@ public class HomePageFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new HomePageAdapter(getContext(), statusesList);
+        recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int currentPage) {
-
+                loadStatus(currentPage);
             }
         });
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(CodeUtils.getmToken()).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
-            @Override
-            public void onSuccess(Response<StatusList> statusList) {
-                statusesList = statusList.body().getStatuses();
-                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
-                recyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void _onError(Response<StatusList> statusList) {
-
-            }
-
-        });
-
-
 
         return view;
     }
@@ -99,30 +90,32 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
     }
 
-    private void loadData(int page) {
-        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(CodeUtils.getmToken()).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+    private void loadStatus(final int page) {
+        NetRequestFactory.getInstance().createService(MyService.class).getHomeTimeline(CodeUtils.getmToken(),20,page).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
             @Override
             public void onSuccess(Response<StatusList> statusList) {
-                statusesList = statusList.body().getStatuses();
-                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
-                recyclerView.setAdapter(adapter);
+                statusesList.addAll(statusList.body().getStatuses());
+                adapter.notifyDataSetChanged();
+                if (page == 1) {
+                    setFooterView(recyclerView);
+                }
             }
-
             @Override
             public void _onError(Response<StatusList> statusList) {
-
             }
-
         });
+    }
+
+    private void setFooterView(RecyclerView recyclerView) {
+        View footer = LayoutInflater.from(getContext()).inflate(R.layout.public_loadmore_footer, recyclerView, false);
+        adapter.setFooterView(footer);
     }
 
 }

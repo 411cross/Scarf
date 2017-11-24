@@ -48,7 +48,9 @@ public class StringUtils {
 
         String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")|(" + regexLink + ")|(" + regexMore + ")";
 
-        SpannableStringBuilder spannableString = new SpannableStringBuilder(original);
+        String recognizeColonString = original.replaceAll(":", " : ");
+
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(recognizeColonString);
         Pattern pattern = Pattern.compile(regexGroup);
         Matcher matcher = pattern.matcher(spannableString);
 

@@ -9,11 +9,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
+import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
+import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.R;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by derrickJ on 2017/11/10.
@@ -54,7 +59,7 @@ public class CommentAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = View.inflate(context, R.layout.comment_item, null);
             holder = new ViewHolder();
-            holder.avatarImage = (ImageView) convertView.findViewById(R.id.avatar);
+            holder.avatarImage = (CircleImageView) convertView.findViewById(R.id.avatar);
             holder.identityIcon = (ImageView) convertView.findViewById(R.id.identity_icon);
             holder.nickname = (TextView) convertView.findViewById(R.id.nickname);
             holder.date = (TextView) convertView.findViewById(R.id.date);
@@ -74,19 +79,33 @@ public class CommentAdapter extends BaseAdapter {
         }
 
         Comment comment = commentList.get(position);
-        holder.avatarImage.setImageResource(R.drawable.ic_default_image);
-//        holder.identityIcon.setImageResource(R.drawable.dit);
-//        holder.nickname.setText(comment.getName());
-//        holder.comment.setText(comment.getComment());
-//        holder.date.setText(DateUtils.formatDate(comment.getDate()));
-//        holder.likeNum.setText(String.valueOf(comment.getLikeNum()));
+        User user = comment.getUser();
+        Glide.with(context).load(comment.getUser().getProfile_image_url()).fitCenter().into(holder.avatarImage);
+        switch (user.getVerified_type()) {
+            case 0:
+                holder.identityIcon.setImageResource(R.drawable.avatar_vip_golden);
+                break;
+            case 2:
+                holder.identityIcon.setImageResource(R.drawable.avatar_enterprise_vip);
+                break;
+            case 220:
+                holder.identityIcon.setImageResource(R.drawable.avatar_grassroot);
+                break;
+            default:
+                holder.identityIcon.setVisibility(View.GONE);
+                break;
+        }
+        holder.nickname.setText(user.getScreen_name());
+        holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
+        holder.likeNum.setVisibility(View.GONE);
+        holder.comment.setText(StringUtils.transformWeiboBody(context, holder.comment, comment.getText()));
 
         return convertView;
     }
 
     public static class ViewHolder {
 
-        private ImageView avatarImage;
+        private CircleImageView avatarImage;
         private ImageView identityIcon;
         private TextView nickname;
         private TextView date;

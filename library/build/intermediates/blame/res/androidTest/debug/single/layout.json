@@ -1,10 +1,10 @@
 [
     {
-        "merged": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/res/merged/androidTest/debug/layout/pull_to_refresh_header_vertical.xml",
-        "source": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header_vertical.xml"
+        "merged": "H:\\android-studio\\Scarf\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_horizontal.xml",
+        "source": "H:\\android-studio\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_horizontal.xml"
     },
     {
-        "merged": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/res/merged/androidTest/debug/layout/pull_to_refresh_header_horizontal.xml",
-        "source": "/Users/derrickJ/Desktop/Project/Scarf/library/build/intermediates/bundles/debug/res/layout/pull_to_refresh_header_horizontal.xml"
+        "merged": "H:\\android-studio\\Scarf\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\pull_to_refresh_header_vertical.xml",
+        "source": "H:\\android-studio\\Scarf\\library\\build\\intermediates\\bundles\\debug\\res\\layout\\pull_to_refresh_header_vertical.xml"
     }
 ]

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.AMeActivity;
 import com.example.jungle.weixin.Activity.CommentActivity;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
+import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
@@ -237,8 +238,25 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         if (getItemViewType(position) == TYPE_NORMAL) {
             if (holder instanceof ViewHolder) {
                 final Comment comment = commentList.get(position);
-                Glide.with(mContext).load(comment.getUser().getProfile_image_url()).into(holder.avatarImage);
-                holder.nickname.setText(comment.getUser().getScreen_name());
+                User user = comment.getUser();
+                Glide.with(mContext).load(user.getProfile_image_url()).into(holder.avatarImage);
+
+                switch (user.getVerified_type()) {
+                    case 0:
+                        holder.identityIcon.setImageResource(R.drawable.avatar_vip_golden);
+                        break;
+                    case 2:
+                        holder.identityIcon.setImageResource(R.drawable.avatar_enterprise_vip);
+                        break;
+                    case 220:
+                        holder.identityIcon.setImageResource(R.drawable.avatar_grassroot);
+                        break;
+                    default:
+                        holder.identityIcon.setVisibility(View.GONE);
+                        break;
+                }
+
+                holder.nickname.setText(user.getScreen_name());
                 holder.date.setText(DateUtils.formatDate(comment.getCreated_at()));
                 String source = comment.getSource();
                 if (source.length() != 0) {
@@ -266,7 +284,13 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
                 Glide.with(mContext).load(comment.getStatus().getThumbnail_pic()).centerCrop().into(holder.transmit_image);
                 holder.transmit_weibo_content.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getStatus().getText()));
                 holder.transmit_weibo_title.setText(comment.getStatus().getUser().getScreen_name());
-                holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
+
+                if(comment.getReply_comment()!=null) {
+                    holder.transmit_comment.setText(StringUtils.transformWeiboBody(mContext, holder.body, comment.getReply_comment().getText()));
+                } else {
+                    holder.transmit_comment.setVisibility(View.GONE);
+                }
+
 
             }
             return;

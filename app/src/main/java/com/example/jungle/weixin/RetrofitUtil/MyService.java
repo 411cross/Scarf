@@ -34,7 +34,7 @@ public interface MyService {
     // 首页 - 获取当前登录用户及其所关注（授权）用户的最新微博
     @GET("statuses/home_timeline.json")
 //    Observable<Response<StatusList>> getHomeTimeline(@Query("access_token") String access_token, @Query("count") int count, @Query("page") int page);
-    Observable<Response<StatusList>> getHomeTimeline(@Query("access_token") String access_token);
+    Observable<Response<StatusList>> getHomeTimeline(@Query("access_token") String access_token,@Query("count") int count ,@Query("page") int page);
 
     // 个人页 - 获取自己最新发表的微博列表
     @GET("statuses/user_timeline.json")
@@ -58,7 +58,7 @@ public interface MyService {
 
     // 根据微博ID返回某条微博的评论列表
     @GET("comments/show.json")
-    Observable<Response<ReadCommentsData>> commentsShow(@Query("access_token") String access_token, @Query("id") int id,@Query("count") int count);
+    Observable<Response<ReadCommentsData>> commentsShow(@Query("access_token") String access_token, @Query("id") long id,@Query("count") int count,@Query("page") int page);
 
     // 我发出的评论列表
     @GET("comments/by_me.json")
@@ -103,7 +103,6 @@ public interface MyService {
     @GET("users/domain_show.json")
     Observable<Response<User>> usersDomainShow(@Query("access_token") String access_token, @Query("domain") String domain);
 
-
     // 获取用户的关注列表
     @GET("friendships/friends.json")
     Observable<Response<StatusList>> friendshipsFriends(@Query("access_token") String access_token);
@@ -122,6 +121,6 @@ public interface MyService {
 
     // 请求狒狒数据库的accesstoken，url是自定义的
     @GET("")
-    Observable<ResultBean<Login>> requestUrl(@Url String url);
+    Observable<Response<Login>> requestUrl(@Url String url);
 
 }
