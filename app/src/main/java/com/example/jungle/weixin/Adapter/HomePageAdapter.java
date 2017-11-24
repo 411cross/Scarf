@@ -19,6 +19,7 @@ import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Weibo;
+import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Bean.WeiboImage;
@@ -32,7 +33,9 @@ import com.lzy.ninegrid.NineGridView;
 import com.lzy.ninegrid.preview.NineGridViewClickAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.bean.Image;
@@ -195,6 +198,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             repostIcon = (ImageView) weiboFunctionView.findViewById(R.id.repost_image);
             repostNum = (TextView) weiboFunctionView.findViewById(R.id.repost_num);
             repostIcon.setImageResource(R.drawable.repost_icon);
+
+
 
             transmit_layout  = view.findViewById(R.id.weibo_transmit_layout);
 

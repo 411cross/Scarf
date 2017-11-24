@@ -54,4 +54,5 @@ public class HotTopicActivity extends AppCompatActivity implements View.OnClickL
         overridePendingTransition(R.anim.left_in,R.anim.right_out);
     }
 
+
 }

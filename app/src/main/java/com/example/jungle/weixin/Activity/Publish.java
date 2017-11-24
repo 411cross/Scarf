@@ -20,6 +20,7 @@ import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -346,4 +347,5 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
         super.onBackPressed();
         overridePendingTransition(R.anim.left_in,R.anim.right_out);
     }
+
 }

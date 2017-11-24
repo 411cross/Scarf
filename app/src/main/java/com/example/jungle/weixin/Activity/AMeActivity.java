@@ -49,7 +49,7 @@ public class AMeActivity extends AppCompatSwipeBack {
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Title");
+            actionBar.setTitle("@我");
         }
 
 
@@ -96,4 +96,5 @@ public class AMeActivity extends AppCompatSwipeBack {
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity
     }
+
 }

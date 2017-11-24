@@ -63,6 +63,10 @@
         <activity android:name=".Activity.HotTopicActivity"></activity>
         <activity android:name=".Activity.PublicWebViewActivity"></activity>
         <activity android:name=".Activity.UserManager"></activity>
+        <activity android:name=".Activity.FollowActivity" />
+        <activity android:name=".Activity.FansActivity" />
+        <activity android:name=".Activity.ReviewWeiboActivity" />
+        <activity android:name=".Activity.RelayWeiboActivity"></activity>
     </application>
 
 </manifest>
