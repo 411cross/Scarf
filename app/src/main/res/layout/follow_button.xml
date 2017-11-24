@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/followButton"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="互相关注"
+        android:background="@drawable/follow_button_bgb"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="6dp"
+        android:textColor="#FFFFFF"
+        />
+</LinearLayout>

@@ -6,6 +6,7 @@ import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Data;
 import com.example.jungle.weixin.Bean.Login;
+import com.example.jungle.weixin.Bean.ParticularBean.FriendsFriendFollowersFriendships;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.ResultBean;
@@ -106,7 +107,7 @@ public interface MyService {
 
     // 获取用户的关注列表
     @GET("friendships/friends.json")
-    Observable<Response<StatusList>> friendshipsFriends(@Query("access_token") String access_token);
+    Observable<Response<FriendsFriendFollowersFriendships>> friendshipsFriends(@Query("access_token") String access_token,@Query("screen_name") String screen_name,@Query("cursor") int cursor);
 
     // 获取用户粉丝列表
     @GET("friendships/followers.json")
