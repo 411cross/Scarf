@@ -6,8 +6,8 @@
     android:background="@color/colorWeibo">
 
     <include
-        layout="@layout/weibo_head"
         android:id="@+id/weibo_head_layout"
+        layout="@layout/weibo_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
