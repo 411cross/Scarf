@@ -15,6 +15,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.Data;
 import com.example.jungle.weixin.Bean.Login;
 import com.example.jungle.weixin.Bean.ResultBean;
@@ -25,6 +26,10 @@ import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 
 import retrofit2.Response;
+
+import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.addUser;
+import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.getSp;
+import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.getUserCount;
 
 public class MyWebView extends AppCompatActivity {
     private WebView mWebView;
@@ -45,13 +50,7 @@ public class MyWebView extends AppCompatActivity {
         back = (ImageButton) findViewById(R.id.back);
 
         //尝试操作MainActivity中的sharedpreferences
-        try {
-            Context otherAppContext = createPackageContext("com.example.jungle.weixin", Context.CONTEXT_IGNORE_SECURITY);
-            sp = otherAppContext.getSharedPreferences("Scarf", Activity.MODE_PRIVATE);
-            ed = sp.edit();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+        sp = getSp(this);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
         WebChromeClient wcc = new WebChromeClient() {
@@ -74,9 +73,7 @@ public class MyWebView extends AppCompatActivity {
                         @Override
                         public void onSuccess(Response<Login> loginResponse) {
                             Login login = loginResponse.body();
-                            ed.putString("Access_token",login.getAccess_token());
-                            ed.putString("Uid",login.getUid());
-                            ed.commit();
+                            addUser(sp,new SharedPreUser(login.getUid(),login.getAccess_token(),null,null));
                             //请求完成后需要将此activity结束 避免用户看到关键信息
                             finish();
                         }
