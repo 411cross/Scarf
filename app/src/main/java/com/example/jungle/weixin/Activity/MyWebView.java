@@ -1,13 +1,9 @@
 package com.example.jungle.weixin.Activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -16,9 +12,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
-import com.example.jungle.weixin.Bean.Data;
-import com.example.jungle.weixin.Bean.Login;
-import com.example.jungle.weixin.Bean.ResultBean;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -27,9 +20,8 @@ import com.example.jungle.weixin.RetrofitUtil.Transform;
 
 import retrofit2.Response;
 
-import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.addUser;
-import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.getSp;
-import static com.example.jungle.weixin.PublicUtils.shaedPreUtils.getUserCount;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
 public class MyWebView extends AppCompatActivity {
     private WebView mWebView;
@@ -69,17 +61,17 @@ public class MyWebView extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, final String url) {
                 if (url.indexOf("getToken?code=") > 0) {
-                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<Login>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<Login>>() {
+                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<SharedPreUser>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<SharedPreUser>>() {
                         @Override
-                        public void onSuccess(Response<Login> loginResponse) {
-                            Login login = loginResponse.body();
-                            addUser(sp,new SharedPreUser(login.getUid(),login.getAccess_token(),null,null));
+                        public void onSuccess(Response<SharedPreUser> spuResponse) {
+                            SharedPreUser spu = spuResponse.body();
+                            addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null));
                             //请求完成后需要将此activity结束 避免用户看到关键信息
                             finish();
                         }
 
                         @Override
-                        public void _onError(Response<Login> loginResponse) {
+                        public void _onError(Response<SharedPreUser> loginResponse) {
                             //重新加载授权页面
                             mWebView.loadUrl(loginUrl);
                         }

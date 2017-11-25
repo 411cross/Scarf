@@ -2,6 +2,7 @@ package com.example.jungle.weixin.RetrofitUtil;
 
 
 
+import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Data;
@@ -123,6 +124,6 @@ public interface MyService {
 
     // 请求狒狒数据库的accesstoken，url是自定义的
     @GET("")
-    Observable<Response<Login>> requestUrl(@Url String url);
+    Observable<Response<SharedPreUser>> requestUrl(@Url String url);
 
 }
