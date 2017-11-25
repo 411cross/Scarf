@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by chf on 2017/11/24.
  */
 
-public class shaedPreUtils {
+public class sharedPreUtils {
     private static final String first_id = "first_id";
     private static final String first_token = "first_token";
     private static final String first_name = "first_name";
@@ -91,7 +91,21 @@ public class shaedPreUtils {
         }
         ed.commit();
     }
-    public static void addPermission(SharedPreferences sp,SharedPreUser user){
+    public static void addPermission(SharedPreferences sp,String uid,String permission){
+        SharedPreferences.Editor ed = sp.edit();
+        ArrayList<SharedPreUser> temp  = getAllUser(sp);
+        for(int i = 0;i<temp.size();i++){
+            if(temp.get(i).getUid().equals(uid)){
+                if(i ==0)
+                    ed.putString(first_permission,permission);
+                else if(i == 1)
+                    ed.putString(second_permission,permission);
+                else
+                    ed.putString(third_permission,permission);
+                break;
+            }
+        }
+        ed.commit();
 
     }
     public static int getUserCount(SharedPreferences sp){
