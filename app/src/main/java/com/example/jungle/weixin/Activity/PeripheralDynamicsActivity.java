@@ -52,10 +52,5 @@ public class PeripheralDynamicsActivity extends AppCompatSwipeBack {
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity
     }
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> origin/master
 }
