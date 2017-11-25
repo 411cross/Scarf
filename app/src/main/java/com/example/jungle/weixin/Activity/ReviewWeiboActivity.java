@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.jungle.weixin.Adapter.AMeAdapter;
-import com.example.jungle.weixin.Bean.Login;
 import com.example.jungle.weixin.Bean.ParticularBean.CreateDestoryCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;

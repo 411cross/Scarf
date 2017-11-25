@@ -6,7 +6,6 @@ import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.Data;
-import com.example.jungle.weixin.Bean.Login;
 import com.example.jungle.weixin.Bean.ParticularBean.CreateDestoryCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.FriendsFriendFollowersFriendships;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
