@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,17 +24,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.jungle.weixin.Adapter.AMeAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
-import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
-import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.Adapter.CommentAdapter;
-import com.example.jungle.weixin.Bean.Weibo;
-import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.PicUtils;
@@ -241,7 +234,7 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
         share_wechat = (ImageButton)shareMenu.findViewById(R.id.share_wechat);
         share_weibo = (ImageButton)shareMenu.findViewById(R.id.share_weibo);
         share_circle = (ImageButton)shareMenu.findViewById(R.id.share_circle);
-        cancle = (Button) shareMenu.findViewById(R.id.cancle);
+        cancle = (Button) shareMenu.findViewById(R.id.cancel);
         more = (ImageButton)shareMenu.findViewById(R.id.more);
 
         initFunctionTab();
@@ -477,7 +470,7 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
                 startActivity(shareIntent);
                 popupWindow.dismiss();
                 break;
-            case R.id.cancle:
+            case R.id.cancel:
                 popupWindow.dismiss();
                 break;
             default:
