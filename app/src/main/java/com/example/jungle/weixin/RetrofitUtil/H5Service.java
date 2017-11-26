@@ -1,7 +1,7 @@
 package com.example.jungle.weixin.RetrofitUtil;
 
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
-import com.example.jungle.weixin.Bean.ResultBean;
+import com.example.jungle.weixin.Bean.XHRBase.XHRUserDetail;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 
 import retrofit2.Response;
@@ -10,7 +10,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -27,5 +26,8 @@ public interface H5Service {
 
     @GET("statuses/user_timeline.json")
     Observable<Response<StatusList>> getUserTimeLine(@Query("access_token") String access_token);
+
+    @GET("User/detail.json")
+    Observable<Response<XHRBaseBean<XHRUserDetail>>> getUserDetail(@Query("access_token") String access_token, @Query("page") int page, @Query("uid") String uid);
 
 }

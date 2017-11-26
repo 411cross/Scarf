@@ -9,12 +9,12 @@ import java.util.List;
  * Created by derrickJ on 2017/11/25.
  */
 
-public class FansAndFollowBean {
+public class XHRFansAndFollow {
 
     private CardListInfo cardlistInfo;
     private List<Card> cards;
 
-    public FansAndFollowBean(CardListInfo cardlistInfo, List<Card> cards) {
+    public XHRFansAndFollow(CardListInfo cardlistInfo, List<Card> cards) {
         this.cardlistInfo = cardlistInfo;
         this.cards = cards;
     }

@@ -10,22 +10,22 @@ import java.util.List;
  * Created by derrickJ on 2017/11/24.
  */
 
-public class UserDetailBean {
+public class XHRUserDetail {
 
-    private Info info;
+    private Info Info;
     private Content content;
 
-    public UserDetailBean(Info info, Content content) {
-        this.info = info;
+    public XHRUserDetail(XHRUserDetail.Info info, Content content) {
+        Info = info;
         this.content = content;
     }
 
-    public Info getInfo() {
-        return info;
+    public XHRUserDetail.Info getInfo() {
+        return Info;
     }
 
-    public void setInfo(Info info) {
-        this.info = info;
+    public void setInfo(XHRUserDetail.Info info) {
+        Info = info;
     }
 
     public Content getContent() {

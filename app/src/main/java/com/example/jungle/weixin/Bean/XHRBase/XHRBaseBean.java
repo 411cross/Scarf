@@ -8,7 +8,7 @@ public class XHRBaseBean<T> {
 
     private int status;
     private T data;
-    private ErrorData exception;
+    private XHRErrorData exception;
 
     public int getStatus() {
         return status;
@@ -26,11 +26,11 @@ public class XHRBaseBean<T> {
         this.data = data;
     }
 
-    public ErrorData getException() {
+    public XHRErrorData getException() {
         return exception;
     }
 
-    public void setException(ErrorData exception) {
+    public void setException(XHRErrorData exception) {
         this.exception = exception;
     }
 

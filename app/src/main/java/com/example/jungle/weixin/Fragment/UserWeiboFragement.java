@@ -18,7 +18,10 @@ import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
+import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
+import com.example.jungle.weixin.Bean.XHRBase.XHRUserDetail;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.H5Service;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
@@ -41,6 +44,7 @@ public class UserWeiboFragement extends Fragment {
     private String token;
     private long id;
     private String screenName;
+    private String uid = "3117780635";
 
     public UserWeiboFragement() {
         // Required empty public constructor
@@ -72,8 +76,7 @@ public class UserWeiboFragement extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
         token = "2.007qpDNCCgNPqC8ed90a54ffK4zQ1D";
-        getOthersListByID();
-
+        getData();
 //        return inflater.inflate(R.layout.fragment_home_page, container, false);
         return view;
     }
@@ -107,20 +110,44 @@ public class UserWeiboFragement extends Fragment {
         });
     }
 
-    public void getOthersListByID() {
-        NetRequestFactory.getInstance().createService(MyService.class).getOtherTimeLineWithID(token, id).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+//    public void getOthersListByID() {
+//        NetRequestFactory.getInstance().createService(MyService.class).getOtherTimeLineWithID(token, id).compose(Transform.<Response<StatusList>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<StatusList>>() {
+//            @Override
+//            public void onSuccess(Response<StatusList> statusList) {
+//                statusesList = statusList.body().getStatuses();
+//                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
+//                recyclerView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void _onError(Response<StatusList> statusList) {
+//
+//            }
+//
+//        });
+//    }
+
+    public void getData() {
+        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail("test", 1, uid)
+                .compose(Transform.<Response<XHRBaseBean<XHRUserDetail>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRUserDetail>>>() {
             @Override
-            public void onSuccess(Response<StatusList> statusList) {
-                statusesList = statusList.body().getStatuses();
-                HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
-                recyclerView.setAdapter(adapter);
+            public void onSuccess(Response<XHRBaseBean<XHRUserDetail>> stringResponse) {
+                if (stringResponse.body().getStatus() == 1) {
+                    List<XHRUserDetail.Content.Card> cards = stringResponse.body().getData().getContent().getCards();
+                    for (XHRUserDetail.Content.Card card : cards) {
+                        statusesList.add(card.getMblog());
+                    }
+                    HomePageAdapter adapter = new HomePageAdapter(getContext(), statusesList);
+                    recyclerView.setAdapter(adapter);
+                } else {
+
+                }
             }
 
             @Override
-            public void _onError(Response<StatusList> statusList) {
-
+            public void _onError(Response<XHRBaseBean<XHRUserDetail>> e) {
+                super._onError(e);
             }
-
         });
     }
 

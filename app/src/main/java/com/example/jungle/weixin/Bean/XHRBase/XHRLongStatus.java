@@ -4,11 +4,11 @@ package com.example.jungle.weixin.Bean.XHRBase;
  * Created by derrickJ on 2017/11/25.
  */
 
-public class LongStatusBean {
+public class XHRLongStatus {
 
     private String longTextContent;
 
-    public LongStatusBean(String longTextContent) {
+    public XHRLongStatus(String longTextContent) {
         this.longTextContent = longTextContent;
     }
 

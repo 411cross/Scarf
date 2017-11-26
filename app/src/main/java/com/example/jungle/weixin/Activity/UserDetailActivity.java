@@ -21,23 +21,30 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.User;
+import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
+import com.example.jungle.weixin.Bean.XHRBase.XHRUserDetail;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.Fragment.UserPhotosFragment;
 import com.example.jungle.weixin.Fragment.UserWeiboFragement;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.H5Service;
+import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
+import com.example.jungle.weixin.RetrofitUtil.Transform;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.bean.Image;
+import retrofit2.Response;
 
 public class UserDetailActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private User user;
-
+    private String uid = "3117780635";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +53,7 @@ public class UserDetailActivity extends BaseActivity {
 
         user = (User) getIntent().getSerializableExtra("user");
 
-        setUI();
+        getData();
 
     }
 
@@ -87,7 +94,7 @@ public class UserDetailActivity extends BaseActivity {
         viewList.add(new UserPhotosFragment());
 
         // ViewPager
-        ViewPagerAdapter mViewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager(),viewList,titleList);
+        ViewPagerAdapter mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), viewList, titleList);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(mViewPagerAdapter);
 
@@ -108,6 +115,7 @@ public class UserDetailActivity extends BaseActivity {
         followerTv.setText(user.getFollowers_count() + "");
         descTv.setText(user.getDescription());
         Glide.with(UserDetailActivity.this).load(user.getCover_image_phone()).into(backgroundImgV);
+
     }
 
     @Override
@@ -115,5 +123,25 @@ public class UserDetailActivity extends BaseActivity {
         scrollToFinishActivity();//左滑退出activity
     }
 
+
+    public void getData() {
+        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail("test", 1, uid)
+                .compose(Transform.<Response<XHRBaseBean<XHRUserDetail>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRUserDetail>>>() {
+            @Override
+            public void onSuccess(Response<XHRBaseBean<XHRUserDetail>> stringResponse) {
+                if (stringResponse.body().getStatus() == 1) {
+                    user = stringResponse.body().getData().getInfo().getUserInfo();
+                    setUI();
+                } else {
+
+                }
+            }
+
+            @Override
+            public void _onError(Response<XHRBaseBean<XHRUserDetail>> e) {
+                super._onError(e);
+            }
+        });
+    }
 
 }
