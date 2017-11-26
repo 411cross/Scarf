@@ -1,5 +1,7 @@
 package com.example.jungle.weixin.PublicUtils;
 
+import android.content.Intent;
+
 import com.example.jungle.weixin.R;
 
 import java.util.HashMap;
@@ -12,6 +14,7 @@ import java.util.Map;
 public class EmojiUtils {
 
     public static Map<String, Integer> emojiMap;
+    public static Map<Integer, String> nameMap;
     private static int[] mImageIds = new int[] {
             R.drawable.d_aini,R.drawable.d_baibai, R.drawable.d_beishang,
             R.drawable.d_bishi,R.drawable.d_bizui,R.drawable.d_chanzui,R.drawable.d_chijing, R.drawable.d_dahaqi,
@@ -59,14 +62,26 @@ public class EmojiUtils {
 
     static {
         emojiMap = new HashMap<String, Integer>();
-        for(int i=0;i<mImageIds.length;i++){
-            emojiMap.put("["+name[i]+"]",mImageIds[i]);
+        for (int i = 0; i < mImageIds.length; i++) {
+            emojiMap.put("[" + name[i] + "]", mImageIds[i]);
+        }
+    }
+
+    static {
+        nameMap = new HashMap<Integer, String>();
+        for (int i = 0; i < mImageIds.length; i++) {
+            nameMap.put(mImageIds[i], "[" + name[i] + "]");
         }
     }
 
     public static int getEmojiByName(String emojiName) {
         Integer integer = emojiMap.get(emojiName);
         return integer == null ? -1 : integer;
+    }
+
+    public static String getNameByEmoji(Integer name) {
+        String string = nameMap.get(name);
+        return string == null ? "" : string;
     }
 
 }

@@ -4,7 +4,7 @@ package com.example.jungle.weixin.Bean.XHRBase;
  * Created by derrickJ on 2017/11/26.
  */
 
-public class ErrorData {
+public class XHRErrorData {
 
     private String error;
     private String error_code;
