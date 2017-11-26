@@ -13,15 +13,19 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
@@ -226,6 +230,32 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onRestart() {
         super.onRestart();
+        // 授权返回
+        if (ManagerUtils.isFlag()) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+            ManagerUtils.setFlag(false);
+            LayoutInflater layoutInflater = LayoutInflater.from(TotalActivity.this); // 创建视图容器并设置上下文
+            final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取布局文件的视图
+            final AlertDialog.Builder temp = new AlertDialog.Builder(TotalActivity.this);
+            final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
+            Button ensure = (Button) view.findViewById(R.id.ensure);
+            Button cancel = (Button) view.findViewById(R.id.cancle);
+            ensure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(TotalActivity.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
+                }
+            });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    a.dismiss();
+                }
+            });
+        }
+
     }
 
 }
