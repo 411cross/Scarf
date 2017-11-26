@@ -5,39 +5,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.jungle.weixin.Adapter.HomePageAdapter;
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.User;
-import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
-import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.Fragment.FindFragment;
 import com.example.jungle.weixin.Fragment.HomePageFragment;
 import com.example.jungle.weixin.Fragment.InformationFragment;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
+import com.example.jungle.weixin.PublicUtils.ManagerUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -45,15 +38,15 @@ import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 import com.jauker.widget.BadgeView;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.nereo.multi_image_selector.bean.Image;
 import retrofit2.Response;
 
-public class TotalActivity extends FragmentActivity implements View.OnClickListener{
+
+public class TotalActivity extends BaseActivity implements View.OnClickListener{
+
     private Toolbar toolbar;
     private de.hdodenhof.circleimageview.CircleImageView iconImage;
     private de.hdodenhof.circleimageview.CircleImageView iconImageInDrawer;
@@ -213,6 +206,13 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                     }
                 });
+//                SharedPreferences sp  = getSp(TotalActivity.this);
+//                addUser(sp, new SharedPreUser("68768","",null,null));
+//                addUserName(sp,"68768", "tyy");
+//                System.out.println("==========================");
+//                System.out.println(getAllUser(sp).get(0).getUserName());
+//                System.out.println(getAllUser(sp).get(0).getAcc_token());
+//                System.out.println(getAllUser(sp).get(0).getUid());
             }
 
             @Override
@@ -221,6 +221,11 @@ public class TotalActivity extends FragmentActivity implements View.OnClickListe
             }
 
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 
 }

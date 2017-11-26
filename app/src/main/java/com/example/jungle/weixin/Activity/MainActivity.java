@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 import com.example.jungle.weixin.R;
 
-public class MainActivity extends AppCompatActivity   {
+public class MainActivity extends BaseActivity   {
     private SharedPreferences sp;
     //    private VideoView mVvv;
     @Override

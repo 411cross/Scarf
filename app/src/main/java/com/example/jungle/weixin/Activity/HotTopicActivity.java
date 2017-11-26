@@ -16,7 +16,7 @@ import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotTopicActivity extends AppCompatActivity implements View.OnClickListener{
+public class HotTopicActivity extends BaseActivity implements View.OnClickListener{
     private ImageButton back;
     private RecyclerView hotTopic;
 

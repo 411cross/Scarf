@@ -15,7 +15,7 @@ import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrivateMessageActivity extends AppCompatSwipeBack {
+public class PrivateMessageActivity extends BaseActivity {
 
     private List<String> chatList;
     private ArrayList<Integer> chatTypeList;

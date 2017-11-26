@@ -7,12 +7,22 @@ package com.example.jungle.weixin.PublicUtils;
 public class PicUtils {
 
     public static String getMiddlePic(String thumbnail) {
-        String middlePic = thumbnail.replaceAll("thumbnail", "bmiddle");
+        String middlePic;
+        if (thumbnail.contains("orj360")) {
+            middlePic = thumbnail.replaceAll("orj360", "bmiddle");
+        } else {
+            middlePic = thumbnail.replaceAll("thumbnail", "bmiddle");
+        }
         return middlePic;
     }
 
     public static String getOrignal(String thumbnail) {
-        String originalPic = thumbnail.replaceAll("thumbnail", "large");
+        String originalPic;
+        if (thumbnail.contains("orj360")) {
+            originalPic = thumbnail.replaceAll("orj360", "large");
+        } else {
+            originalPic = thumbnail.replaceAll("thumbnail", "large");
+        }
         return originalPic;
     }
 

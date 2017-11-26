@@ -3,7 +3,7 @@ package com.example.jungle.weixin.RetrofitUtil;
 import android.util.Log;
 
 
-
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 
 import java.io.IOException;
 
@@ -28,21 +28,22 @@ public abstract class HttpResultSubscriber<T extends Response> extends Subscribe
 
     @Override
     public void onError(Throwable e) {
-        Log.e("OnError",e.getMessage());
+        Log.e("=====OnError",e.getMessage());
 
         e.printStackTrace();
         //在这里做全局的错误处理
-        if (e instanceof HttpException) {
-            // ToastUtils.getInstance().showToast(e.getMessage());
-        }
+//        if (e instanceof HttpException) {
+//            // ToastUtils.getInstance().showToast(e.getMessage());
+//        }
 //        _onError(e);
-        if(e instanceof HttpException){
+        if (e instanceof HttpException){
             ResponseBody body = ((HttpException) e).response().errorBody();
             try {
-                Log.i("ERROR❌", body.string());
+                Log.i("ERROR", body.string());
             } catch (IOException IOe) {
                 IOe.printStackTrace();
             }
+
         }
     }
 
@@ -57,7 +58,13 @@ public abstract class HttpResultSubscriber<T extends Response> extends Subscribe
 
     public abstract void onSuccess(T t);
 
-    public abstract void _onError(T e);
+    public void _onError(T e) {
+        try {
+            System.out.println("测试去掉抽象: " + e.errorBody().string());
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+    }
 
 
 

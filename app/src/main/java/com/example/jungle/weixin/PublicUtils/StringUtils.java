@@ -14,6 +14,7 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.jungle.weixin.Activity.PublicWebViewActivity;
@@ -49,8 +50,9 @@ public class StringUtils {
         String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")|(" + regexLink + ")|(" + regexMore + ")";
 
         String recognizeColonString = original.replaceAll(":", " : ");
+        String recognizeHttpString = recognizeColonString.replaceAll("http : ", "http:");
 
-        SpannableStringBuilder spannableString = new SpannableStringBuilder(recognizeColonString);
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(recognizeHttpString);
         Pattern pattern = Pattern.compile(regexGroup);
         Matcher matcher = pattern.matcher(spannableString);
 
@@ -150,7 +152,75 @@ public class StringUtils {
         return spannableString;
     }
 
+    public static SpannableStringBuilder transformPublish(final Context context, final EditText tv, String original) {
 
+        String regexAt = "@[\u4e00-\u9fa5a-zA-Z0-9+&@#\\-/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+";
+        String regexTopic = "#[\u4e00-\u9fa5a-zA-Z0-9+&@#/%?=~_\\\\\\\\-|!:,\\\\\\\\.;]+#";
+        String regexEmoji = "\\[[\u4e00-\u9fa5\\w]+\\]";
+
+        String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|(" + regexEmoji + ")";
+
+        String recognizeColonString = original.replaceAll(":", " : ");
+        String recognizeHttpString = recognizeColonString.replaceAll("http : ", "http:");
+
+        SpannableStringBuilder spannableString = new SpannableStringBuilder(recognizeHttpString);
+        Pattern pattern = Pattern.compile(regexGroup);
+        Matcher matcher = pattern.matcher(spannableString);
+
+        if (matcher.find()) {
+            tv.setMovementMethod(LinkMovementMethod.getInstance());
+            matcher.reset();
+        }
+
+        while (matcher.find()) {
+            final String atStr = matcher.group(1);
+            final String topicStr = matcher.group(2);
+            String emojiStr = matcher.group(3);
+
+            int size = (int) tv.getTextSize();
+
+            // @部分
+            if (atStr != null) {
+                int start = matcher.start(1);
+                int end = matcher.end(1);
+                ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
+                    @Override
+                    public void onClick(View widget) {
+                    }
+                };
+                spannableString.removeSpan(atStr);
+                spannableString.setSpan(clickableSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            // #话题部分
+            if (topicStr != null) {
+                int start = matcher.start(2);
+                ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
+                    @Override
+                    public void onClick(View widget) {
+                    }
+                };
+                spannableString.setSpan(clickableSpan, start, start + topicStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+
+            // 😊表情部分
+            if (emojiStr != null) {
+                int start = matcher.start(3);
+
+                int imgRes = EmojiUtils.getEmojiByName(emojiStr);
+                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), imgRes);
+
+                if (bitmap != null) {
+                    bitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
+                    ImageSpan imageSpan = new ImageSpan(context, bitmap);
+                    spannableString.setSpan(imageSpan, start, start + emojiStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+            }
+
+        }
+
+        return spannableString;
+    }
 
     static class ScarfClickableSpan extends ClickableSpan {
 

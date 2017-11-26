@@ -12,7 +12,7 @@ import java.util.Map;
 public class CodeUtils {
 
     public static Map<String, String> codeMap;
-    public static String mToken = "2.008CRz6CCgNPqC5078195875JjQ_KE";
+    public static String mToken = "2.008CRz6CCgNPqC8c4538c4e8pA7EZB";
     public static long mID = 2216277571L;
 
     static {
@@ -25,6 +25,7 @@ public class CodeUtils {
         codeMap.put("20524", "Hi 超人，你今天已经取消关注很多喽，接下来的时间想想如何让大家都来关注你吧！");
 
         // 开发阶段使用
+        codeMap.put("21332", "Token不合法");
         codeMap.put("21314", "Token已经被使用");
         codeMap.put("21315", "Token已经过期");
         codeMap.put("21316", "Token不合法");
@@ -40,6 +41,8 @@ public class CodeUtils {
         String chineseMsg = codeMap.get(code);
         return chineseMsg == null ? "内部错误" : chineseMsg;
     }
+
+//    public static void tokenExpired()
 
     public static Map<String, String> getCodeMap() {
         return codeMap;
@@ -64,4 +67,5 @@ public class CodeUtils {
     public static void setmID(long mID) {
         CodeUtils.mID = mID;
     }
+
 }
