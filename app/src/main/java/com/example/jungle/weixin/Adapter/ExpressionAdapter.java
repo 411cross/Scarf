@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 import com.example.jungle.weixin.R;
 
+import static com.example.jungle.weixin.PublicUtils.EmojiUtils.getNameByEmoji;
+
 /**
  * Created by chf on 2017/11/9.
  */
@@ -72,7 +74,7 @@ public class ExpressionAdapter extends BaseAdapter{
             imageView = (ImageView) convertView;
         }
         imageView.setImageResource(mImageIds[position]);
-        imageView.setTag("[" + position + "]");
+        imageView.setTag(getNameByEmoji(mImageIds[position]));
         return imageView;
     }
 

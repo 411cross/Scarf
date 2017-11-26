@@ -35,7 +35,6 @@ import android.widget.Toast;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.jungle.weixin.Adapter.ExpressionAdapter;
-import com.example.jungle.weixin.Bean.XHRBase.ErrorData;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
