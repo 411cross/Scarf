@@ -1,20 +1,48 @@
 package com.example.jungle.weixin.Activity;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.jungle.weixin.Adapter.SharedPreUserAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.R;
 
-public class UserManager extends AppCompatActivity {
+import java.util.ArrayList;
+
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getAllUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
+
+public class UserManager extends AppCompatActivity implements View.OnClickListener{
+    private LinearLayout addUser;
+    private SharedPreferences sp;
+    private ListView userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_manager);
 
+        sp = getSp(UserManager.this);
+
+        addUser = (LinearLayout) findViewById(R.id.addUser);
+        addUser.setOnClickListener(this);
+        userList = (ListView) findViewById(R.id.userList);
+//        addUser(sp,new SharedPreUser("1234","123d4","chf","15555","headchf"));
+//        addUser(sp,new SharedPreUser("1ddd","1dda","zbx","1ddd","headzbx"));
+        ArrayList<SharedPreUser> temp = getAllUser(sp);
+        SharedPreUserAdapter adapter = new SharedPreUserAdapter(this,R.layout.sharedpreuseritem,temp,sp);
+        userList.setAdapter(adapter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -32,5 +60,27 @@ public class UserManager extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id) {
+            case R.id.addUser:
+                if(getUserCount(sp)>=3){
+                    Toast.makeText(this, "不允许存储超过三个用户", Toast.LENGTH_SHORT).show();
+                }else{
+                    //这里补充登录授权逻辑
+                    Toast.makeText(this, "测试一下用户应该不超过三个", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_in,R.anim.right_out);
     }
 }
