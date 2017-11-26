@@ -20,7 +20,7 @@ public class Status implements Serializable {
     private String bmiddle_pic;
     private String original_pic;
     private Geo geo;
-    private User user;
+    private User user = null;
     private Status retweeted_status;
     private int reposts_count;
     private int comments_count;

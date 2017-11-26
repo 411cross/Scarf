@@ -26,6 +26,7 @@ import com.example.jungle.weixin.Bean.XHRBase.XHRUserDetail;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.Fragment.UserPhotosFragment;
 import com.example.jungle.weixin.Fragment.UserWeiboFragement;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.H5Service;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.vov.vitamio.utils.Log;
 import me.nereo.multi_image_selector.bean.Image;
 import retrofit2.Response;
 
@@ -111,7 +113,7 @@ public class UserDetailActivity extends BaseActivity {
         } else {
             identityImgV.setVisibility(View.GONE);
         }
-        followTv.setText(user.getFriends_count() + "");
+        followTv.setText(user.getFollow_count() + "");
         followerTv.setText(user.getFollowers_count() + "");
         descTv.setText(user.getDescription());
         Glide.with(UserDetailActivity.this).load(user.getCover_image_phone()).into(backgroundImgV);
@@ -125,7 +127,7 @@ public class UserDetailActivity extends BaseActivity {
 
 
     public void getData() {
-        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail("test", 1, uid)
+        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail(CodeUtils.getmToken(), 1, user.getIdstr())
                 .compose(Transform.<Response<XHRBaseBean<XHRUserDetail>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRUserDetail>>>() {
             @Override
             public void onSuccess(Response<XHRBaseBean<XHRUserDetail>> stringResponse) {

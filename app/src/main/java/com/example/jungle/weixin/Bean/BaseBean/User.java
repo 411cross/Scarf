@@ -23,6 +23,7 @@ public class User implements Serializable{
     private String profile_url;
     private String cover_image_phone;
     private int followers_count;
+    private int follow_count;
     private int friends_count;
     private int statuses_count;
     private int verified_type;
@@ -33,7 +34,7 @@ public class User implements Serializable{
     private boolean follow_me;
     private Status status;
 
-    public User(long id, String idstr, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int friends_count, int statuses_count, int verified_type, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
+    public User(long id, String idstr, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int follow_count, int friends_count, int statuses_count, int verified_type, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
         this.id = id;
         this.idstr = idstr;
         this.screen_name = screen_name;
@@ -47,6 +48,7 @@ public class User implements Serializable{
         this.profile_url = profile_url;
         this.cover_image_phone = cover_image_phone;
         this.followers_count = followers_count;
+        this.follow_count = follow_count;
         this.friends_count = friends_count;
         this.statuses_count = statuses_count;
         this.verified_type = verified_type;
@@ -168,6 +170,14 @@ public class User implements Serializable{
 
     public void setFriends_count(int friends_count) {
         this.friends_count = friends_count;
+    }
+
+    public int getFollow_count() {
+        return follow_count;
+    }
+
+    public void setFollow_count(int follow_count) {
+        this.follow_count = follow_count;
     }
 
     public int getStatuses_count() {

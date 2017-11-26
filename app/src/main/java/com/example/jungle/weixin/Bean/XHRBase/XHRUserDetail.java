@@ -108,7 +108,7 @@ public class XHRUserDetail {
 
         public class Card {
 
-            private Status mblog;
+            private Status mblog = null;
 
             public Card(Status mblog) {
                 this.mblog = mblog;
