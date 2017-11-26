@@ -1,4 +1,4 @@
-package com.example.jungle.weixin.Bean.XHRBean;
+package com.example.jungle.weixin.Bean.XHRBase;
 
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;

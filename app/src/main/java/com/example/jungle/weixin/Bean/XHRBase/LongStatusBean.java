@@ -1,4 +1,4 @@
-package com.example.jungle.weixin.Bean.XHRBean;
+package com.example.jungle.weixin.Bean.XHRBase;
 
 /**
  * Created by derrickJ on 2017/11/25.
