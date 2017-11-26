@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.Activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +33,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.LocationClient;
@@ -41,6 +44,7 @@ import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 
+import static com.example.jungle.weixin.PublicUtils.StringUtils.transformWeiboBody;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
@@ -123,11 +127,21 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
                 mLocationClient.start();
             }
         });
-        content.setOnLongClickListener(new View.OnLongClickListener(){
+        content.addTextChangedListener(new TextWatcher() {
+            String s;
             @Override
-            public boolean onLongClick(View v){
-                Toast.makeText(Publish.this, "fuck", Toast.LENGTH_SHORT).show();
-                return true;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                s = content.getText();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//                transformWeiboBody(this, content, s);
             }
         });
         send.setOnClickListener(new View.OnClickListener() {
