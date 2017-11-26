@@ -244,7 +244,7 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
             final AlertDialog.Builder temp = new AlertDialog.Builder(TotalActivity.this);
             final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
             Button ensure = (Button) view.findViewById(R.id.ensure);
-            Button cancel = (Button) view.findViewById(R.id.cancle);
+            Button cancel = (Button) view.findViewById(R.id.cancel);
             final EditText usernameEt = (EditText) view.findViewById(R.id.userName);
             final EditText passwordEt = (EditText) view.findViewById(R.id.password);
             ensure.setOnClickListener(new View.OnClickListener() {

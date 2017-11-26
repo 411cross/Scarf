@@ -28,4 +28,8 @@ public interface H5Service {
     @GET("statuses/user_timeline.json")
     Observable<Response<StatusList>> getUserTimeLine(@Query("access_token") String access_token);
 
+    @FormUrlEncoded
+    @POST("Compose/send")
+    Observable<Response<XHRBaseBean<String>>> send(@Field("access_token") String access_token, @Field("content") String content);
+
 }
