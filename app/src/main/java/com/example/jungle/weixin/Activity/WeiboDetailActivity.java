@@ -61,7 +61,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import retrofit2.Response;
 
-public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnClickListener {
+public class WeiboDetailActivity extends BaseActivity implements View.OnClickListener {
     private PopupWindow popupWindow;
 
     private Status status;

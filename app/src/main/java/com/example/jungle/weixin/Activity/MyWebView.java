@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
+import com.example.jungle.weixin.PublicUtils.ManagerUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -23,14 +24,14 @@ import retrofit2.Response;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
-public class MyWebView extends AppCompatActivity {
+public class MyWebView extends BaseActivity {
     private WebView mWebView;
     private TextView title_WebView;
     private ImageButton back;
     private SharedPreferences sp;
     private SharedPreferences.Editor ed;
     private final String loginUrl =
-            "https://api.weibo.com/oauth2/authorize?client_id=2604262634&redirect_uri=http://139.199.226.190:8888/weiboApp/Auth/getToken&display=moblie";
+            "https://api.weibo.com/oauth2/authorize?client_id=2604262634&redirect_uri=http://111.230.18.20:8080/weiboApp/Auth/getToken&display=moblie";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,8 @@ public class MyWebView extends AppCompatActivity {
                             SharedPreUser spu = spuResponse.body();
                             addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null,null));
                             //请求完成后需要将此activity结束 避免用户看到关键信息
-                            finish();
+                            ManagerUtils.exit();
+//                            finish();
                         }
 
                         @Override

@@ -21,7 +21,7 @@ import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultActivity extends AppCompatSwipeBack {
+public class SearchResultActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

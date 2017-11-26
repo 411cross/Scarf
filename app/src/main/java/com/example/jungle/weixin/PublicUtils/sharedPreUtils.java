@@ -155,6 +155,7 @@ public class sharedPreUtils {
     public static int getUserCount(SharedPreferences sp){
         return sp.getInt(user_count,0);
     }
+
     public static SharedPreUser getCurrent(SharedPreferences sp){
         if(sp.getString(first_id,null)!=null){
             return new SharedPreUser(sp.getString(first_id,null),sp.getString(first_token,null),

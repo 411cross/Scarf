@@ -27,7 +27,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class FansActivity extends AppCompatSwipeBack {
+public class FansActivity extends BaseActivity {
     private User[] users;
     private List<User> userList;
     private RecyclerView recyclerView;

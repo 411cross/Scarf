@@ -32,7 +32,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.nereo.multi_image_selector.bean.Image;
 
-public class UserDetailActivity extends AppCompatSwipeBack {
+public class UserDetailActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;

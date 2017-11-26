@@ -20,12 +20,15 @@ import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.EndlessRecyclerOnScrollListener;
+import com.example.jungle.weixin.PublicUtils.ManagerUtils;
+import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -107,9 +110,21 @@ public class HomePageFragment extends Fragment {
                     setFooterView(recyclerView);
                 }
             }
+
             @Override
             public void _onError(Response<StatusList> statusList) {
+                super._onError(statusList);
+                try {
+                    ManagerUtils.jumpToAuthorize(getContext());
+                    String errorString = statusList.errorBody().string();
+                    int index = errorString.indexOf("\"error_code\":");
+                    String code = errorString.substring(index + 12, index + 18);
+                    ToastUtils.showShortToast(getContext(), CodeUtils.getChineseMsg(code));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
     }
 

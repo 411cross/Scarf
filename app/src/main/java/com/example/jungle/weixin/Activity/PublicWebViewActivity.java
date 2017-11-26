@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.example.jungle.weixin.R;
 
-public class PublicWebViewActivity extends AppCompatActivity {
+public class PublicWebViewActivity extends BaseActivity {
     private WebView mWebView;
     private TextView title_WebView;
     private ImageButton back;
