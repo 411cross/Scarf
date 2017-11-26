@@ -66,7 +66,7 @@ public class MyWebView extends BaseActivity {
                         @Override
                         public void onSuccess(Response<SharedPreUser> spuResponse) {
                             SharedPreUser spu = spuResponse.body();
-                            addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null,null));
+                            addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null));
                             //请求完成后需要将此activity结束 避免用户看到关键信息
                             ManagerUtils.exit();
 //                            finish();
