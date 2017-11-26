@@ -18,17 +18,14 @@ public class sharedPreUtils {
     private static final String first_id = "first_id";
     private static final String first_token = "first_token";
     private static final String first_name = "first_name";
-    private static final String first_permission = "first_permission";
     private static final String first_head = "first_head";
     private static final String second_id = "second_id";
     private static final String second_token = "second_token";
     private static final String second_name = "second_name";
-    private static final String second_permission = "second_permission";
     private static final String second_head = "second_head";
     private static final String third_id = "third_id";
     private static final String third_token = "third_token";
     private static final String third_name = "third_name ";
-    private static final String third_permission = "third_permission";
     private static final String third_head = "third_head";
     private static final String user_count = "user_count";
     public static SharedPreferences getSp(Context c){
@@ -47,21 +44,18 @@ public class sharedPreUtils {
         ed.putString(first_id,user.getUid());
         ed.putString(first_token,user.getAcc_token());
         ed.putString(first_name,user.getUserName());
-        ed.putString(first_permission,user.getPub_permission());
         ed.putString(first_head,user.getHead_url());
         if(temp.size() > 0){
             //如果已存在一个用户
             ed.putString(second_id,temp.get(0).getUid());
             ed.putString(second_name,temp.get(0).getUserName());
             ed.putString(second_token,temp.get(0).getAcc_token());
-            ed.putString(second_permission,temp.get(0).getPub_permission());
             ed.putString(second_head,temp.get(0).getHead_url());
             //如果以存在俩用户
             if (temp.size() > 1) {
                 ed.putString(third_id,temp.get(1).getUid());
                 ed.putString(third_name,temp.get(1).getUserName());
                 ed.putString(third_token,temp.get(1).getAcc_token());
-                ed.putString(third_permission,temp.get(1).getPub_permission());
                 ed.putString(third_head,temp.get(1).getHead_url());
             }
         }
@@ -73,16 +67,13 @@ public class sharedPreUtils {
         ArrayList<SharedPreUser> temp = new ArrayList<>();
         if(sp.getString(first_id,null)!=null)
           temp.add(new SharedPreUser(sp.getString(first_id,null),sp.getString(first_token,null),
-                  sp.getString(first_name,null), sp.getString(first_permission,null),
-                  sp.getString(first_head,null)));
+                  sp.getString(first_name,null),sp.getString(first_head,null)));
         if(sp.getString(second_id,null)!=null)
             temp.add(new SharedPreUser(sp.getString(second_id,null),sp.getString(second_token,null),
-                    sp.getString(second_name,null), sp.getString(second_permission,null),
-                    sp.getString(second_head,null)));
+                    sp.getString(second_name,null),sp.getString(second_head,null)));
         if(sp.getString(third_id,null)!=null)
             temp.add(new SharedPreUser(sp.getString(third_id,null),sp.getString(third_token,null),
-                    sp.getString(third_name,null), sp.getString(third_permission,null),
-                    sp.getString(third_head,null)));
+                    sp.getString(third_name,null),sp.getString(third_head,null)));
         return temp;
     }
     public static void addUserNameAndHead(SharedPreferences sp, String uid, String name, String head){
@@ -107,22 +98,6 @@ public class sharedPreUtils {
         }
         ed.commit();
     }
-    public static void addPermission(SharedPreferences sp,String uid,String permission){
-        SharedPreferences.Editor ed = sp.edit();
-        ArrayList<SharedPreUser> temp  = getAllUser(sp);
-        for(int i = 0;i<temp.size();i++){
-            if(temp.get(i).getUid().equals(uid)){
-                if(i ==0)
-                    ed.putString(first_permission,permission);
-                else if(i == 1)
-                    ed.putString(second_permission,permission);
-                else
-                    ed.putString(third_permission,permission);
-                break;
-            }
-        }
-        ed.commit();
-    }
     public static int deleteUser(SharedPreferences sp,String uid){
         ArrayList<SharedPreUser> temp = getAllUser(sp);
         SharedPreferences.Editor ed = sp.edit();
@@ -134,15 +109,12 @@ public class sharedPreUtils {
             }
         }
         ed.remove(first_id);
-        ed.remove(first_permission);
         ed.remove(first_name);
         ed.remove(first_token);
         ed.remove(second_id);
         ed.remove(second_name);
-        ed.remove(second_permission);
         ed.remove(second_token);
         ed.remove(third_id);
-        ed.remove(third_permission);
         ed.remove(third_token);
         ed.remove(third_name);
         ed.putInt(user_count,0);
@@ -159,8 +131,7 @@ public class sharedPreUtils {
     public static SharedPreUser getCurrent(SharedPreferences sp){
         if(sp.getString(first_id,null)!=null){
             return new SharedPreUser(sp.getString(first_id,null),sp.getString(first_token,null),
-                    sp.getString(first_name,null),sp.getString(first_permission,null),
-                    sp.getString(first_head,null));
+                    sp.getString(first_name,null),sp.getString(first_head,null));
         }else
         return null;
     }

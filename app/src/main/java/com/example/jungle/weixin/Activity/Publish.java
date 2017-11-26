@@ -6,22 +6,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import me.nereo.multi_image_selector.MultiImageSelector;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,11 +32,11 @@ import android.widget.Toast;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.jungle.weixin.Adapter.ExpressionAdapter;
-import com.example.jungle.weixin.Bean.HotTopic;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 
+import static com.example.jungle.weixin.PublicUtils.StringUtils.transformPublish;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
@@ -123,11 +119,21 @@ public class Publish extends BaseActivity implements View.OnClickListener{
                 mLocationClient.start();
             }
         });
-        content.setOnLongClickListener(new View.OnLongClickListener(){
+        content.addTextChangedListener(new TextWatcher() {
+            String original;
             @Override
-            public boolean onLongClick(View v){
-                Toast.makeText(Publish.this, "fuck", Toast.LENGTH_SHORT).show();
-                return true;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                original = content.getText().toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                content.append(transformPublish(Publish.this,content,original));
             }
         });
         send.setOnClickListener(new View.OnClickListener() {
@@ -142,14 +148,14 @@ public class Publish extends BaseActivity implements View.OnClickListener{
                     final AlertDialog.Builder temp = new AlertDialog.Builder(Publish.this);
                     final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
                     Button ensure = (Button) view.findViewById(R.id.ensure);
-                    Button cancle = (Button) view.findViewById(R.id.cancle);
+                    Button cancel = (Button) view.findViewById(R.id.cancel);
                     ensure.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Toast.makeText(Publish.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
                         }
                     });
-                    cancle.setOnClickListener(new View.OnClickListener() {
+                    cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             a.dismiss();
