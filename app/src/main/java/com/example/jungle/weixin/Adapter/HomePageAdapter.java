@@ -351,6 +351,24 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                     }
                 });
 
+                holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Map<String,Status> map = new HashMap<String,Status>();
+                        map.put("status",status);
+                        new CommomDialog(mContext, R.style.dialog,map).show();
+                    }
+                });
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        Map<String,Status> map = new HashMap<String,Status>();
+                        map.put("status",status);
+                        new CommomDialog(mContext, R.style.dialog,map).show();
+                        return true;
+                    }
+                });
+
                 int type = TypeUtils.getStatusType(status);
                 switch (type) {
                     case 0:
