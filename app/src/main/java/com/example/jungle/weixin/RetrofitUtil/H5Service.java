@@ -2,6 +2,7 @@ package com.example.jungle.weixin.RetrofitUtil;
 
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.ResultBean;
+import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 
 import retrofit2.Response;
 import retrofit2.http.Field;
@@ -22,9 +23,8 @@ public interface H5Service {
 
     @FormUrlEncoded
     @POST("Compose/login")
-    Observable<Response<String>> getData(@Field("token") String token, @Field("clothId") int clothId);
+    Observable<Response<XHRBaseBean<String>>> login(@Field("username") String username, @Field("password") String password);
 
-    // 个人页 - 获取自己最新发表的微博列表
     @GET("statuses/user_timeline.json")
     Observable<Response<StatusList>> getUserTimeLine(@Query("access_token") String access_token);
 

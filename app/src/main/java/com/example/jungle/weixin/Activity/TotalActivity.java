@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,12 +31,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.User;
+import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 import com.example.jungle.weixin.Fragment.FindFragment;
 import com.example.jungle.weixin.Fragment.HomePageFragment;
 import com.example.jungle.weixin.Fragment.InformationFragment;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.ManagerUtils;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.H5Service;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
@@ -242,10 +245,29 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
             final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
             Button ensure = (Button) view.findViewById(R.id.ensure);
             Button cancel = (Button) view.findViewById(R.id.cancle);
+            final EditText usernameEt = (EditText) view.findViewById(R.id.userName);
+            final EditText passwordEt = (EditText) view.findViewById(R.id.password);
             ensure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(TotalActivity.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
+
+                    NetRequestFactory.getInstance().createService(H5Service.class).login(usernameEt.getText().toString(), passwordEt.getText().toString())
+                            .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
+                        @Override
+                        public void onSuccess(Response<XHRBaseBean<String>> stringResponse) {
+                            if (stringResponse.body().getStatus() == 1) {
+
+                            } else {
+
+                            }
+                        }
+
+                        @Override
+                        public void _onError(Response<XHRBaseBean<String>> e) {
+                            super._onError(e);
+                        }
+                    });
                 }
             });
             cancel.setOnClickListener(new View.OnClickListener() {
