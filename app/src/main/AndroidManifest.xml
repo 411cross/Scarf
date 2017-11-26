@@ -34,7 +34,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="goi7fOuGSGLDbMrBNXGelwzNFCaaXFxO" />
+            android:value="FelFFktZtD0zFyZXEwwxvGIpnuFXXnPv" />
 
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"

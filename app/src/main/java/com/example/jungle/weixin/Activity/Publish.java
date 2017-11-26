@@ -150,60 +150,65 @@ public class Publish extends BaseActivity implements View.OnClickListener {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetRequestFactory.getInstance().createService(H5Service.class).send(getCurrent(sp).getAcc_token(), content.getText().toString())
-                        .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
-                    @Override
-                    public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
-                        if (xhrBaseBeanResponse.body().getStatus() == 1) {
-                            Toast.makeText(Publish.this, "发表成功", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            String errorCode = xhrBaseBeanResponse.body().getException().getError_code();
-                            if (errorCode.equals("403")) {
-                                //根据token获取不了正确的cookie需要重新登录
-                                LayoutInflater layoutInflater = LayoutInflater.from(Publish.this); // 创建视图容器并设置上下文
-                                final View view = layoutInflater.inflate(R.layout.loginalterdialog, null); // 获取布局文件的视图
-                                final AlertDialog.Builder temp = new AlertDialog.Builder(Publish.this);
-                                final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
-                                Button ensure = (Button) view.findViewById(R.id.ensure);
-                                Button cancel = (Button) view.findViewById(R.id.cancel);
-                                final EditText userName = (EditText) view.findViewById(R.id.userName);
-                                final EditText password = (EditText) view.findViewById(R.id.password);
-                                ensure.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        NetRequestFactory.getInstance().createService(H5Service.class).login(userName.getText().toString(), password.getText().toString())
-                                                .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
-                                            @Override
-                                            public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
-                                                if (xhrBaseBeanResponse.body().getStatus() == 1) {
-                                                    Toast.makeText(Publish.this, "登录成功，请重新提交", Toast.LENGTH_SHORT).show();
-                                                    a.dismiss();
-                                                } else {
-                                                    Toast.makeText(Publish.this, "登录失败", Toast.LENGTH_SHORT).show();
-                                                    a.dismiss();
+                if(!content.getText().equals(null)){
+                    NetRequestFactory.getInstance().createService(H5Service.class).send(getCurrent(sp).getAcc_token(), content.getText().toString())
+                            .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
+                        @Override
+                        public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
+                            if (xhrBaseBeanResponse.body().getStatus() == 1) {
+                                Toast.makeText(Publish.this, "发表成功", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                String errorCode = xhrBaseBeanResponse.body().getException().getError_code();
+                                if (errorCode.equals("403")) {
+                                    //根据token获取不了正确的cookie需要重新登录
+                                    LayoutInflater layoutInflater = LayoutInflater.from(Publish.this); // 创建视图容器并设置上下文
+                                    final View view = layoutInflater.inflate(R.layout.loginalterdialog, null); // 获取布局文件的视图
+                                    final AlertDialog.Builder temp = new AlertDialog.Builder(Publish.this);
+                                    final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
+                                    Button ensure = (Button) view.findViewById(R.id.ensure);
+                                    Button cancel = (Button) view.findViewById(R.id.cancel);
+                                    final EditText userName = (EditText) view.findViewById(R.id.userName);
+                                    final EditText password = (EditText) view.findViewById(R.id.password);
+                                    ensure.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            NetRequestFactory.getInstance().createService(H5Service.class).login(userName.getText().toString(), password.getText().toString())
+                                                    .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
+                                                @Override
+                                                public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
+                                                    if (xhrBaseBeanResponse.body().getStatus() == 1) {
+                                                        Toast.makeText(Publish.this, "登录成功，请重新提交", Toast.LENGTH_SHORT).show();
+                                                        a.dismiss();
+                                                    } else {
+                                                        Toast.makeText(Publish.this, "登录失败", Toast.LENGTH_SHORT).show();
+                                                        a.dismiss();
+                                                    }
                                                 }
-                                            }
 
-                                            @Override
-                                            public void _onError(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
+                                                @Override
+                                                public void _onError(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
 
-                                            }
+                                                }
 
-                                        });
-                                    }
-                                });
-                                cancel.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        a.dismiss();
-                                    }
-                                });
+                                            });
+                                        }
+                                    });
+                                    cancel.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            a.dismiss();
+                                        }
+                                    });
+                                }
                             }
-                        }
 
-                    }
-                });
+                        }
+                    });
+                }else {
+                    Toast.makeText(Publish.this, "请输入微博内容", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         hot.setOnClickListener(new View.OnClickListener() {
