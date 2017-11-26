@@ -30,4 +30,8 @@ public interface H5Service {
     @GET("User/detail.json")
     Observable<Response<XHRBaseBean<XHRUserDetail>>> getUserDetail(@Query("access_token") String access_token, @Query("page") int page, @Query("uid") String uid);
 
+    @FormUrlEncoded
+    @POST("Compose/send")
+    Observable<Response<XHRBaseBean<String>>> send(@Field("access_token") String access_token, @Field("content") String content);
+
 }
