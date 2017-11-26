@@ -12,6 +12,7 @@ public class Status implements Serializable {
 
     private long id;
     private long mid;
+    private String idstr;
     private String created_at;
     private String text;
     private String source;
@@ -25,13 +26,16 @@ public class Status implements Serializable {
     private int comments_count;
     private int attitudes_count; // 赞数
     private List<PicURL> pic_urls = new ArrayList<>();
+    private List<String> pic_ids = new ArrayList<>();
+    private List<PicURL> pics = new ArrayList<>();
+    private boolean isLongText;
     private boolean favorited;
     private boolean liked;
-    private List<String> pic_ids = new ArrayList<>();
 
-    public Status(long id, long mid, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, boolean favorited, boolean liked, List<String> pic_ids) {
+    public Status(long id, long mid, String idstr, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, List<String> pic_ids, List<PicURL> pics, boolean isLongText, boolean favorited, boolean liked) {
         this.id = id;
         this.mid = mid;
+        this.idstr = idstr;
         this.created_at = created_at;
         this.text = text;
         this.source = source;
@@ -45,9 +49,11 @@ public class Status implements Serializable {
         this.comments_count = comments_count;
         this.attitudes_count = attitudes_count;
         this.pic_urls = pic_urls;
+        this.pic_ids = pic_ids;
+        this.pics = pics;
+        this.isLongText = isLongText;
         this.favorited = favorited;
         this.liked = liked;
-        this.pic_ids = pic_ids;
     }
 
     public long getId() {
@@ -64,6 +70,14 @@ public class Status implements Serializable {
 
     public void setMid(long mid) {
         this.mid = mid;
+    }
+
+    public String getIdstr() {
+        return idstr;
+    }
+
+    public void setIdstr(String idstr) {
+        this.idstr = idstr;
     }
 
     public String getCreated_at() {
@@ -170,6 +184,30 @@ public class Status implements Serializable {
         this.pic_urls = pic_urls;
     }
 
+    public List<String> getPic_ids() {
+        return pic_ids;
+    }
+
+    public void setPic_ids(List<String> pic_ids) {
+        this.pic_ids = pic_ids;
+    }
+
+    public List<PicURL> getPics() {
+        return pics;
+    }
+
+    public void setPics(List<PicURL> pics) {
+        this.pics = pics;
+    }
+
+    public boolean isLongText() {
+        return isLongText;
+    }
+
+    public void setLongText(boolean longText) {
+        isLongText = longText;
+    }
+
     public boolean isFavorited() {
         return favorited;
     }
@@ -184,13 +222,5 @@ public class Status implements Serializable {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
-    }
-
-    public List<String> getPic_ids() {
-        return pic_ids;
-    }
-
-    public void setPic_ids(List<String> pic_ids) {
-        this.pic_ids = pic_ids;
     }
 }

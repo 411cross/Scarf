@@ -41,6 +41,7 @@ import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
+import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
@@ -177,6 +178,9 @@ public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnCl
 
         // 传入的微博
         status = (Status) getIntent().getSerializableExtra("status");
+        if (status.isLongText()) {
+            ToastUtils.showShortToast(this, "需要请求全文");
+        }
         // 初始化界面
         initView();
         setData();

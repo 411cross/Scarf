@@ -1,5 +1,7 @@
 package com.example.jungle.weixin.Bean.BaseBean;
 
+import com.example.jungle.weixin.PublicUtils.StringUtils;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
 public class User implements Serializable{
 
     private long id;
+    private String idstr;
     private String screen_name;
     private String location;
     private String description;
@@ -30,8 +33,9 @@ public class User implements Serializable{
     private boolean follow_me;
     private Status status;
 
-    public User(long id, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int friends_count, int statuses_count, int verified_type, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
+    public User(long id, String idstr, String screen_name, String location, String description, String verified_reason, String profile_image_url, String avatar_large, String avatar_hd, String gender, String profile_url, String cover_image_phone, int followers_count, int friends_count, int statuses_count, int verified_type, boolean following, boolean allow_all_act_msg, boolean allow_all_comment, boolean verified, boolean follow_me, Status status) {
         this.id = id;
+        this.idstr = idstr;
         this.screen_name = screen_name;
         this.location = location;
         this.description = description;
@@ -60,6 +64,14 @@ public class User implements Serializable{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getIdstr() {
+        return idstr;
+    }
+
+    public void setIdstr(String idstr) {
+        this.idstr = idstr;
     }
 
     public String getScreen_name() {
