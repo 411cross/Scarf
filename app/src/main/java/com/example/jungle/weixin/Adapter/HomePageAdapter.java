@@ -200,8 +200,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             repostIcon.setImageResource(R.drawable.repost_icon);
 
 
-
-            transmit_layout  = view.findViewById(R.id.weibo_transmit_layout);
+            transmit_layout = view.findViewById(R.id.weibo_transmit_layout);
 
         }
 
@@ -225,17 +224,18 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     public View getFooterView() {
         return mFooterView;
     }
+
     public void setFooterView(View footerView) {
         mFooterView = footerView;
-        notifyItemInserted(getItemCount()-1);
+        notifyItemInserted(getItemCount() - 1);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mFooterView == null){
+        if (mFooterView == null) {
             return TYPE_NORMAL;
         }
-        if (position == getItemCount()-1){
+        if (position == getItemCount() - 1) {
             //最后一个,应该加载Footer
             return TYPE_FOOTER;
         }
@@ -250,7 +250,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        if(mFooterView != null && viewType == TYPE_FOOTER){
+        if (mFooterView != null && viewType == TYPE_FOOTER) {
             return new ViewHolder(mFooterView);
         }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.weibo, parent, false);
@@ -260,194 +260,204 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_NORMAL) {
-            if (holder instanceof HomePageAdapter.ViewHolder) {
-                final Status status = weiboList.get(position);
-                User user = status.getUser();
-                liked = status.isLiked();
-                Glide.with(mContext).load(user.getAvatar_hd()).into(holder.avatarImage);
-                switch (user.getVerified_type()) {
-                    case 0:
-                        holder.identityIcon.setVisibility(View.GONE);
-                        holder.identityIcon.setVisibility(View.VISIBLE);
-                        holder.identityIcon.setImageResource(R.drawable.avatar_vip_golden);
-                        break;
-                    case 2:
-                        holder.identityIcon.setVisibility(View.GONE);
-                        holder.identityIcon.setVisibility(View.VISIBLE);
-                        holder.identityIcon.setImageResource(R.drawable.avatar_enterprise_vip);
-                        break;
-                    case 220:
-                        holder.identityIcon.setVisibility(View.GONE);
-                        holder.identityIcon.setVisibility(View.VISIBLE);
-                        holder.identityIcon.setImageResource(R.drawable.avatar_grassroot);
-                        break;
-                    default:
-                        holder.identityIcon.setVisibility(View.GONE);
-                        holder.identityIcon.setVisibility(View.VISIBLE);
-                        holder.identityIcon.setImageResource(R.drawable.transparent);
-                        break;
-                }
-                holder.nickname.setText(user.getScreen_name());
-                holder.date.setText(DateUtils.formatDate(status.getCreated_at()));
-                String source = status.getSource();
-                if (source.length() != 0) {
-                    int start = source.indexOf(">") + 1;
-                    int end = source.indexOf("</a>");
-                    holder.source.setText(source.substring(start, end));
-                } else {
-                    holder.sourceTag.setVisibility(View.GONE);
-                    holder.source.setVisibility(View.GONE);
-                }
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, WeiboDetailActivity.class);
-                        intent.putExtra("status", status);
-                        mContext.startActivity(intent);
-                    }
-                });
-                holder.reweiboView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(mContext, WeiboDetailActivity.class);
-                        intent.putExtra("status", status.getRetweeted_status());
-                        mContext.startActivity(intent);
-                    }
-                });
-                holder.repostNum.setText(status.getReposts_count() + "");
-                holder.commentNum.setText(status.getComments_count() + "");
-                holder.likeNum.setText(status.getAttitudes_count() + "");
+        if (getItemViewType(position) != TYPE_NORMAL) {
+            return;
+        }
+        if (!(holder instanceof HomePageAdapter.ViewHolder)) {
+            return;
+        }
+        final Status status = weiboList.get(position);
+        if (status.getUser() == null) {
+            return;
+        }
+        User user = status.getUser();
+        liked = status.isLiked();
+        Glide.with(mContext).load(user.getAvatar_hd()).into(holder.avatarImage);
+        switch (user.getVerified_type()) {
+            case 0:
+                holder.identityIcon.setVisibility(View.GONE);
+                holder.identityIcon.setVisibility(View.VISIBLE);
+                holder.identityIcon.setImageResource(R.drawable.avatar_vip_golden);
+                break;
+            case 2:
+                holder.identityIcon.setVisibility(View.GONE);
+                holder.identityIcon.setVisibility(View.VISIBLE);
+                holder.identityIcon.setImageResource(R.drawable.avatar_enterprise_vip);
+                break;
+            case 220:
+                holder.identityIcon.setVisibility(View.GONE);
+                holder.identityIcon.setVisibility(View.VISIBLE);
+                holder.identityIcon.setImageResource(R.drawable.avatar_grassroot);
+                break;
+            default:
+                holder.identityIcon.setVisibility(View.GONE);
+                holder.identityIcon.setVisibility(View.VISIBLE);
+                holder.identityIcon.setImageResource(R.drawable.transparent);
+                break;
+        }
+        holder.nickname.setText(user.getScreen_name());
+        holder.date.setText(DateUtils.formatDate(status.getCreated_at()));
+        String source = status.getSource();
+        if (source.length() != 0) {
+            if (source.contains("</a>")) {
+                int start = source.indexOf(">") + 1;
+                int end = source.indexOf("</a>");
+                holder.source.setText(source.substring(start, end));
+            } else {
+                holder.source.setText(source);
+            }
+        } else {
+            holder.sourceTag.setVisibility(View.GONE);
+            holder.source.setVisibility(View.GONE);
+        }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, WeiboDetailActivity.class);
+                intent.putExtra("status", status);
+                mContext.startActivity(intent);
+            }
+        });
+        holder.reweiboView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, WeiboDetailActivity.class);
+                intent.putExtra("status", status.getRetweeted_status());
+                mContext.startActivity(intent);
+            }
+        });
+        holder.repostNum.setText(status.getReposts_count() + "");
+        holder.commentNum.setText(status.getComments_count() + "");
+        holder.likeNum.setText(status.getAttitudes_count() + "");
+        if (liked) {
+            holder.likeIcon.setImageResource(R.drawable.like_pressed_icon);
+        }
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            int likeNum = status.getAttitudes_count();
+
+            @Override
+            public void onClick(View v) {
                 if (liked) {
+                    holder.likeIcon.setImageResource(R.drawable.like_icon);
+                    likeNum = likeNum - 1;
+                    holder.likeNum.setText(likeNum + "");
+                    liked = false;
+                } else {
                     holder.likeIcon.setImageResource(R.drawable.like_pressed_icon);
+                    likeNum = likeNum + 1;
+                    holder.likeNum.setText(likeNum + "");
+                    liked = true;
                 }
-                holder.likeBtn.setOnClickListener(new View.OnClickListener() {
-                    int likeNum = status.getAttitudes_count();
-                    @Override
-                    public void onClick(View v) {
-                        if (liked) {
-                            holder.likeIcon.setImageResource(R.drawable.like_icon);
-                            likeNum = likeNum - 1;
-                            holder.likeNum.setText(likeNum + "");
-                            liked = false;
-                        } else {
-                            holder.likeIcon.setImageResource(R.drawable.like_pressed_icon);
-                            likeNum = likeNum + 1;
-                            holder.likeNum.setText(likeNum + "");
-                            liked = true;
-                        }
-                    }
-                });
-                holder.commentBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ToastUtils.showShortToast(mContext, "点击评论");
-                    }
-                });
-                holder.repostBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ToastUtils.showShortToast(mContext, "点击转发");
-                    }
-                });
+            }
+        });
+        holder.commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShortToast(mContext, "点击评论");
+            }
+        });
+        holder.repostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShortToast(mContext, "点击转发");
+            }
+        });
 
-                holder.moreBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Map<String,Status> map = new HashMap<String,Status>();
-                        map.put("status",status);
-                        new CommomDialog(mContext, R.style.dialog,map).show();
-                    }
-                });
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        Map<String,Status> map = new HashMap<String,Status>();
-                        map.put("status",status);
-                        new CommomDialog(mContext, R.style.dialog,map).show();
-                        return true;
-                    }
-                });
+        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String, Status> map = new HashMap<String, Status>();
+                map.put("status", status);
+                new CommomDialog(mContext, R.style.dialog, map).show();
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Map<String, Status> map = new HashMap<String, Status>();
+                map.put("status", status);
+                new CommomDialog(mContext, R.style.dialog, map).show();
+                return true;
+            }
+        });
 
-                int type = TypeUtils.getStatusType(status);
-                switch (type) {
+        int type = TypeUtils.getStatusType(status);
+        switch (type) {
+            case 0:
+                holder.goneEverything();
+                holder.bodyView.setVisibility(View.VISIBLE);
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
+                break;
+            case 1:
+                holder.goneEverything();
+                holder.bodyView.setVisibility(View.VISIBLE);
+                holder.multiPicsView.setVisibility(View.VISIBLE);
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
+                ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+                List<PicURL> urls = status.getPic_urls();
+                if (urls != null) {
+                    for (PicURL picURL : urls) {
+                        ImageInfo info = new ImageInfo();
+                        info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
+                        info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
+                        imageInfo.add(info);
+                    }
+                }
+                holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
+                if (urls != null && urls.size() == 1) {
+//                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
+                    holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
+                } else {
+                    holder.multiPicsGrid.setGridSpacing(16);
+                }
+                break;
+            case 5:
+                holder.goneEverything();
+                holder.bodyView.setVisibility(View.VISIBLE);
+                holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
+                holder.reweiboView.setVisibility(View.VISIBLE);
+                Status restatus = status.getRetweeted_status();
+                String addName = "@" + restatus.getUser().getScreen_name() + ":" + restatus.getText();
+                int reType = TypeUtils.getStatusType(restatus);
+                switch (reType) {
                     case 0:
-                        holder.goneEverything();
-                        holder.bodyView.setVisibility(View.VISIBLE);
-                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
+                        holder.reweiboBodyView.setVisibility(View.VISIBLE);
+                        holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
                         break;
                     case 1:
-                        holder.goneEverything();
-                        holder.bodyView.setVisibility(View.VISIBLE);
-                        holder.multiPicsView.setVisibility(View.VISIBLE);
-                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
-                        ArrayList<ImageInfo> imageInfo = new ArrayList<>();
-                        List<PicURL> urls = status.getPic_urls();
-                        if (urls != null) {
-                            for (PicURL picURL : urls) {
+                        holder.reweiboBodyView.setVisibility(View.VISIBLE);
+                        holder.reweiboMultiPicsView.setVisibility(View.VISIBLE);
+                        holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
+                        ArrayList<ImageInfo> reImageInfo = new ArrayList<>();
+                        List<PicURL> reUrls = restatus.getPic_urls();
+                        if (reUrls != null) {
+                            for (PicURL picURL : reUrls) {
                                 ImageInfo info = new ImageInfo();
                                 info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
                                 info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
-                                imageInfo.add(info);
+                                reImageInfo.add(info);
                             }
                         }
-                        holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
-                        if (urls != null && urls.size() == 1) {
+                        holder.reweiboMultiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, reImageInfo));
+                        if (reUrls != null && reUrls.size() == 1) {
 //                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
-                            holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
+                            holder.reweiboMultiPicsGrid.setSingleImageRatio(3.0f / 2);
                         } else {
-                            holder.multiPicsGrid.setGridSpacing(16);
-                        }
-                        break;
-                    case 5:
-                        holder.goneEverything();
-                        holder.bodyView.setVisibility(View.VISIBLE);
-                        holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
-                        holder.reweiboView.setVisibility(View.VISIBLE);
-                        Status restatus = status.getRetweeted_status();
-                        String addName = "@" + restatus.getUser().getScreen_name() + ":" + restatus.getText();
-                        int reType = TypeUtils.getStatusType(restatus);
-                        switch (reType) {
-                            case 0:
-                                holder.reweiboBodyView.setVisibility(View.VISIBLE);
-                                holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
-                                break;
-                            case 1:
-                                holder.reweiboBodyView.setVisibility(View.VISIBLE);
-                                holder.reweiboMultiPicsView.setVisibility(View.VISIBLE);
-                                holder.reweiboBody.setText(StringUtils.transformWeiboBody(mContext, holder.reweiboBody, addName));
-                                ArrayList<ImageInfo> reImageInfo = new ArrayList<>();
-                                List<PicURL> reUrls = restatus.getPic_urls();
-                                if (reUrls != null) {
-                                    for (PicURL picURL : reUrls) {
-                                        ImageInfo info = new ImageInfo();
-                                        info.setThumbnailUrl(PicUtils.getMiddlePic(picURL.getThumbnail_pic()));
-                                        info.setBigImageUrl(PicUtils.getOrignal(picURL.getThumbnail_pic()));
-                                        reImageInfo.add(info);
-                                    }
-                                }
-                                holder.reweiboMultiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, reImageInfo));
-                                if (reUrls != null && reUrls.size() == 1) {
-//                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
-                                    holder.reweiboMultiPicsGrid.setSingleImageRatio(3.0f / 2);
-                                } else {
-                                    holder.reweiboMultiPicsGrid.setGridSpacing(16);
-                                }
-                                break;
+                            holder.reweiboMultiPicsGrid.setGridSpacing(16);
                         }
                         break;
                 }
-            }
-        } else {
-            return;
+                break;
         }
+
+
     }
 
     @Override
     public int getItemCount() {
-        if(mFooterView == null){
+        if (mFooterView == null) {
             return weiboList.size();
-        }else {
+        } else {
             return weiboList.size() + 1;
         }
     }
