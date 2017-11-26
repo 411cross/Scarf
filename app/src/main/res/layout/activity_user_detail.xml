@@ -53,7 +53,7 @@
                     android:layout_marginTop="48dp"
                     app:civ_border_width="4px"
                     app:civ_border_color="@color/colorWhite"
-                    app:srcCompat="@drawable/ciircle" />
+                    app:srcCompat="@drawable/circle" />
 
                 <ImageView
                     android:id="@+id/identity_icon"

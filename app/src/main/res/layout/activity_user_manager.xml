@@ -14,8 +14,15 @@
     <ListView
         android:id="@+id/userList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:dividerHeight="10dp">
     </ListView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/transparent"
+        />
     <LinearLayout
         android:id="@+id/addUser"
         android:layout_width="match_parent"
@@ -23,14 +30,14 @@
         android:orientation="horizontal"
         android:background="@color/transparent">
         <ImageButton
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/choose"
             android:background="@color/transparent"
             />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="60dp"
             android:text="添加用户"
             android:textSize="20sp"
             android:gravity="center_vertical"

@@ -3,6 +3,7 @@ package com.example.jungle.weixin.Activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -40,6 +41,9 @@ import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
 import java.util.ArrayList;
 
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
+
 
 public class Publish extends AppCompatActivity  implements View.OnClickListener{
 
@@ -60,12 +64,14 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
     private static ArrayList<ImageView> imageViewArrayList;
     private static ArrayList<RelativeLayout> imageRelativeList;
     private static ArrayList<ImageButton> imageButtonArrayList;
+    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publish);
 
+        sp = getSp(this);
         back = (ImageButton) findViewById(R.id.back);
         content = (EditText) findViewById(R.id.content);
         chooseImage = (ImageButton) findViewById(R.id.chooseImage);
@@ -127,24 +133,29 @@ public class Publish extends AppCompatActivity  implements View.OnClickListener{
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater layoutInflater = LayoutInflater.from(Publish.this); // 创建视图容器并设置上下文
-                final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取list_item布局文件的视图
-                final AlertDialog.Builder temp = new AlertDialog.Builder(Publish.this);
-                final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
-                Button ensure = (Button) view.findViewById(R.id.ensure);
-                Button cancle = (Button) view.findViewById(R.id.cancle);
-                ensure.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(Publish.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                cancle.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        a.dismiss();
-                    }
-                });
+                String permission = getCurrent(sp).getPub_permission();
+                if(permission != null){
+                    //已有发表微博的许可
+                }else {
+                    LayoutInflater layoutInflater = LayoutInflater.from(Publish.this); // 创建视图容器并设置上下文
+                    final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取布局文件的视图
+                    final AlertDialog.Builder temp = new AlertDialog.Builder(Publish.this);
+                    final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
+                    Button ensure = (Button) view.findViewById(R.id.ensure);
+                    Button cancle = (Button) view.findViewById(R.id.cancle);
+                    ensure.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(Publish.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    cancle.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            a.dismiss();
+                        }
+                    });
+                }
             }
         });
         hot.setOnClickListener(new View.OnClickListener() {
