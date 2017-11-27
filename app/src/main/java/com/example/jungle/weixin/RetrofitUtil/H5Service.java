@@ -1,6 +1,8 @@
 package com.example.jungle.weixin.RetrofitUtil;
 
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
+import com.example.jungle.weixin.Bean.XHRBase.XHRHotStatus;
+import com.example.jungle.weixin.Bean.XHRBase.XHRLongStatus;
 import com.example.jungle.weixin.Bean.XHRBase.XHRUserDetail;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 
@@ -33,5 +35,11 @@ public interface H5Service {
     @FormUrlEncoded
     @POST("Compose/send")
     Observable<Response<XHRBaseBean<String>>> send(@Field("access_token") String access_token, @Field("content") String content);
+
+    @GET("User/getLongPage")
+    Observable<Response<XHRBaseBean<XHRLongStatus>>> getLongStatus(@Query("access_token") String access_token, @Query("id") String id);
+
+    @GET("User/getHotPage")
+    Observable<Response<XHRBaseBean<XHRHotStatus>>> getHotStatus(@Query("access_token") String access_token, @Query("page") int page);
 
 }

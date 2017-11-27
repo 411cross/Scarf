@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -22,6 +23,7 @@ import com.example.jungle.weixin.RetrofitUtil.Transform;
 import retrofit2.Response;
 
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
 public class MyWebView extends BaseActivity {
@@ -67,6 +69,7 @@ public class MyWebView extends BaseActivity {
                         public void onSuccess(Response<SharedPreUser> spuResponse) {
                             SharedPreUser spu = spuResponse.body();
                             addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null));
+                            Log.i("============--------", getCurrent(sp).getUid());
                             //请求完成后需要将此activity结束 避免用户看到关键信息
                             ManagerUtils.exit();
 //                            finish();

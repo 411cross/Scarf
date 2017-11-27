@@ -34,6 +34,8 @@
     </style>
 
     <style name="shadowText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">#9E9E9E</item>
         <item name="android:shadowRadius">3</item>
         <item name="android:shadowDx">0</item>

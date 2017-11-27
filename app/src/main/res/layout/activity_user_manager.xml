@@ -34,13 +34,16 @@
             android:layout_height="60dp"
             android:src="@drawable/choose"
             android:background="@color/transparent"
+            android:layout_marginLeft="8dp"
             />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="添加用户"
             android:textSize="20sp"
             android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
             />
 
     </LinearLayout>

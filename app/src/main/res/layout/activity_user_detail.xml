@@ -26,7 +26,8 @@
             app:expandedTitleMarginBottom="108dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:statusBarScrim="@android:color/transparent"
-            app:titleEnabled="true">
+            app:titleEnabled="true"
+            >
 
             <ImageView
                 android:id="@+id/background"
@@ -41,7 +42,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/avatar"
@@ -90,7 +92,6 @@
                     android:textColor="@android:color/white"
                     android:textSize="12sp" />
 
-
                 <TextView
                     android:id="@+id/line"
                     style="@style/shadowText"
@@ -103,7 +104,6 @@
                     android:textAlignment="textStart"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
-
 
                 <TextView
                     android:id="@+id/follower_tag"

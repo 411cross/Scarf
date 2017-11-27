@@ -35,7 +35,6 @@ import android.widget.Toast;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.jungle.weixin.Adapter.ExpressionAdapter;
-import com.example.jungle.weixin.Bean.XHRBase.ErrorData;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
@@ -49,7 +48,6 @@ import java.util.ArrayList;
 import static com.example.jungle.weixin.PublicUtils.StringUtils.transformPublish;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
-
 
 public class Publish extends BaseActivity implements View.OnClickListener {
 
@@ -144,7 +142,7 @@ public class Publish extends BaseActivity implements View.OnClickListener {
 
             @Override
             public void afterTextChanged(Editable s) {
-                content.append(transformPublish(Publish.this, content, original));
+//                content.append(transformPublish(Publish.this, content, original));
             }
         });
         send.setOnClickListener(new View.OnClickListener() {

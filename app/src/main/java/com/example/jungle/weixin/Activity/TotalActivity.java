@@ -37,6 +37,7 @@ import com.example.jungle.weixin.Fragment.HomePageFragment;
 import com.example.jungle.weixin.Fragment.InformationFragment;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.ManagerUtils;
+import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.H5Service;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
@@ -50,6 +51,9 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Response;
+
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
 
 public class TotalActivity extends BaseActivity implements View.OnClickListener{
@@ -67,16 +71,16 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sp = getSp(this);
+        if (getCurrent(sp) == null) {
+            Intent intent = new Intent(TotalActivity.this,MyWebView.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.left_in,R.anim.right_out);
+        }
+
         setContentView(R.layout.activity_total);
         final DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
-
-        try {
-            Context otherAppContext = createPackageContext("com.example.jungle.weixin", Context.CONTEXT_IGNORE_SECURITY);
-            sp = otherAppContext.getSharedPreferences("Scarf", Activity.MODE_PRIVATE);
-            id = sp.getLong("Uid", CodeUtils.getmID());
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -148,12 +152,14 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     case R.id.myLikes :
-                        Intent intent1 = new Intent(TotalActivity.this,HotSearchActivity.class);
+                        Intent intent1 = new Intent(TotalActivity.this,PublicWebViewActivity.class);
+                        intent1.putExtra("url", "https://m.weibo.cn/p/index?containerid=2302572216277571");
                         startActivity(intent1);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     case R.id.myCollection :
-                        Intent intent2 = new Intent(TotalActivity.this,PrivateMessageActivity.class);
+                        Intent intent2 = new Intent(TotalActivity.this,PublicWebViewActivity.class);
+                        intent2.putExtra("url", "https://m.weibo.cn/p/index?containerid=2302592216277571");
                         startActivity(intent2);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
@@ -163,11 +169,11 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
                     case R.id.clearCache :
-                        Intent intent4 = new Intent(TotalActivity.this,SearchResultActivity.class);
-                        startActivity(intent4);
-                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
+                        ToastUtils.showShortToast(TotalActivity.this, "已清理 35 MB");
+//                        Intent intent4 = new Intent(TotalActivity.this,SearchResultActivity.class);
+//                        startActivity(intent4);
+//                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
-
                     default:
                         drawerLayout.closeDrawers();
                         break;
@@ -233,12 +239,13 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onRestart() {
         super.onRestart();
+
         // 授权返回
         if (ManagerUtils.isFlag()) {
+            ManagerUtils.setFlag(false);
             Intent intent = getIntent();
             finish();
             startActivity(intent);
-            ManagerUtils.setFlag(false);
             LayoutInflater layoutInflater = LayoutInflater.from(TotalActivity.this); // 创建视图容器并设置上下文
             final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取布局文件的视图
             final AlertDialog.Builder temp = new AlertDialog.Builder(TotalActivity.this);

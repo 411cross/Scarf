@@ -30,6 +30,8 @@ import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Adapter.CommentAdapter;
+import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
+import com.example.jungle.weixin.Bean.XHRBase.XHRLongStatus;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
 import com.example.jungle.weixin.PublicUtils.PicUtils;
@@ -37,6 +39,7 @@ import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.PublicUtils.TypeUtils;
 import com.example.jungle.weixin.R;
+import com.example.jungle.weixin.RetrofitUtil.H5Service;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
@@ -171,12 +174,31 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
 
         // 传入的微博
         status = (Status) getIntent().getSerializableExtra("status");
-        if (status.isLongText()) {
-            ToastUtils.showShortToast(this, "需要请求全文");
-        }
+
         // 初始化界面
         initView();
-        setData();
+        if (status.isLongText()) {
+            NetRequestFactory.getInstance().createService(H5Service.class).getLongStatus("test", status.getIdstr())
+                    .compose(Transform.<Response<XHRBaseBean<XHRLongStatus>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRLongStatus>>>() {
+                @Override
+                public void onSuccess(Response<XHRBaseBean<XHRLongStatus>> longStatus) {
+                    if (longStatus.body().getStatus() == 1) {
+                        status.setText(StringUtils.transformH5Body(body, longStatus.body().getData().getLongTextContent()).toString());
+                        setData();
+                    } else {
+                        System.out.println("YUYUYUYUYUYUYUYUYUYUYU" + longStatus.body().getException().getError());
+                    }
+                }
+
+                @Override
+                public void _onError(Response<XHRBaseBean<XHRLongStatus>> e) {
+                    super._onError(e);
+                }
+            });
+        } else {
+            setData();
+        }
+
     }
 
     private void initView() {
@@ -349,12 +371,21 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
         nickname.setText(user.getScreen_name());
-        date.setText(DateUtils.formatDate(status.getCreated_at()));
+        String dateStr = status.getCreated_at();
+        if (dateStr.contains(" +")) {
+            date.setText(DateUtils.formatDate(dateStr));
+        } else {
+            date.setText(dateStr);
+        }
         String theSource = status.getSource();
         if (theSource.length() != 0) {
-            int start = theSource.indexOf(">") + 1;
-            int end = theSource.indexOf("</a>");
-            source.setText(theSource.substring(start, end));
+            if (theSource.contains("</a")) {
+                int start = theSource.indexOf(">") + 1;
+                int end = theSource.indexOf("</a>");
+                source.setText(theSource.substring(start, end));
+            } else {
+                source.setText(theSource);
+            }
         } else {
             sourceTag.setVisibility(View.GONE);
             source.setVisibility(View.GONE);

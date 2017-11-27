@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.example.jungle.weixin.Activity.UserDetailActivity;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
@@ -270,7 +271,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         if (status.getUser() == null) {
             return;
         }
-        User user = status.getUser();
+        final User user = status.getUser();
         liked = status.isLiked();
         Glide.with(mContext).load(user.getAvatar_hd()).into(holder.avatarImage);
         switch (user.getVerified_type()) {
@@ -296,7 +297,14 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 break;
         }
         holder.nickname.setText(user.getScreen_name());
-        holder.date.setText(DateUtils.formatDate(status.getCreated_at()));
+        // API和H5微博时间处理
+        String date = status.getCreated_at();
+        if (date.contains(" +")) {
+            holder.date.setText(DateUtils.formatDate(date));
+        } else {
+            holder.date.setText(date);
+        }
+        // API和H5微博来源处理
         String source = status.getSource();
         if (source.length() != 0) {
             if (source.contains("</a>")) {
@@ -310,6 +318,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             holder.sourceTag.setVisibility(View.GONE);
             holder.source.setVisibility(View.GONE);
         }
+//        String body = StringUtils.transformH5Body(holder.body, status.getText());
+//        status.setText(body);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -323,6 +333,22 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                 intent.putExtra("status", status.getRetweeted_status());
+                mContext.startActivity(intent);
+            }
+        });
+        holder.avatarImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(mContext, UserDetailActivity.class);
+                intent.putExtra("user", user);
+                mContext.startActivity(intent);
+            }
+        });
+        holder.nickname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(mContext, UserDetailActivity.class);
+                intent.putExtra("user", user);
                 mContext.startActivity(intent);
             }
         });

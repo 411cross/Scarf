@@ -118,8 +118,9 @@ public class HomePageFragment extends Fragment {
                     ManagerUtils.jumpToAuthorize(getContext());
                     String errorString = statusList.errorBody().string();
                     int index = errorString.indexOf("\"error_code\":");
-                    String code = errorString.substring(index + 12, index + 18);
-                    ToastUtils.showShortToast(getContext(), CodeUtils.getChineseMsg(code));
+//                    String code = errorString.substring(index + 12, index + 18);
+//                    System.out.println("+++++++++++++++++++++++++" + code);
+//                    ToastUtils.showShortToast(getContext(), CodeUtils.getChineseMsg(code));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

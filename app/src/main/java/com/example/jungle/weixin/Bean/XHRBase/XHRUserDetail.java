@@ -56,9 +56,9 @@ public class XHRUserDetail {
     public class Content {
 
         private CardListInfo cardListInfo;
-        private List<Card> cards = new ArrayList<>();
+        private List<XHRCard> cards = new ArrayList<>();
 
-        public Content(CardListInfo cardListInfo, List<Card> cards) {
+        public Content(CardListInfo cardListInfo, List<XHRCard> cards) {
             this.cardListInfo = cardListInfo;
             this.cards = cards;
         }
@@ -71,11 +71,11 @@ public class XHRUserDetail {
             this.cardListInfo = cardListInfo;
         }
 
-        public List<Card> getCards() {
+        public List<XHRCard> getCards() {
             return cards;
         }
 
-        public void setCards(List<Card> cards) {
+        public void setCards(List<XHRCard> cards) {
             this.cards = cards;
         }
 
@@ -103,23 +103,6 @@ public class XHRUserDetail {
 
             public void setPage(int page) {
                 this.page = page;
-            }
-        }
-
-        public class Card {
-
-            private Status mblog = null;
-
-            public Card(Status mblog) {
-                this.mblog = mblog;
-            }
-
-            public Status getMblog() {
-                return mblog;
-            }
-
-            public void setMblog(Status mblog) {
-                this.mblog = mblog;
             }
         }
 
