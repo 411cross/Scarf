@@ -8,16 +8,16 @@ import android.content.SharedPreferences;
 
 public class SharedPreUser {
     private String uid;
-    private String acc_token;
+    private String access_token;
     private String userName;
     private String head_url;
 
     public SharedPreUser(){
 
     }
-    public SharedPreUser(String uid,String acc_token,String userName,String head_url){
+    public SharedPreUser(String uid,String access_token,String userName,String head_url){
         this.uid = uid;
-        this.acc_token = acc_token;
+        this.access_token = access_token;
         this.userName = userName;
         this.head_url = head_url;
     }
@@ -30,11 +30,11 @@ public class SharedPreUser {
     }
 
     public String getAcc_token() {
-        return acc_token;
+        return access_token;
     }
 
     public void setAcc_token(String acc_token) {
-        this.acc_token = acc_token;
+        this.access_token = acc_token;
     }
 
     public String getUserName() {

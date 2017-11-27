@@ -9,6 +9,7 @@ import com.example.jungle.weixin.Bean.Data;
 import com.example.jungle.weixin.Bean.ParticularBean.CreateDestoryCommentsData;
 import com.example.jungle.weixin.Bean.ParticularBean.FriendsFriendFollowersFriendships;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
+import com.example.jungle.weixin.Bean.ParticularBean.SPData;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.ResultBean;
 
@@ -123,6 +124,6 @@ public interface MyService {
 
     // 请求狒狒数据库的accesstoken，url是自定义的
     @GET("")
-    Observable<Response<SharedPreUser>> requestUrl(@Url String url);
+    Observable<Response<SPData>> requestUrl(@Url String url);
 
 }

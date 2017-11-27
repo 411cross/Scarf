@@ -115,7 +115,6 @@ public class HomePageFragment extends Fragment {
             public void _onError(Response<StatusList> statusList) {
                 super._onError(statusList);
                 try {
-                    ManagerUtils.jumpToAuthorize(getContext());
                     String errorString = statusList.errorBody().string();
                     int index = errorString.indexOf("\"error_code\":");
 //                    String code = errorString.substring(index + 12, index + 18);

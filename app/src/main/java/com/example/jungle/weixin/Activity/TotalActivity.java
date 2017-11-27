@@ -243,9 +243,9 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
         // 授权返回
         if (ManagerUtils.isFlag()) {
             ManagerUtils.setFlag(false);
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
+//            Intent intent = getIntent();
+//            finish();
+//            startActivity(intent);
             LayoutInflater layoutInflater = LayoutInflater.from(TotalActivity.this); // 创建视图容器并设置上下文
             final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取布局文件的视图
             final AlertDialog.Builder temp = new AlertDialog.Builder(TotalActivity.this);
