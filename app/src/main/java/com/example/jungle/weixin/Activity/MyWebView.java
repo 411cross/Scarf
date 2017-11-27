@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
@@ -43,6 +44,7 @@ public class MyWebView extends BaseActivity {
         setContentView(R.layout.activity_my_web_view);
 
         mWebView = (WebView) findViewById(R.id.webView);
+        mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         title_WebView = (TextView) findViewById(R.id.title);
         back = (ImageButton) findViewById(R.id.back);
 
@@ -66,7 +68,6 @@ public class MyWebView extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, final String url) {
                 if (url.indexOf("getToken?code=") > 0) {
-                    Log.i("}{}{}{}{}{}{}{}{}{}{", url);
                     NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<SPData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<SPData>>() {
                         @Override
                         public void onSuccess(Response<SPData> spuResponse) {
