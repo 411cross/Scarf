@@ -237,43 +237,44 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onResume() {
+        super.onResume();
 
         // 授权返回
         if (ManagerUtils.isFlag()) {
             ManagerUtils.setFlag(false);
-//            Intent intent = getIntent();
-//            finish();
-//            startActivity(intent);
+
             LayoutInflater layoutInflater = LayoutInflater.from(TotalActivity.this); // 创建视图容器并设置上下文
-            final View view = layoutInflater.inflate(R.layout.loginalterdialog,null); // 获取布局文件的视图
+            final View view = layoutInflater.inflate(R.layout.loginalterdialog, null); // 获取布局文件的视图
             final AlertDialog.Builder temp = new AlertDialog.Builder(TotalActivity.this);
             final AlertDialog a = temp.setTitle("登录授权").setView(view).show();
             Button ensure = (Button) view.findViewById(R.id.ensure);
             Button cancel = (Button) view.findViewById(R.id.cancel);
-            final EditText usernameEt = (EditText) view.findViewById(R.id.userName);
-            final EditText passwordEt = (EditText) view.findViewById(R.id.password);
+            final EditText userName = (EditText) view.findViewById(R.id.userName);
+            final EditText password = (EditText) view.findViewById(R.id.password);
             ensure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(TotalActivity.this, "没见过toast吗", Toast.LENGTH_SHORT).show();
-
-                    NetRequestFactory.getInstance().createService(H5Service.class).login(usernameEt.getText().toString(), passwordEt.getText().toString())
+                    NetRequestFactory.getInstance().createService(H5Service.class).login(userName.getText().toString(), password.getText().toString())
                             .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
                         @Override
-                        public void onSuccess(Response<XHRBaseBean<String>> stringResponse) {
-                            if (stringResponse.body().getStatus() == 1) {
-
+                        public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
+                            if (xhrBaseBeanResponse.body().getStatus() == 1) {
+                                Toast.makeText(TotalActivity.this, "登录成功，请重新提交", Toast.LENGTH_SHORT).show();
+                                a.dismiss();
+                                Intent intent = getIntent();
+                                finish();
+                                startActivity(intent);
                             } else {
-
+                                Toast.makeText(TotalActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         @Override
-                        public void _onError(Response<XHRBaseBean<String>> e) {
-                            super._onError(e);
+                        public void _onError(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
+
                         }
+
                     });
                 }
             });
@@ -283,6 +284,9 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                     a.dismiss();
                 }
             });
+
+
+
         }
 
     }
