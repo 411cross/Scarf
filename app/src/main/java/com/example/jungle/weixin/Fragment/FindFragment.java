@@ -94,7 +94,7 @@ public class FindFragment extends Fragment {
 
     private void loadStatus(final int page) {
 
-        NetRequestFactory.getInstance().createService(H5Service.class).getHotStatus("test",1).compose(Transform.<Response<XHRBaseBean<XHRHotStatus>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRHotStatus>>>() {
+        NetRequestFactory.getInstance().createService(H5Service.class).getHotStatus("test",page).compose(Transform.<Response<XHRBaseBean<XHRHotStatus>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRHotStatus>>>() {
             @Override
             public void onSuccess(Response<XHRBaseBean<XHRHotStatus>> statusList) {
                 Log.i(TAG, "=============loadStatus: " + statusList.body().getData().getCards().get(0).getMblog().getText());

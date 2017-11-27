@@ -70,9 +70,6 @@ public class ReviewWeiboActivity extends BaseActivity {
                 });
             }
         });
-
-
-
     }
 
 

@@ -27,12 +27,12 @@ public class Status implements Serializable {
     private int attitudes_count; // 赞数
     private List<PicURL> pic_urls = new ArrayList<>();
     private List<String> pic_ids = new ArrayList<>();
-    private List<PicURL> pics = new ArrayList<>();
+    private List<Pic> pics = new ArrayList<>();
     private boolean isLongText;
     private boolean favorited;
     private boolean liked;
 
-    public Status(long id, long mid, String idstr, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, List<String> pic_ids, List<PicURL> pics, boolean isLongText, boolean favorited, boolean liked) {
+    public Status(long id, long mid, String idstr, String created_at, String text, String source, String thumbnail_pic, String bmiddle_pic, String original_pic, Geo geo, User user, Status retweeted_status, int reposts_count, int comments_count, int attitudes_count, List<PicURL> pic_urls, List<String> pic_ids, List<Pic> pics, boolean isLongText, boolean favorited, boolean liked) {
         this.id = id;
         this.mid = mid;
         this.idstr = idstr;
@@ -192,11 +192,11 @@ public class Status implements Serializable {
         this.pic_ids = pic_ids;
     }
 
-    public List<PicURL> getPics() {
+    public List<Pic> getPics() {
         return pics;
     }
 
-    public void setPics(List<PicURL> pics) {
+    public void setPics(List<Pic> pics) {
         this.pics = pics;
     }
 
@@ -222,5 +222,21 @@ public class Status implements Serializable {
 
     public void setLiked(boolean liked) {
         this.liked = liked;
+    }
+
+    public class Pic implements Serializable {
+        private String url;
+
+        public Pic(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 }
