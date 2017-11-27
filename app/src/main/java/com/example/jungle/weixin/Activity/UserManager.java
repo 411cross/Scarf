@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getAllUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 
@@ -38,8 +39,6 @@ public class UserManager extends BaseActivity implements View.OnClickListener{
         addUser = (LinearLayout) findViewById(R.id.addUser);
         addUser.setOnClickListener(this);
         userList = (ListView) findViewById(R.id.userList);
-//        addUser(sp,new SharedPreUser("1234","123d4","chf","15555","headchf"));
-//        addUser(sp,new SharedPreUser("1ddd","1dda","zbx","1ddd","headzbx"));
         ArrayList<SharedPreUser> temp = getAllUser(sp);
         SharedPreUserAdapter adapter = new SharedPreUserAdapter(this,R.layout.sharedpreuseritem,temp,sp);
         userList.setAdapter(adapter);
