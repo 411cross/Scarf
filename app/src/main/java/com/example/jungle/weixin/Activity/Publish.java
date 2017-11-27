@@ -21,6 +21,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -43,6 +44,8 @@ import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import static com.example.jungle.weixin.PublicUtils.StringUtils.transformPublish;
@@ -149,7 +152,14 @@ public class Publish extends BaseActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 if(!content.getText().equals(null)){
-                    NetRequestFactory.getInstance().createService(H5Service.class).send("test", content.getText().toString())
+                    String weiboContent = null;
+                    try {
+                        weiboContent = URLEncoder.encode(content.getText().toString(),"UTF-8");
+                        Log.i("content", weiboContent);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    NetRequestFactory.getInstance().createService(H5Service.class).send("test", weiboContent)
                             .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
                         @Override
                         public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
