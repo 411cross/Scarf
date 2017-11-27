@@ -13,7 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
+import com.example.jungle.weixin.Bean.ParticularBean.SPData;
 import com.example.jungle.weixin.PublicUtils.ManagerUtils;
+import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
 import com.example.jungle.weixin.RetrofitUtil.MyService;
@@ -64,19 +66,20 @@ public class MyWebView extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, final String url) {
                 if (url.indexOf("getToken?code=") > 0) {
-                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<SharedPreUser>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<SharedPreUser>>() {
+                    Log.i("}{}{}{}{}{}{}{}{}{}{", url);
+                    NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<SPData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<SPData>>() {
                         @Override
-                        public void onSuccess(Response<SharedPreUser> spuResponse) {
-                            SharedPreUser spu = spuResponse.body();
+                        public void onSuccess(Response<SPData> spuResponse) {
+                            Log.i("================", spuResponse.code()+"");
+                            SharedPreUser spu = spuResponse.body().getData();
                             addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null));
-                            Log.i("============--------", getCurrent(sp).getUid());
                             //请求完成后需要将此activity结束 避免用户看到关键信息
                             ManagerUtils.exit();
 //                            finish();
                         }
 
                         @Override
-                        public void _onError(Response<SharedPreUser> loginResponse) {
+                        public void _onError(Response<SPData> loginResponse) {
                             //重新加载授权页面
                             mWebView.loadUrl(loginUrl);
                         }
