@@ -149,7 +149,7 @@ public class Publish extends BaseActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 if(!content.getText().equals(null)){
-                    NetRequestFactory.getInstance().createService(H5Service.class).send(getCurrent(sp).getAcc_token(), content.getText().toString())
+                    NetRequestFactory.getInstance().createService(H5Service.class).send("test", content.getText().toString())
                             .compose(Transform.<Response<XHRBaseBean<String>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<String>>>() {
                         @Override
                         public void onSuccess(Response<XHRBaseBean<String>> xhrBaseBeanResponse) {
