@@ -42,69 +42,64 @@ import static io.vov.vitamio.utils.Log.TAG;
 
 public class StringUtils {
 
-    // 这玩意儿有错！！！！！！！！！！！！！
     public static String transformH5Body(final TextView tv, String original) {
 
 //        String original = "土耳其街头的手工花生糖，开始我以为是一坨<span class=\"url-icon\"><img src=\"//h5.sinaimg.cn/m/emoticon/icon/default/d_yunbei-c6964bf237.png\" style=\"width:1em;height:1em;\" alt=\"[允悲]\"></span><span class=\"url-icon\"><img src=\"//h5.sinaimg.cn/m/emoticon/icon/default/d_yunbei-c6964bf237.png\" style=\"width:1em;height:1em;\" alt=\"[允悲]\"></span><span class=\"url-icon\"><img src=\"//h5.sinaimg.cn/m/emoticon/icon/default/d_yunbei-c6964bf237.png\" style=\"width:1em;height:1em;\" alt=\"[允悲]\"></span><br/><br/><a class='k' href='https://m.weibo.cn/k/%E8%B0%9C%E4%B9%8B%E5%BE%AE%E7%AC%91?from=feed'>#谜之微笑#</a><a class='k' href='https://m.weibo.cn/k/%E5%BE%AE%E5%8D%9A%E6%90%9E%E7%AC%91%E6%8E%92%E8%A1%8C%E6%A6%9C?from=feed'>#微博搞笑排行榜#</a><a class='k' href='https://m.weibo.cn/k/%E6%90%9E%E7%AC%91%E7%BA%A2%E4%BA%BA%E5%91%A8?from=feed'>#搞笑红人周#</a><a class='k' href='https://m.weibo.cn/k/%E5%B9%BD%E9%BB%98%E6%90%9E%E7%AC%91?from=feed'>#幽默搞笑#</a><a class='k' href='https://m.weibo.cn/k/%E6%90%9E%E7%AC%91%E8%A7%86%E9%A2%91?from=feed'>#搞笑视频#</a> <a data-url=\"http://t.cn/RYqLfPl\" href=\"https://m.weibo.cn/p/index?containerid=2304440ebc6ddc92fe7e29221056e88f47e34a&url_type=39&object_type=video&pos=1&luicode=10000011&lfid=102803&ep=FwOiXebvR%2C5337648308%2CFwOiXebvR%2C5337648308\" data-hide=\"\"><span class=\"url-icon\"><img src=\"https://h5.sinaimg.cn/upload/2015/09/25/3/timeline_card_small_video_default.png\"></span></i><span class=\"surl-text\">司机发车了的秒拍视频</a> ​​​";
-        String regexH5EmojiHead = "<span";
-        String regexH5EmojiMid = "\" alt=\"";
-        String regexHrNoEmojiMid = ".png\">";
-        String regexH5EmojiEnd = "\"></span>";
+        String regExAtHead = "<a href[^>]*?>[\\s\\S]*?@";
+        String regExAtEnd = "</a>";
 
-        String regexH5AtHead = "<a href=\'https";
-        String regexH5AtMid = "\'>";
+        String regExTopicHead = "<a class=[^>]*?>[\\s\\S]*?#";
+        String regExTopicEnd = "#</a>";
 
-        String regexH5TopicHead = "<a class";
-        String regexH5TopicMid = "\'>";
+        String regExEmojiHead = "<span[^>]*?>[\\s\\S]*?\" alt=\"";
+        String regExEmojiEnd = "\"></span>";
 
-        String regexH5AtTopicEnd = "</a>";
+        String regExURLHead = "<a data-url=\"";
+        String regExURLEnd = "\" href=\"[^>]*?>[\\s\\S]*?\">";
 
-        String regexH5LongHead = "<a href=\"/status";
-        String regexH5LongMid = "\">";
+        String regExVideo = "<img src=\"[^>]*?>[\\s\\S]*?\">";
 
-        String regexH5Br = "<br/>";
+        String regExBr = "<br/>";
 
-        original = deleteHeadByMid(regexH5EmojiHead, regexH5EmojiMid, original);
-        original = deleteHeadByMid(regexH5EmojiHead, regexHrNoEmojiMid, original);
-        original = original.replaceAll(regexH5EmojiEnd, "");
+        Pattern ehp = Pattern.compile(regExEmojiHead, Pattern.CASE_INSENSITIVE);
+        Matcher ehm = ehp.matcher(original);
+        original = ehm.replaceAll("");
 
-        original = deleteHeadByHead(regexH5AtHead, regexH5AtMid, original);
-        original = deleteHeadByHead(regexH5TopicHead, regexH5TopicMid, original);
+        Pattern eep = Pattern.compile(regExEmojiEnd, Pattern.CASE_INSENSITIVE);
+        Matcher eem = eep.matcher(original);
+        original = eem.replaceAll("");
 
-        original = original.replaceAll(regexH5AtTopicEnd, "");
+        Pattern uhp = Pattern.compile(regExURLHead, Pattern.CASE_INSENSITIVE);
+        Matcher uhm = uhp.matcher(original);
+        original = uhm.replaceAll(" ");
 
-        original = deleteHeadByHead(regexH5LongHead, regexH5LongMid, original);
+        Pattern uep = Pattern.compile(regExURLEnd, Pattern.CASE_INSENSITIVE);
+        Matcher uem = uep.matcher(original);
+        original = uem.replaceAll(" ");
 
-        original = original.replaceAll(regexH5Br, "\n");
+        Pattern vp = Pattern.compile(regExVideo, Pattern.CASE_INSENSITIVE);
+        Matcher vm = vp.matcher(original);
+        original = vm.replaceAll(" ");
 
-        System.out.println(original);
+        Pattern thp = Pattern.compile(regExTopicHead, Pattern.CASE_INSENSITIVE);
+        Matcher thm = thp.matcher(original);
+        original = thm.replaceAll("#");
 
-        return original;
+        Pattern tep = Pattern.compile(regExTopicEnd, Pattern.CASE_INSENSITIVE);
+        Matcher tem = tep.matcher(original);
+        original = tem.replaceAll("#");
 
-    }
+        Pattern ahp = Pattern.compile(regExAtHead, Pattern.CASE_INSENSITIVE);
+        Matcher ahm = ahp.matcher(original);
+        original = ahm.replaceAll("@");
 
-    public static String deleteHeadByHead(String head, String middle, String original) {
+        Pattern aep = Pattern.compile(regExAtEnd, Pattern.CASE_INSENSITIVE);
+        Matcher aem = aep.matcher(original);
+        original = aem.replaceAll(" ");
 
-
-        while (original.contains(head)) {
-            int start = original.indexOf(head);
-            int mid = original.indexOf(middle);
-            String sub = original.substring(start, mid + middle.length());
-            original = original.replace(sub, "");
-        }
-
-        return original;
-
-    }
-
-    public static String deleteHeadByMid(String head, String middle, String original) {
-
-        while (original.contains(middle)) {
-            int start = original.indexOf(head);
-            int mid = original.indexOf(middle);
-            String sub = original.substring(start, mid + middle.length());
-            original = original.replace(sub, "");
-        }
+        Pattern bep = Pattern.compile(regExBr, Pattern.CASE_INSENSITIVE);
+        Matcher bem = bep.matcher(original);
+        original = bem.replaceAll("\n");
 
         return original;
 
@@ -117,10 +112,12 @@ public class StringUtils {
         String regexEmoji = "\\[[\u4e00-\u9fa5\\w]+\\]";
         String regexLink = "http://[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
         String regexMore = "全文： http://m\\.weibo\\.cn[a-zA-Z0-9+&@#/%?=~_\\\\-|!:,\\\\.;]*[a-zA-Z0-9+&@#/%=~_|]";
+        String regexH5More = "<a href=[^>]*?>[\\s\\S]*?>全文";
+
 
 
         String regexGroup = "(" + regexAt + ")|(" + regexTopic + ")|("
-                + regexEmoji + ")|(" + regexLink + ")|(" + regexMore + ")";
+                + regexEmoji + ")|(" + regexLink + ")|(" + regexMore + ")|(" + regexH5More + ")";
 
         String recognizeColonString = original.replaceAll(":", " : ");
         String recognizeHttpString = recognizeColonString.replaceAll("http : ", "http:");
@@ -140,6 +137,7 @@ public class StringUtils {
             String emojiStr = matcher.group(3);
             final String linkStr = matcher.group(4);
             final String moreStr = matcher.group(5);
+            final String h5MoreStr = matcher.group(6);
 
             int size = (int) tv.getTextSize();
 
@@ -215,6 +213,22 @@ public class StringUtils {
                     }
                 };
                 SpannableStringBuilder moreSpannableString = getMoreSpannableString(moreStr);
+                spannableString.replace(start, end, moreSpannableString);
+                spannableString.setSpan(clickableSpan, start, start + moreSpannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                matcher = pattern.matcher(spannableString);
+            }
+
+            // H5全文部分
+            if (h5MoreStr != null) {
+                int start = matcher.start(6);
+                int end = matcher.end(6);
+                ScarfClickableSpan clickableSpan = new ScarfClickableSpan(context) {
+                    @Override
+                    public void onClick(View widget) {
+                        ToastUtils.showShortToast(context, h5MoreStr);
+                    }
+                };
+                SpannableStringBuilder moreSpannableString = getMoreSpannableString(h5MoreStr);
                 spannableString.replace(start, end, moreSpannableString);
                 spannableString.setSpan(clickableSpan, start, start + moreSpannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 matcher = pattern.matcher(spannableString);

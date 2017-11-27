@@ -28,7 +28,7 @@ import java.util.List;
 import retrofit2.Response;
 
 public class CommentActivity extends BaseActivity {
-    private String token;
+
     private Comment[] comments;
     private List<Comment> commentList;
     private RecyclerView recyclerView;

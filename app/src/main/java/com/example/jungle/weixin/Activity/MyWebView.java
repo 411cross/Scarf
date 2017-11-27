@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -44,6 +46,8 @@ public class MyWebView extends BaseActivity {
         setContentView(R.layout.activity_my_web_view);
 
         mWebView = (WebView) findViewById(R.id.webView);
+        CookieSyncManager.createInstance(this);
+        CookieManager.getInstance().removeAllCookie();
         mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         title_WebView = (TextView) findViewById(R.id.title);
         back = (ImageButton) findViewById(R.id.back);
@@ -74,6 +78,7 @@ public class MyWebView extends BaseActivity {
                             Log.i("================", spuResponse.code()+"");
                             SharedPreUser spu = spuResponse.body().getData();
                             addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null));
+                            Log.i("~~~~~~~~~~~~~~", "onSuccess: " + spu.getAcc_token());
                             //请求完成后需要将此activity结束 避免用户看到关键信息
                             ManagerUtils.exit();
 //                            finish();

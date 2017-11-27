@@ -129,7 +129,7 @@ public class UserWeiboFragement extends Fragment {
 //    }
 
     public void getData() {
-        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail("test", 1, user.getIdstr())
+        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail("test", 1, (user.getId() + ""))
                 .compose(Transform.<Response<XHRBaseBean<XHRUserDetail>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRUserDetail>>>() {
             @Override
             public void onSuccess(Response<XHRBaseBean<XHRUserDetail>> stringResponse) {

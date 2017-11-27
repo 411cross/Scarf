@@ -127,7 +127,7 @@ public class UserDetailActivity extends BaseActivity {
 
 
     public void getData() {
-        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail(CodeUtils.getmToken(), 1, user.getIdstr())
+        NetRequestFactory.getInstance().createService(H5Service.class).getUserDetail(CodeUtils.getmToken(), 1, (user.getId() + ""))
                 .compose(Transform.<Response<XHRBaseBean<XHRUserDetail>>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<XHRBaseBean<XHRUserDetail>>>() {
             @Override
             public void onSuccess(Response<XHRBaseBean<XHRUserDetail>> stringResponse) {

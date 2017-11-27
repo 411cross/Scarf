@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -266,6 +267,8 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                                 finish();
                                 startActivity(intent);
                             } else {
+                                Log.i("[][][][][]][][----", xhrBaseBeanResponse.body().getException().getError());
+                                Log.i("[===========[----", xhrBaseBeanResponse.body().getException().getError_code());
                                 Toast.makeText(TotalActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                             }
                         }

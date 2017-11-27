@@ -250,7 +250,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         if (mFooterView != null && viewType == TYPE_FOOTER) {
             return new ViewHolder(mFooterView);
         }
@@ -318,8 +317,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             holder.sourceTag.setVisibility(View.GONE);
             holder.source.setVisibility(View.GONE);
         }
-//        String body = StringUtils.transformH5Body(holder.body, status.getText());
-//        status.setText(body);
+        String body = StringUtils.transformH5Body(holder.body, status.getText());
+        status.setText(body);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -420,6 +419,28 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 holder.multiPicsView.setVisibility(View.VISIBLE);
                 holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
                 ArrayList<ImageInfo> imageInfo = new ArrayList<>();
+                String tempSource = status.getSource();
+                if (tempSource.length() != 0) {
+                    if (!tempSource.contains("</a>")) {
+                        List<Status.Pic> urls = status.getPics();
+                        if (urls != null) {
+                            for (Status.Pic pic : urls) {
+                                ImageInfo info = new ImageInfo();
+                                info.setThumbnailUrl(PicUtils.getMiddlePic(pic.getUrl()));
+                                info.setBigImageUrl(PicUtils.getOrignal(pic.getUrl()));
+                                imageInfo.add(info);
+                            }
+                        }
+                        holder.multiPicsGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
+                        if (urls != null && urls.size() == 1) {
+//                    holder.multiPicsGrid.setSingleImageRatio(images.get(0).getWidth() * 1.0f / images.get(0).getHeight());
+                            holder.multiPicsGrid.setSingleImageRatio(3.0f / 2);
+                        } else {
+                            holder.multiPicsGrid.setGridSpacing(16);
+                        }
+                    }
+                }
+
                 List<PicURL> urls = status.getPic_urls();
                 if (urls != null) {
                     for (PicURL picURL : urls) {
@@ -436,6 +457,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 } else {
                     holder.multiPicsGrid.setGridSpacing(16);
                 }
+
+
                 break;
             case 5:
                 holder.goneEverything();

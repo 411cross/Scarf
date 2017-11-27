@@ -30,6 +30,10 @@ public class TypeUtils {
             if (status.getPic_ids().size() != 0) {
                 type = 7;
             }
+        } else if (status.getPics() != null) {
+            if (status.getPics().size() != 0) {
+                type = 1;
+            }
         }
 
         if (status.getRetweeted_status() != null) {
