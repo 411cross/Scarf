@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -44,9 +46,10 @@ public class MyWebView extends BaseActivity {
         setContentView(R.layout.activity_my_web_view);
 
         mWebView = (WebView) findViewById(R.id.webView);
-        mWebView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         title_WebView = (TextView) findViewById(R.id.title);
         back = (ImageButton) findViewById(R.id.back);
+        CookieSyncManager.createInstance(this);
+        CookieManager.getInstance().removeAllCookie();//清除所有cookie
 
         //尝试操作MainActivity中的sharedpreferences
         sp = getSp(this);
