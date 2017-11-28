@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.jungle.weixin.Activity.MyWebView;
+import com.example.jungle.weixin.Activity.UserManager;
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
+import com.example.jungle.weixin.PublicUtils.ManagerUtils;
 import com.example.jungle.weixin.R;
 import java.util.List;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.deleteUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.exChange;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getAllUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 
 
 /**
@@ -63,6 +68,7 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
                     list.remove(position);
                     list.add(0,user);
                     exChange(sp,position);
+                    notifyDataSetChanged();
                 }
             }
         });
@@ -74,6 +80,9 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
                 list.remove(position);
                 deleteUser(sp,user.getUid());
                 notifyDataSetChanged();
+                if(getUserCount(sp)<1){
+                    ManagerUtils.exit();
+                }
             }
         });
         return view;

@@ -37,6 +37,7 @@ import retrofit2.Response;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 
 public class MyWebView extends BaseActivity {
     private WebView mWebView;
@@ -105,7 +106,6 @@ public class MyWebView extends BaseActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWebView.destroy();
                 onBackPressed();
             }
         });
@@ -114,8 +114,13 @@ public class MyWebView extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        mWebView.destroy();
-        super.onBackPressed();
+        if(getUserCount(sp)>0){
+            mWebView.destroy();
+            super.onBackPressed();
+        }else{
+            Toast.makeText(MyWebView.this, "请先登录", Toast.LENGTH_SHORT).show();
+            mWebView.loadUrl(loginUrl);
+        }
     }
 
 }
