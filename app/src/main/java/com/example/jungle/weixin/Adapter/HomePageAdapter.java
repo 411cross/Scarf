@@ -2,9 +2,7 @@ package com.example.jungle.weixin.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +10,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.UserDetailActivity;
 import com.example.jungle.weixin.Activity.WeiboDetailActivity;
 import com.example.jungle.weixin.Bean.BaseBean.PicURL;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
 import com.example.jungle.weixin.Bean.BaseBean.User;
-import com.example.jungle.weixin.Bean.Weibo;
 import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
-import com.example.jungle.weixin.Activity.TotalActivity;
-import com.example.jungle.weixin.Bean.WeiboImage;
 import com.example.jungle.weixin.PublicUtils.PicUtils;
 import com.example.jungle.weixin.PublicUtils.StringUtils;
 import com.example.jungle.weixin.PublicUtils.ToastUtils;
@@ -39,7 +33,6 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.nereo.multi_image_selector.bean.Image;
 
 
 /**
@@ -48,7 +41,6 @@ import me.nereo.multi_image_selector.bean.Image;
 
 public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHolder> {
 
-    public static final int TYPE_HEADER = 0;
     public static final int TYPE_FOOTER = 1;
     public static final int TYPE_NORMAL = 2;
 

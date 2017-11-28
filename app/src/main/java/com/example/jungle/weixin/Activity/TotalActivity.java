@@ -1,20 +1,15 @@
 package com.example.jungle.weixin.Activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.support.design.widget.NavigationView;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,7 +62,6 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
     private TextView descTv;
     private User user;
     private SharedPreferences sp;
-    private long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,7 +199,7 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
     }
 
     public void getUserInfo() {
-        NetRequestFactory.getInstance().createService(MyService.class).usersShowWithID(CodeUtils.getmToken(), id).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
+        NetRequestFactory.getInstance().createService(MyService.class).usersShowWithID(CodeUtils.getmToken(), CodeUtils.getmID()).compose(Transform.<Response<User>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<User>>() {
             @Override
             public void onSuccess(Response<User> userResponse) {
                 user = userResponse.body();
