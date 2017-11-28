@@ -4,11 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 <EditText
+    android:cursorVisible="true"
+    android:textCursorDrawable="@null"
     android:id="@+id/userName"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:hint="请输入账号"/>
+    android:hint="请输入账号"
+    />
     <EditText
+        android:cursorVisible="true"
+        android:textCursorDrawable="@null"
         android:id="@+id/password"
         android:inputType="textPassword"
         android:layout_width="match_parent"

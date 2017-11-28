@@ -169,6 +169,10 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                         startActivity(intent3);
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                         break;
+                    case R.id.signOut:
+                        Intent intent4 = new Intent(TotalActivity.this,UserManager.class);
+                        startActivity(intent4);
+                        overridePendingTransition(R.anim.left_in,R.anim.right_out);
                     case R.id.clearCache :
                         ToastUtils.showShortToast(TotalActivity.this, "已清理 35 MB");
 //                        Intent intent4 = new Intent(TotalActivity.this,SearchResultActivity.class);

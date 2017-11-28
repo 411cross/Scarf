@@ -1,6 +1,7 @@
 package com.example.jungle.weixin.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.jungle.weixin.Activity.MyWebView;
+import com.example.jungle.weixin.Activity.UserManager;
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
+import com.example.jungle.weixin.PublicUtils.ManagerUtils;
 import com.example.jungle.weixin.R;
 import java.util.List;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.deleteUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.exChange;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getAllUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 
 
 /**
@@ -46,19 +52,37 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
             holder.head = (ImageView) view.findViewById(R.id.head);
             holder.user_name = (TextView) view.findViewById(R.id.user_name);
             holder.delete = (ImageButton) view.findViewById(R.id.delete);
+            holder.selected = (ImageView) view.findViewById(R.id.selected);
+            if(position == 0)
+                holder.selected.setVisibility(View.VISIBLE);
             view.setTag(holder);
         }else {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
         holder.user_name.setText(user.getUserName());
+        holder.user_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(position!= 0){
+                    list.remove(position);
+                    list.add(0,user);
+                    exChange(sp,position);
+                    notifyDataSetChanged();
+                }
+            }
+        });
         Glide.with(mContext).load(user.getHead_url()).into(holder.head);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //因为list指向usermanager中的用户列表因此list内容发生变化，即可notifydata。。。
-                list.remove(deleteUser(sp,user.getUid()));
+                list.remove(position);
+                deleteUser(sp,user.getUid());
                 notifyDataSetChanged();
+                if(getUserCount(sp)<1){
+                    ManagerUtils.exit();
+                }
             }
         });
         return view;
@@ -67,5 +91,6 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
         ImageView head;
         TextView user_name;
         ImageButton delete;
+        ImageView selected;
     }
 }
