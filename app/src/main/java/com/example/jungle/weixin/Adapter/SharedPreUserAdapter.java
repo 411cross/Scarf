@@ -81,7 +81,7 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
                 deleteUser(sp,user.getUid());
                 notifyDataSetChanged();
                 if(getUserCount(sp)<1){
-                    ManagerUtils.exit();
+                    ManagerUtils.exitFromManager();
                 }
             }
         });

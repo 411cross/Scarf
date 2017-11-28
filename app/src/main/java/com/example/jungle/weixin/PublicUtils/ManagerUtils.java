@@ -45,6 +45,20 @@ public class ManagerUtils extends Application {
 //            System.exit(0);
         }
     }
+    // 关闭至 TotalActivity但不会设置标志位
+    public static void exitFromManager() {
+        try {
+            for (int i = 1; i < managerList.size(); i++) {
+                Activity activity = managerList.get(i);
+                if (activity != null)
+                    activity.finish();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+//            System.exit(0);
+        }
+    }
     public static void removeActivity(Activity activity){
         managerList.remove(activity);
     }
