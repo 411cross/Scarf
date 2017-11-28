@@ -300,6 +300,8 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
         String date = status.getCreated_at();
         if (date.contains(" +")) {
             holder.date.setText(DateUtils.formatDate(date));
+            String body = StringUtils.transformH5Body(holder.body, status.getText());
+            status.setText(body);
         } else {
             holder.date.setText(date);
         }
@@ -317,8 +319,7 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             holder.sourceTag.setVisibility(View.GONE);
             holder.source.setVisibility(View.GONE);
         }
-        String body = StringUtils.transformH5Body(holder.body, status.getText());
-        status.setText(body);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -466,7 +467,13 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 holder.body.setText(StringUtils.transformWeiboBody(mContext, holder.body, status.getText()));
                 holder.reweiboView.setVisibility(View.VISIBLE);
                 Status restatus = status.getRetweeted_status();
-                String addName = "@" + restatus.getUser().getScreen_name() + ":" + restatus.getText();
+                String addName = restatus.getText();
+                if (restatus.getUser() != null) {
+                    addName = "@" + restatus.getUser().getScreen_name() + ":" + restatus.getText();
+                }
+                if (date.contains(" +")) {
+                    addName = StringUtils.transformH5Body(holder.reweiboBody, addName);
+                }
                 int reType = TypeUtils.getStatusType(restatus);
                 switch (reType) {
                     case 0:

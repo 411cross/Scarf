@@ -12,7 +12,7 @@ public class User implements Serializable{
 
     private long id;
     private String idstr;
-    private String screen_name;
+    private String screen_name = "";
     private String location;
     private String description;
     private String verified_reason;
