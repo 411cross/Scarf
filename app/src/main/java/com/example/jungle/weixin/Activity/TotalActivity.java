@@ -211,7 +211,7 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                 usernameTv.setText(user.getScreen_name());
                 descTv.setText(user.getDescription());
                 if (getCurrent(sp).getHead_url() == null) {
-                    addUserNameAndHead(sp, user.getIdstr(), user.getScreen_name(), user.getAvatar_hd());
+                    addUserNameAndHead(sp, user.getScreen_name(), user.getAvatar_hd());
                 }
                 iconImageInDrawer.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -222,13 +222,6 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                         overridePendingTransition(R.anim.left_in,R.anim.right_out);
                     }
                 });
-//                SharedPreferences sp  = getSp(TotalActivity.this);
-//                addUser(sp, new SharedPreUser("68768","",null,null));
-//                addUserName(sp,"68768", "tyy");
-//                System.out.println("==========================");
-//                System.out.println(getAllUser(sp).get(0).getUserName());
-//                System.out.println(getAllUser(sp).get(0).getAcc_token());
-//                System.out.println(getAllUser(sp).get(0).getUid());
             }
 
             @Override

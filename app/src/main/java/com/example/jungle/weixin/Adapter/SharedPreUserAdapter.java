@@ -3,6 +3,7 @@ package com.example.jungle.weixin.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,7 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
                 list.remove(position);
                 deleteUser(sp,user.getUid());
                 notifyDataSetChanged();
+                Log.i("count", getUserCount(sp)+"");
                 if(getUserCount(sp)<1){
                     ManagerUtils.exitFromManager();
                 }

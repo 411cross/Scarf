@@ -497,8 +497,6 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
                 }
                 break;
         }
-
-
     }
 
     @Override
