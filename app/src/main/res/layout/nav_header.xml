@@ -25,6 +25,7 @@
         android:layout_centerHorizontal="true"/>
 
     <TextView
+        style="@style/shadowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/username"
@@ -37,6 +38,7 @@
         />
 
     <TextView
+        style="@style/shadowText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/description"

@@ -48,6 +48,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Response;
 
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUserNameAndHead;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
@@ -72,6 +73,8 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
             Intent intent = new Intent(TotalActivity.this,MyWebView.class);
             startActivity(intent);
             overridePendingTransition(R.anim.left_in,R.anim.right_out);
+        } else {
+            getUserInfo();
         }
 
         setContentView(R.layout.activity_total);
@@ -131,7 +134,6 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
         descTv = (TextView) header.findViewById(R.id.description);
         backgroundImgV = (ImageView) header.findViewById(R.id.background);
 
-        getUserInfo();
 
 
 
@@ -208,7 +210,9 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                 Glide.with(TotalActivity.this).load(user.getCover_image_phone()).into(backgroundImgV);
                 usernameTv.setText(user.getScreen_name());
                 descTv.setText(user.getDescription());
-
+                if (getCurrent(sp).getHead_url() == null) {
+                    addUserNameAndHead(sp, user.getIdstr(), user.getScreen_name(), user.getAvatar_hd());
+                }
                 iconImageInDrawer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -242,6 +246,7 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
         // 授权返回
         if (ManagerUtils.isFlag()) {
             ManagerUtils.setFlag(false);
+            getUserInfo();
 
             LayoutInflater layoutInflater = LayoutInflater.from(TotalActivity.this); // 创建视图容器并设置上下文
             final View view = layoutInflater.inflate(R.layout.loginalterdialog, null); // 获取布局文件的视图

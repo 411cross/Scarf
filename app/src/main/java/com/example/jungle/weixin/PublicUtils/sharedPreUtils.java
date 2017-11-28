@@ -78,20 +78,18 @@ public class sharedPreUtils {
     }
     public static void addUserNameAndHead(SharedPreferences sp, String uid, String name, String head){
         SharedPreferences.Editor ed = sp.edit();
-        ArrayList<SharedPreUser> temp  = getAllUser(sp);
-        for(int i = 0;i<temp.size();i++){
-            if(temp.get(i).getUid().equals(uid)){
-                if(i ==0){
-                    ed.putString(first_name,name);
-                    ed.putString(first_head,head);
-                }
-                else if(i == 1){
-                    ed.putString(second_name,name);
-                    ed.putString(second_head,head);
-                }
-                else{
-                    ed.putString(third_name,name);
-                    ed.putString(third_head,head);
+        ArrayList<SharedPreUser> temp = getAllUser(sp);
+        for (int i = 0; i<temp.size(); i++) {
+            if (temp.get(i).getUid().equals(uid)) {
+                if (i == 0) {
+                    ed.putString(first_name, name);
+                    ed.putString(first_head, head);
+                } else if (i == 1) {
+                    ed.putString(second_name, name);
+                    ed.putString(second_head, head);
+                } else {
+                    ed.putString(third_name, name);
+                    ed.putString(third_head, head);
                 }
                 break;
             }
