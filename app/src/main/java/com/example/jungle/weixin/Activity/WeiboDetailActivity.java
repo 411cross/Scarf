@@ -204,7 +204,6 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
         } else {
             setData();
         }
-        String a = "aaaa";
 
     }
 
@@ -266,8 +265,8 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
         cancle = (Button) shareMenu.findViewById(R.id.cancel);
         more = (ImageButton)shareMenu.findViewById(R.id.more);
 
-        initListView();
         initFunctionTab();
+        initListView();
 
     }
 
@@ -321,20 +320,12 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
     public void initListView() {
         // ListView主体
 
-        pullLV = (PullToRefreshListView) findViewById(R.id.pull_list_view);
-        // HeaderView
-        final ListView listView = pullLV.getRefreshableView();
-        listView.addHeaderView(weiboView);
-        listView.addHeaderView(weiboFunctionView);
-
-        adapter = new CommentAdapter(WeiboDetailActivity.this, commentList);
-        pullLV.setAdapter(adapter);
-
         NetRequestFactory.getInstance().createService(MyService.class).commentsShow(CodeUtils.getmToken(),status.getId(),50,1).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
             @Override
             public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
-                commentList.addAll(Arrays.asList(ReadCommentsData.body().getComments()));
-                adapter.notifyDataSetChanged();
+                commentList = Arrays.asList(ReadCommentsData.body().getComments());
+                adapter = new CommentAdapter(WeiboDetailActivity.this, commentList);
+                pullLV.setAdapter(adapter );
             }
 
             @Override
@@ -344,10 +335,13 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
 
         });
 
-
+        pullLV = (PullToRefreshListView) findViewById(R.id.pull_list_view);
+        // HeaderView
+        final ListView listView = pullLV.getRefreshableView();
+        listView.addHeaderView(weiboView);
+        listView.addHeaderView(weiboFunctionView);
 
         pullLV.setOnScrollListener(new OnScrollListener() {
-
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
@@ -357,7 +351,6 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 floatWeiboFunctionView.setVisibility(firstVisibleItem >= 2 ? View.VISIBLE : View.GONE);
             }
-
         });
 
     }
@@ -415,8 +408,8 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
             sourceTag.setVisibility(View.GONE);
             source.setVisibility(View.GONE);
         }
-//        String textBody = StringUtils.transformH5Body(body, status.getText());
-//        status.setText(textBody);
+        String textBody = StringUtils.transformH5Body(body, status.getText());
+        status.setText(textBody);
 
         avatarImage.setOnClickListener(new View.OnClickListener() {
             @Override
