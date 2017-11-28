@@ -16,6 +16,7 @@ import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.R;
 import java.util.List;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.deleteUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.exChange;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getAllUser;
 
 
@@ -46,18 +47,32 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
             holder.head = (ImageView) view.findViewById(R.id.head);
             holder.user_name = (TextView) view.findViewById(R.id.user_name);
             holder.delete = (ImageButton) view.findViewById(R.id.delete);
+            holder.selected = (ImageView) view.findViewById(R.id.selected);
+            if(position == 0)
+                holder.selected.setVisibility(View.VISIBLE);
             view.setTag(holder);
         }else {
             view = convertView;
             holder = (ViewHolder) view.getTag();
         }
         holder.user_name.setText(user.getUserName());
+        holder.user_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(position!= 0){
+                    list.remove(position);
+                    list.add(0,user);
+                    exChange(sp,position);
+                }
+            }
+        });
         Glide.with(mContext).load(user.getHead_url()).into(holder.head);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //因为list指向usermanager中的用户列表因此list内容发生变化，即可notifydata。。。
-                list.remove(deleteUser(sp,user.getUid()));
+                list.remove(position);
+                deleteUser(sp,user.getUid());
                 notifyDataSetChanged();
             }
         });
@@ -67,5 +82,6 @@ public class SharedPreUserAdapter extends ArrayAdapter<SharedPreUser>{
         ImageView head;
         TextView user_name;
         ImageButton delete;
+        ImageView selected;
     }
 }

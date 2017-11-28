@@ -43,7 +43,6 @@ public class MyWebView extends BaseActivity {
     private TextView title_WebView;
     private ImageButton back;
     private SharedPreferences sp;
-    private String targetUrl = "";
     private final String loginUrl =
             "https://api.weibo.com/oauth2/authorize?client_id=2604262634&redirect_uri=http://111.230.18.20:8080/weiboApp/Auth/getToken&display=moblie";
 

@@ -155,7 +155,6 @@ public class Publish extends BaseActivity implements View.OnClickListener {
                     String weiboContent = null;
                     try {
                         weiboContent = URLEncoder.encode(content.getText().toString(),"UTF-8");
-                        Log.i("content", weiboContent);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }

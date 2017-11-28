@@ -98,7 +98,7 @@ public class sharedPreUtils {
         }
         ed.commit();
     }
-    public static int deleteUser(SharedPreferences sp,String uid){
+    public static void deleteUser(SharedPreferences sp,String uid){
         ArrayList<SharedPreUser> temp = getAllUser(sp);
         SharedPreferences.Editor ed = sp.edit();
         int i;
@@ -122,7 +122,6 @@ public class sharedPreUtils {
         for(int c = temp.size();c>0;c--){
             addUser(sp,temp.get(c-1));
         }
-        return i;
     }
     public static int getUserCount(SharedPreferences sp){
         return sp.getInt(user_count,0);
@@ -134,5 +133,14 @@ public class sharedPreUtils {
                     sp.getString(first_name,null),sp.getString(first_head,null));
         }else
         return null;
+    }
+    public static void exChange(SharedPreferences sp,int index){
+        ArrayList<SharedPreUser> temp = getAllUser(sp);
+        SharedPreUser user = temp.get(index);
+        temp.remove(index);
+        temp.add(0,user);
+        for(int i = temp.size();i>0;i --){
+            addUser(sp,temp.get(i));
+        }
     }
 }

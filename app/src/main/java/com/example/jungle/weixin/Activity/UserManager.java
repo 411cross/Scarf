@@ -1,5 +1,6 @@
 package com.example.jungle.weixin.Activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -69,8 +70,8 @@ public class UserManager extends BaseActivity implements View.OnClickListener{
                 if(getUserCount(sp)>=3){
                     Toast.makeText(this, "不允许存储超过三个用户", Toast.LENGTH_SHORT).show();
                 }else{
-                    //这里补充登录授权逻辑
-                    Toast.makeText(this, "测试一下用户应该不超过三个", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UserManager.this,MyWebView.class);
+                    startActivity(intent);
                 }
                 break;
             default:
