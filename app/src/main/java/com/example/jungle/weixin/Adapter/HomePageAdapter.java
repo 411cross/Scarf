@@ -312,6 +312,9 @@ public class HomePageAdapter extends RecyclerView.Adapter<HomePageAdapter.ViewHo
             holder.source.setVisibility(View.GONE);
         }
 
+        String textBody = StringUtils.transformH5Body(holder.body, status.getText());
+        status.setText(textBody);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
