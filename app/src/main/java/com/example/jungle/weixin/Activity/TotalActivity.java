@@ -237,8 +237,8 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
         super.onResume();
 
         // 授权返回
-        if (ManagerUtils.isFlag()) {
-            ManagerUtils.setFlag(false);
+        if (ManagerUtils.getFlag() == 1) {
+            ManagerUtils.setFlag(0);
             getUserInfo();
 
             LayoutInflater layoutInflater = LayoutInflater.from(TotalActivity.this); // 创建视图容器并设置上下文
@@ -283,9 +283,10 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                     a.dismiss();
                 }
             });
-
-
-
+        }else if(ManagerUtils.getFlag() == 2){
+            ManagerUtils.setFlag(0);
+            Intent intent = new Intent(TotalActivity.this,MyWebView.class);
+            startActivity(intent);
         }
 
     }

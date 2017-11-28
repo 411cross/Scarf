@@ -17,23 +17,23 @@ import java.util.List;
 public class ManagerUtils extends Application {
 
     private static List<Activity> managerList = new LinkedList<>();
-    private static boolean flag = false;
+    private static int flag = 0;
     public static void addActivity(Activity a){
         managerList.add(a);
     }
 
-    public static boolean isFlag() {
+    public static int getFlag() {
         return flag;
     }
 
-    public static void setFlag(boolean flag) {
+    public static void setFlag(int flag) {
         ManagerUtils.flag = flag;
     }
 
     // 关闭至 TotalActivity
     public static void exit() {
         try {
-            setFlag(true);
+            setFlag(1);
             for (int i = 1; i < managerList.size(); i++) {
                 Activity activity = managerList.get(i);
                 if (activity != null)
@@ -45,9 +45,10 @@ public class ManagerUtils extends Application {
 //            System.exit(0);
         }
     }
-    // 关闭至 TotalActivity但不会设置标志位
+    // 关闭至 TotalActivity设置标志位2表示来自UserManager
     public static void exitFromManager() {
         try {
+            setFlag(2);
             for (int i = 1; i < managerList.size(); i++) {
                 Activity activity = managerList.get(i);
                 if (activity != null)

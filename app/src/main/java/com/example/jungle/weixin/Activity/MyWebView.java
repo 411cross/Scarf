@@ -66,7 +66,11 @@ public class MyWebView extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                title_WebView.setText(title);
+                if(title.contains("getToken?code=")){
+                    title_WebView.setText("登录成功");
+                }else {
+                    title_WebView.setText(title);
+                }
             }
         };
         mWebView.setWebChromeClient(wcc);
