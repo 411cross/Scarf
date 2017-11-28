@@ -81,22 +81,26 @@ public class sharedPreUtils {
         ArrayList<SharedPreUser> temp  = getAllUser(sp);
         for(int i = 0;i<temp.size();i++){
             if(temp.get(i).getUid().equals(uid)){
-                if(i ==0){
+                if(i == 0){
                     ed.putString(first_name,name);
                     ed.putString(first_head,head);
-                }
-                else if(i == 1){
+                    ed.commit();
+                    Log.i("index", i+" ");
+                } else if(i == 1){
+                    Log.i("index", i+" ");
                     ed.putString(second_name,name);
                     ed.putString(second_head,head);
-                }
-                else{
+                    ed.commit();
+                } else{
+                    Log.i("index", i+" ");
                     ed.putString(third_name,name);
                     ed.putString(third_head,head);
+                    ed.commit();
                 }
                 break;
             }
         }
-        ed.commit();
+        Log.i("firsthead", sp.getString(first_head,null)+sp.getString(first_name,null));
     }
     public static void deleteUser(SharedPreferences sp,String uid){
         ArrayList<SharedPreUser> temp = getAllUser(sp);

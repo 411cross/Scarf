@@ -73,6 +73,7 @@ public class MyWebView extends BaseActivity {
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                Log.i("fuckurl", url);
                 if (url.contains("getToken?code=")) {
                     mWebView.setVisibility(View.GONE);
                     NetRequestFactory.getInstance().createService(MyService.class).requestUrl(url).compose(Transform.<Response<SPData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<SPData>>() {
