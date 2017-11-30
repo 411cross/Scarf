@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.ParticularBean.SPData;
+import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.ManagerUtils;
 import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.R;
@@ -87,6 +88,7 @@ public class MyWebView extends BaseActivity {
                             SharedPreUser spu = spuResponse.body().getData();
                             addUser(sp,new SharedPreUser(spu.getUid(),spu.getAcc_token(),null,null));
                             //请求完成后需要将此activity结束 避免用户看到关键信息
+                            CodeUtils.setmToken(getCurrent(sp).getAcc_token());
                             ManagerUtils.exit();
                         }
 
