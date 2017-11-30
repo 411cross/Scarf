@@ -81,6 +81,8 @@ public class LocationApplication extends Application{
                     .into(imageView);
         }
 
+
+
         @Override
         public Bitmap getCacheImage(String url) {
             return null;

@@ -36,6 +36,10 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="FelFFktZtD0zFyZXEwwxvGIpnuFXXnPv" />
 
+        <meta-data
+            android:name="com.example.jungle.weixin.GildeUtil.MyGildeModule"
+            android:value="GlideModule" />
+
         <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
