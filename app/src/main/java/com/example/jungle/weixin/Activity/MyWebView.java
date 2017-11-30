@@ -38,6 +38,7 @@ import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
+import static java.lang.Thread.sleep;
 
 public class MyWebView extends BaseActivity {
     private WebView mWebView;
