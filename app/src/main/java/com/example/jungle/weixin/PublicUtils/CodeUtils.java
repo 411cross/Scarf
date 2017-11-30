@@ -12,8 +12,8 @@ import java.util.Map;
 public class CodeUtils {
 
     public static Map<String, String> codeMap;
-    public static String mToken = "2.007qpDNCCgNPqC2e4ab06ae4XcEyMD";
-    public static long mID = 2025272310L;
+    public static String mToken = "";
+    public static long mID ;
 
     static {
         codeMap = new HashMap<String, String>();

@@ -42,6 +42,7 @@ public class HomePageFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private HomePageAdapter adapter;
+    LinearLayoutManager layoutManager;
     private List<Status> statusesList = new ArrayList<>();
     private int page;
 
@@ -73,9 +74,10 @@ public class HomePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 //        // Inflate the layout for this fragment
+        loadStatus(1);
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        layoutManager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(layoutManager);
         adapter = new HomePageAdapter(getContext(), statusesList);
         recyclerView.setAdapter(adapter);
@@ -88,6 +90,8 @@ public class HomePageFragment extends Fragment {
 
         return view;
     }
+
+
 
 
     @Override
