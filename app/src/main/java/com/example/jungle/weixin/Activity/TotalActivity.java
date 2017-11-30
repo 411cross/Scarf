@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Adapter.ViewPagerAdapter;
+import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.BaseBean.User;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 import com.example.jungle.weixin.Fragment.FindFragment;
@@ -205,14 +205,17 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void onSuccess(Response<User> userResponse) {
                 user = userResponse.body();
+                if (getCurrent(sp).getHead_url() == null) {
+                    addUserNameAndHead(sp, user.getScreen_name(), user.getAvatar_hd());
+                }
+                SharedPreUser spUser = getCurrent(sp);
+                CodeUtils.setmToken(spUser.getAcc_token());
+                CodeUtils.setmID(Long.parseLong(spUser.getUid()));
                 Glide.with(TotalActivity.this).load(user.getProfile_image_url()).into(iconImage);
                 Glide.with(TotalActivity.this).load(user.getAvatar_hd()).into(iconImageInDrawer);
                 Glide.with(TotalActivity.this).load(user.getCover_image_phone()).into(backgroundImgV);
                 usernameTv.setText(user.getScreen_name());
                 descTv.setText(user.getDescription());
-                if (getCurrent(sp).getHead_url() == null) {
-                    addUserNameAndHead(sp, user.getScreen_name(), user.getAvatar_hd());
-                }
                 iconImageInDrawer.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -263,8 +266,6 @@ public class TotalActivity extends BaseActivity implements View.OnClickListener{
                                 finish();
                                 startActivity(intent);
                             } else {
-                                Log.i("[][][][][]][][----", xhrBaseBeanResponse.body().getException().getError());
-                                Log.i("[===========[----", xhrBaseBeanResponse.body().getException().getError_code());
                                 Toast.makeText(TotalActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
                             }
                         }
