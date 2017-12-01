@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Adapter.CommentListAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
 import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
@@ -59,6 +60,39 @@ public class CommentActivity extends AppCompatSwipeBack {
                 commentList = Arrays.asList(comments);
                 adapter = new CommentListAdapter(CommentActivity.this, commentList);
                 recyclerView.setAdapter(adapter);
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        switch(newState){
+                            case 0:
+                                try {
+                                    if(CommentActivity.this!= null) Glide.with(CommentActivity.this).resumeRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    if(CommentActivity.this!= null) Glide.with(CommentActivity.this).resumeRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    if(CommentActivity.this!= null) Glide.with(CommentActivity.this).pauseRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+
+                        }
+                    }
+                });
                 setFooterView(recyclerView);
 
             }
@@ -71,6 +105,19 @@ public class CommentActivity extends AppCompatSwipeBack {
         });
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(CommentActivity.this).clearDiskCache();
+
+            }
+        }).start();
+        Glide.get(CommentActivity.this).clearMemory();
     }
 
     private void setFooterView(RecyclerView view) {
