@@ -3,6 +3,8 @@ package com.example.jungle.weixin.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,6 +12,9 @@ import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageButton;
@@ -21,19 +26,26 @@ import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.ManagerUtils;
+import com.example.jungle.weixin.PublicUtils.ToastUtils;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.H5Service;
 import com.example.jungle.weixin.RetrofitUtil.HttpResultSubscriber;
+import com.example.jungle.weixin.RetrofitUtil.MyService;
 import com.example.jungle.weixin.RetrofitUtil.NetRequestFactory;
 import com.example.jungle.weixin.RetrofitUtil.Transform;
+
+import java.io.ByteArrayInputStream;
+import java.util.Map;
 
 import retrofit2.Response;
 
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.addUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.checkUser;
+import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.checkUser;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
+import static java.lang.Thread.sleep;
 
 public class MyWebView extends AppCompatActivity {
     private WebView mWebView;
