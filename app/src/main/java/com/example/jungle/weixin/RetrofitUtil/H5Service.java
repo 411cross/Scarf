@@ -1,5 +1,6 @@
 package com.example.jungle.weixin.RetrofitUtil;
 
+import com.example.jungle.weixin.Bean.BaseBean.SharedBaseBean;
 import com.example.jungle.weixin.Bean.ParticularBean.StatusList;
 import com.example.jungle.weixin.Bean.XHRBase.XHRHotStatus;
 import com.example.jungle.weixin.Bean.XHRBase.XHRLongStatus;
@@ -42,4 +43,6 @@ public interface H5Service {
     @GET("User/getHotPage")
     Observable<Response<XHRBaseBean<XHRHotStatus>>> getHotStatus(@Query("access_token") String access_token, @Query("page") int page);
 
+    @GET("Auth/getTokenByCode")
+    Observable<Response<XHRBaseBean<SharedBaseBean>>> getTokenByCode(@Query("code") String code);
 }

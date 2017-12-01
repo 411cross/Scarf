@@ -31,6 +31,8 @@
         android:layout_marginRight="52dp"
         android:layout_toRightOf="@id/head"
         android:layout_marginLeft="16dp"
+        android:maxLines="1"
+        android:ellipsize="end"
         />
     <ImageView
         android:id="@+id/selected"
