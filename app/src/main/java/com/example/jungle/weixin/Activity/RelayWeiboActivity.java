@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.R;
 
-public class RelayWeiboActivity extends BaseActivity {
+public class RelayWeiboActivity extends AppCompatSwipeBack {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

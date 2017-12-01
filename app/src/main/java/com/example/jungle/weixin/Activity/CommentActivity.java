@@ -27,7 +27,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class CommentActivity extends BaseActivity {
+public class CommentActivity extends AppCompatSwipeBack {
 
     private Comment[] comments;
     private List<Comment> commentList;

@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="H:\android-studio\Scarf\vitamio\src\main\assets"/><source path="H:\android-studio\Scarf\vitamio\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="H:\android-studio\Scarf\vitamio\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\smallpakeage\Scarf1\vitamio\src\main\assets"/><source path="F:\smallpakeage\Scarf1\vitamio\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\smallpakeage\Scarf1\vitamio\src\debug\assets"/></dataSet></merger>

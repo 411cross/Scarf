@@ -21,7 +21,7 @@ public class MyGildeModule implements GlideModule {
         // Apply options to the builder here.
 
         int maxMemory = (int) Runtime.getRuntime().maxMemory();//获取系统分配给应用的总内存大小
-        int memoryCacheSize = maxMemory / 8;//设置图片内存缓存占用八分之一
+        int memoryCacheSize = maxMemory / 16;//设置图片内存缓存占用八分之一
         //设置内存缓存大小
         builder.setMemoryCache(new LruResourceCache(memoryCacheSize));
         File cacheDir = context.getExternalCacheDir();//指定的是数据的缓存地址

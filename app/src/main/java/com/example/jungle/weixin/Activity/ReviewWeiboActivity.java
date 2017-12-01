@@ -27,7 +27,7 @@ import com.example.jungle.weixin.RetrofitUtil.Transform;
 import io.vov.vitamio.utils.Log;
 import retrofit2.Response;
 
-public class ReviewWeiboActivity extends BaseActivity {
+public class ReviewWeiboActivity extends AppCompatSwipeBack {
     private ImageButton sendButton;
     private EditText content;
     private long StatusId;

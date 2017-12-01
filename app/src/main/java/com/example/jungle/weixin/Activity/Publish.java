@@ -37,6 +37,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.example.jungle.weixin.Adapter.ExpressionAdapter;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
+import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.LBSApplication.LocationApplication;
 import com.example.jungle.weixin.R;
 import com.example.jungle.weixin.RetrofitUtil.H5Service;
@@ -52,7 +53,7 @@ import static com.example.jungle.weixin.PublicUtils.StringUtils.transformPublish
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
-public class Publish extends BaseActivity implements View.OnClickListener {
+public class Publish extends AppCompatSwipeBack implements View.OnClickListener {
 
     private ImageButton back;
     private EditText content;

@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.R;
 
-public class PeripheralDynamicsActivity extends BaseActivity {
+public class PeripheralDynamicsActivity extends AppCompatSwipeBack {
 
 
     @Override
