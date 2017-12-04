@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|center_vertical"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/gridViewTxt"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:text="Content11111111111111"
+        android:textColor="#000000"
+        android:maxLines="1" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/hotTag"
+        android:layout_marginLeft="5dp"
+        android:src="@mipmap/ic_launcher"/>
+
+</LinearLayout>

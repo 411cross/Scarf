@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/user_info_bg" />
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        app:srcCompat="@drawable/wechat" />
+
+    <ImageView
+        android:id="@+id/identity_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/avatar"
+        android:layout_alignRight="@+id/avatar"
+        app:srcCompat="@drawable/search" />
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="大河向东流"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/line"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="|"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/follow_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/line"
+        android:layout_marginRight="12dp"
+        android:layout_toLeftOf="@+id/line"
+        android:text="666"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/follow_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/follow_num"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/follow_num"
+        android:text="关注"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/follower_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/line"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/line"
+        android:text="粉丝"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/follower_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/follower_tag"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/follower_tag"
+        android:text="666万"
+        android:textColor="@android:color/white"
+        android:textSize="12sp" />
+
+    <TextView
+        style="@style/shadowText"
+        android:id="@+id/introduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:text="我有一只小毛驴我从来也不骑"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="10sp" />
+
+
+</RelativeLayout>

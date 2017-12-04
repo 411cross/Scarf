@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.jungle.weixin">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".LBSApplication.LocationApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FelFFktZtD0zFyZXEwwxvGIpnuFXXnPv" />
+
+        <meta-data
+            android:name="com.example.jungle.weixin.GildeUtil.MyGildeModule"
+            android:value="GlideModule" />
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".Activity.TotalActivity" >
+
+        </activity>
+        <activity android:name=".Activity.PeripheralDynamicsActivity" />
+        <activity android:name=".Activity.HotSearchActivity" />
+        <activity android:name=".Activity.Publish" />
+        <activity android:name=".Activity.PrivateMessageActivity" />
+        <activity android:name=".Activity.SearchResultActivity" />
+        <activity android:name=".Activity.WeiboDetailActivity" />
+        <activity android:name=".Activity.UserDetailActivity" />
+        <activity android:name=".Activity.MyWebView">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.CommentActivity" />
+        <activity android:name=".Activity.AMeActivity" />
+        <activity android:name=".Activity.HotTopicActivity"></activity>
+        <activity android:name=".Activity.PublicWebViewActivity"></activity>
+        <activity android:name=".Activity.UserManager"></activity>
+        <activity android:name=".Activity.FollowActivity" />
+        <activity android:name=".Activity.FansActivity" />
+        <activity android:name=".Activity.ReviewWeiboActivity" />
+        <activity android:name=".Activity.RelayWeiboActivity"></activity>
+    </application>
+
+</manifest>
