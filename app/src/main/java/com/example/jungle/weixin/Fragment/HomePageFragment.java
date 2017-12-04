@@ -135,7 +135,7 @@ public class HomePageFragment extends Fragment {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Glide.get(getContext()).clearDiskCache();
+
                     Glide.get(getContext()).clearMemory();
                 }
             }).start();
@@ -144,13 +144,7 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.get(getContext()).clearDiskCache();
 
-            }
-        }).start();
         Glide.get(getContext()).clearMemory();
 
     }

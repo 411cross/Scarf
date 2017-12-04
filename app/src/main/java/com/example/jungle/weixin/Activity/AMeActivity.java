@@ -129,13 +129,6 @@ public class AMeActivity extends AppCompatSwipeBack {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.get(AMeActivity.this).clearDiskCache();
-
-            }
-        }).start();
         Glide.get(AMeActivity.this).clearMemory();
     }
 

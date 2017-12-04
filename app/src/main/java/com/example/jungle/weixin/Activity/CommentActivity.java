@@ -110,13 +110,7 @@ public class CommentActivity extends AppCompatSwipeBack {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Glide.get(CommentActivity.this).clearDiskCache();
 
-            }
-        }).start();
         Glide.get(CommentActivity.this).clearMemory();
     }
 

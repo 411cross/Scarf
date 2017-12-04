@@ -101,8 +101,6 @@ public class MyWebView extends AppCompatActivity {
                                 CodeUtils.setmID(Long.parseLong(bean.getUid()));
                                 Intent intent = new Intent(MyWebView.this, TotalActivity.class);
                                 startActivity(intent);
-
-
                             }
 
                             @Override
@@ -134,15 +132,11 @@ public class MyWebView extends AppCompatActivity {
                     onBackPressed();
                 }
             });
-
-
         } else {
             CodeUtils.setmToken(getCurrent(sp).getAcc_token());
             CodeUtils.setmID(Long.parseLong(getCurrent(sp).getUid()));
             Intent intent = new Intent(MyWebView.this, TotalActivity.class);
             startActivity(intent);
-
-
         }
 
 
