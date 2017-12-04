@@ -24,7 +24,7 @@ import java.util.Map;
 import scut.carson_ho.searchview.ICallBack;
 
 
-public class HotSearchActivity extends BaseActivity {
+public class HotSearchActivity extends AppCompatSwipeBack {
     private MSearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

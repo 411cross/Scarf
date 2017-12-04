@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Adapter.AMeAdapter;
 import com.example.jungle.weixin.Adapter.CommentListAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
@@ -30,7 +31,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class AMeActivity extends BaseActivity {
+public class AMeActivity extends AppCompatSwipeBack {
     private String token;
 
     private List<Status> status;
@@ -63,6 +64,39 @@ public class AMeActivity extends BaseActivity {
                 recyclerView.setLayoutManager(layoutManager);
                 adapter = new AMeAdapter(AMeActivity.this, status );
                 recyclerView.setAdapter(adapter);
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        switch(newState){
+                            case 0:
+                                try {
+                                    if(AMeActivity.this!= null) Glide.with(AMeActivity.this).resumeRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    if(AMeActivity.this!= null) Glide.with(AMeActivity.this).resumeRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    if(AMeActivity.this!= null) Glide.with(AMeActivity.this).pauseRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+
+                        }
+                    }
+                });
             }
 
             @Override
@@ -90,6 +124,19 @@ public class AMeActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(AMeActivity.this).clearDiskCache();
+
+            }
+        }).start();
+        Glide.get(AMeActivity.this).clearMemory();
     }
 
     @Override

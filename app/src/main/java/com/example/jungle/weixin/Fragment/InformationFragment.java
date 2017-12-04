@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.InformationAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Comment;
@@ -67,14 +68,47 @@ public class InformationFragment extends Fragment {
         NetRequestFactory.getInstance().createService(MyService.class).commentsToMe(CodeUtils.getmToken()).compose(Transform.<Response<ReadCommentsData>>defaultSchedulers()).subscribe(new HttpResultSubscriber<Response<ReadCommentsData>>() {
             @Override
             public void onSuccess(Response<ReadCommentsData> ReadCommentsData) {
+
                 comments = ReadCommentsData.body().getComments();
                 recyclerView = (RecyclerView) view.findViewById(R.id.weibo_list);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext());
                 recyclerView.setLayoutManager(layoutManager);
                 commentList = Arrays.asList(comments);
-                System.out.println(commentList.size());
                 adapter = new InformationAdapter((TotalActivity) getActivity(), commentList);
                 recyclerView.setAdapter(adapter);
+                recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        switch(newState){
+                            case 0:
+                                try {
+                                    if(getContext() != null) Glide.with(getContext()).resumeRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 1:
+                                try {
+                                    if(getContext() != null) Glide.with(getContext()).resumeRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+                            case 2:
+                                try {
+                                    if(getContext() != null) Glide.with(getContext()).pauseRequests();
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                break;
+
+                        }
+                    }
+                });
                 setHeaderView(recyclerView);
                 setFooterView(recyclerView);
             }
@@ -85,10 +119,37 @@ public class InformationFragment extends Fragment {
             }
 
         });
-        
+
         return view;
     }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            //TODO now visible to user
+        } else {
+            //TODO now invisible to user
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.get(getContext()).clearDiskCache();
+                    Glide.get(getContext()).clearMemory();
+                }
+            }).start();
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getContext()).clearDiskCache();
 
+            }
+        }).start();
+        Glide.get(getContext()).clearMemory();
+    }
 
     @Override
     public void onAttach(Context context) {

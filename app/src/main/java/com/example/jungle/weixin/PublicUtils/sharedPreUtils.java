@@ -127,6 +127,7 @@ public class sharedPreUtils {
             addUser(sp,temp.get(i));
         }
     }
+
     public static boolean checkUser(SharedPreferences sp,String uid){
         ArrayList<SharedPreUser> temp = getAllUser(sp);
         for(int i = 0;i<temp.size();i++){

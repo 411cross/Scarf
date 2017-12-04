@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Scarf.iml" filepath="$PROJECT_DIR$/.idea/Scarf.iml" />
       <module fileurl="file://$PROJECT_DIR$/Scarf.iml" filepath="$PROJECT_DIR$/Scarf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Scarf1.iml" filepath="$PROJECT_DIR$/Scarf1.iml" />
       <module fileurl="file://$PROJECT_DIR$/WeiXin.iml" filepath="$PROJECT_DIR$/WeiXin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/badgeView/badgeView.iml" filepath="$PROJECT_DIR$/badgeView/badgeView.iml" />

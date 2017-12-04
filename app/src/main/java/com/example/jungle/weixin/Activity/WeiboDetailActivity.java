@@ -33,6 +33,7 @@ import com.example.jungle.weixin.Bean.ParticularBean.ReadCommentsData;
 import com.example.jungle.weixin.Adapter.CommentAdapter;
 import com.example.jungle.weixin.Bean.XHRBase.XHRBaseBean;
 import com.example.jungle.weixin.Bean.XHRBase.XHRLongStatus;
+import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.CustomControls.CommomDialog;
 import com.example.jungle.weixin.PublicUtils.CodeUtils;
 import com.example.jungle.weixin.PublicUtils.DateUtils;
@@ -61,7 +62,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import retrofit2.Response;
 
-public class WeiboDetailActivity extends BaseActivity implements View.OnClickListener {
+public class WeiboDetailActivity extends AppCompatSwipeBack implements View.OnClickListener {
     private PopupWindow popupWindow;
 
     private Status status;
@@ -637,6 +638,7 @@ public class WeiboDetailActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
         scrollToFinishActivity();//左滑退出activity
+
     }
 
 

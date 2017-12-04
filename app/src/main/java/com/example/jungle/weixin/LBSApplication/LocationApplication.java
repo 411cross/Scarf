@@ -77,9 +77,12 @@ public class LocationApplication extends Application{
             Glide.with(context).load(url)//
                     .placeholder(R.drawable.bg_round_white)//
                     .error(R.drawable.bg_round_white)//
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .thumbnail(0.1f)
                     .into(imageView);
         }
+
+
 
         @Override
         public Bitmap getCacheImage(String url) {

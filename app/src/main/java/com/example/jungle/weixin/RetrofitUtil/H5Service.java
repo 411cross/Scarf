@@ -45,4 +45,6 @@ public interface H5Service {
 
     @GET("Auth/getTokenByCode")
     Observable<Response<XHRBaseBean<SharedBaseBean>>> getTokenByCode(@Query("code") String code);
+
+
 }

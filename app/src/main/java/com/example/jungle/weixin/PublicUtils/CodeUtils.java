@@ -12,7 +12,7 @@ import java.util.Map;
 public class CodeUtils {
 
     public static Map<String, String> codeMap;
-    public static String mToken = "";
+    public static String mToken ="";
     public static long mID ;
 
     static {

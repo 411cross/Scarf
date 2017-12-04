@@ -11,12 +11,13 @@ import android.widget.Toast;
 
 import com.example.jungle.weixin.Adapter.HotTopicAdapter;
 import com.example.jungle.weixin.Bean.HotTopic;
+import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotTopicActivity extends BaseActivity implements View.OnClickListener{
+public class HotTopicActivity extends AppCompatSwipeBack implements View.OnClickListener{
     private ImageButton back;
     private RecyclerView hotTopic;
 

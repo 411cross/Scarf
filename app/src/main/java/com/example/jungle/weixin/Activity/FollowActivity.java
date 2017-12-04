@@ -25,7 +25,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class FollowActivity extends BaseActivity {
+public class FollowActivity extends AppCompatSwipeBack {
 
     private User[] users;
     private List<User> userList;

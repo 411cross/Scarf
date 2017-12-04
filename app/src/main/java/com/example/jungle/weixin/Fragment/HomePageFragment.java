@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.jungle.weixin.Activity.TotalActivity;
 import com.example.jungle.weixin.Adapter.HomePageAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.Status;
@@ -87,8 +88,71 @@ public class HomePageFragment extends Fragment {
                 loadStatus(currentPage);
             }
         });
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                switch(newState){
+                    case 0:
+                        try {
+                            if(getContext() != null) Glide.with(getContext()).resumeRequests();
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 1:
+                        try {
+                            if(getContext() != null) Glide.with(getContext()).resumeRequests();
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case 2:
+                        try {
+                            if(getContext() != null) Glide.with(getContext()).pauseRequests();
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                }
+            }
+        });
 
         return view;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(hidden){
+            //TODO now visible to user
+        } else {
+            //TODO now invisible to user
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Glide.get(getContext()).clearDiskCache();
+                    Glide.get(getContext()).clearMemory();
+                }
+            }).start();
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(getContext()).clearDiskCache();
+
+            }
+        }).start();
+        Glide.get(getContext()).clearMemory();
+
     }
 
 

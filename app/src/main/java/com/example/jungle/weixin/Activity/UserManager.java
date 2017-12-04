@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.jungle.weixin.Adapter.SharedPreUserAdapter;
 import com.example.jungle.weixin.Bean.BaseBean.SharedPreUser;
+import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.R;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 
-public class UserManager extends BaseActivity implements View.OnClickListener{
+public class UserManager extends AppCompatSwipeBack implements View.OnClickListener{
     private LinearLayout addUser;
     private SharedPreferences sp;
     private ListView userList;
