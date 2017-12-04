@@ -17,24 +17,13 @@ import java.util.List;
 public class ManagerUtils extends Application {
 
     private static List<Activity> managerList = new LinkedList<>();
-    private static int flag = 0;
     public static void addActivity(Activity a){
         managerList.add(a);
     }
-
-    public static int getFlag() {
-        return flag;
-    }
-
-    public static void setFlag(int flag) {
-        ManagerUtils.flag = flag;
-    }
-
-    // 关闭至 TotalActivity
+    // 关闭至 TotalActivity设置标志位2表示来自UserManager
     public static void exit() {
         try {
-            setFlag(1);
-            for (int i = 1; i < managerList.size(); i++) {
+            for (int i = 0; i < managerList.size(); i++) {
                 Activity activity = managerList.get(i);
                 if (activity != null)
                     activity.finish();
@@ -42,22 +31,7 @@ public class ManagerUtils extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-//            System.exit(0);
-        }
-    }
-    // 关闭至 TotalActivity设置标志位2表示来自UserManager
-    public static void exitFromManager() {
-        try {
-            setFlag(2);
-            for (int i = 1; i < managerList.size(); i++) {
-                Activity activity = managerList.get(i);
-                if (activity != null)
-                    activity.finish();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-//            System.exit(0);
+            System.exit(0);
         }
     }
     public static void removeActivity(Activity activity){

@@ -47,7 +47,7 @@ import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 import static java.lang.Thread.sleep;
 
-public class MyWebView extends AppCompatActivity {
+public class MyWebView extends BaseActivity {
     private WebView mWebView;
     private TextView title_WebView;
     private ImageButton back;
@@ -132,8 +132,7 @@ public class MyWebView extends AppCompatActivity {
                     if(getCurrent(sp) != null)
                     onBackPressed();
                     else {
-                        android.os.Process.killProcess(android.os.Process.myPid());    //获取PID
-                        System.exit(0);   //常规java、c#的标准退出法，返回值为0代表正常退出
+                        ManagerUtils.exit();
                     }
                 }
             });
@@ -143,9 +142,6 @@ public class MyWebView extends AppCompatActivity {
             Intent intent = new Intent(MyWebView.this, TotalActivity.class);
             startActivity(intent);
         }
-
-
-
     }
 
 

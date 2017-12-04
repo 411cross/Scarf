@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.example.jungle.weixin.CustomControls.AppCompatSwipeBack;
 import com.example.jungle.weixin.R;
 
-public class PublicWebViewActivity extends AppCompatSwipeBack {
+public class PublicWebViewActivity extends BaseActivity {
     private WebView mWebView;
     private TextView title_WebView;
     private ImageButton back;

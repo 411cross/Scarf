@@ -31,7 +31,7 @@ import java.util.List;
 
 import retrofit2.Response;
 
-public class AMeActivity extends AppCompatSwipeBack {
+public class AMeActivity extends BaseActivity {
     private String token;
 
     private List<Status> status;

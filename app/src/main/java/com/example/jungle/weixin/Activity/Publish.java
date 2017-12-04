@@ -53,7 +53,7 @@ import static com.example.jungle.weixin.PublicUtils.StringUtils.transformPublish
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 
-public class Publish extends AppCompatSwipeBack implements View.OnClickListener {
+public class Publish extends BaseActivity implements View.OnClickListener {
 
     private ImageButton back;
     private EditText content;

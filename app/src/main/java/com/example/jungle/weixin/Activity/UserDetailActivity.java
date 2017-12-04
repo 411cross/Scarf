@@ -41,7 +41,7 @@ import io.vov.vitamio.utils.Log;
 import me.nereo.multi_image_selector.bean.Image;
 import retrofit2.Response;
 
-public class UserDetailActivity extends AppCompatSwipeBack {
+public class UserDetailActivity extends BaseActivity {
 
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbarLayout;

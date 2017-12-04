@@ -26,7 +26,7 @@ import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getCurrent;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 
-public class UserManager extends AppCompatSwipeBack implements View.OnClickListener{
+public class UserManager extends BaseActivity implements View.OnClickListener{
     private LinearLayout addUser;
     private SharedPreferences sp;
     private ListView userList;

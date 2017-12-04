@@ -46,7 +46,6 @@
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.TotalActivity" >
 
         </activity>
