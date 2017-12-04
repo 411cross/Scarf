@@ -47,7 +47,7 @@ import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getSp;
 import static com.example.jungle.weixin.PublicUtils.sharedPreUtils.getUserCount;
 import static java.lang.Thread.sleep;
 
-public class MyWebView extends BaseActivity {
+public class MyWebView extends AppCompatActivity {
     private WebView mWebView;
     private TextView title_WebView;
     private ImageButton back;
@@ -142,6 +142,9 @@ public class MyWebView extends BaseActivity {
             Intent intent = new Intent(MyWebView.this, TotalActivity.class);
             startActivity(intent);
         }
+
+
+
     }
 
 
