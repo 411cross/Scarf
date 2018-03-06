@@ -1,6 +1,7 @@
 <application>
   <component name="FileTypeManager" version="17">
     <extensionMap>
+      <mapping ext="mp3" type="PLAIN_TEXT" />
       <mapping pattern="Platinum.ogg" type="XML" />
     </extensionMap>
   </component>
